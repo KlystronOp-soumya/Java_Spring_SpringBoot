@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+	<import resource="classpath:/spring/batch/config/db-config.xml" />
+	<import
+		resource="classpath:/spring/batch/config/spring-context.xml" />
+	<context:component-scan
+		base-package="org.springframework.jdbc.datasource"></context:component-scan>
+
+	<!-- Add the tasklet implementation as dependency -->
+	<bean id="helloWorld"
+		class="com.demo.batch.BatchDemo.tasklets.HelloWorld" scope="step" />
+
+	<!-- the service bean -->
+	<bean id="agentSrvc"
+		class="com.demo.batch.BatchDemo.services.impl.AgentBonusImpl"></bean>
+
+	<batch:step id="helloWorldStep">
+		<batch:tasklet ref="helloWorld" /> <!-- refers to the takslets which falls under the step-helloworld -->
+	</batch:step>
+
+	<!-- RowMapper -->
+	<bean id="customAgentDtlsRowMapper"
+		class="com.demo.batch.BatchDemo.mappers.AgentDtlsRowMapper"></bean>
+	<!-- Injecting the custom item reader -->
+	<bean id="customAgentDetailsReader"
+		class="com.demo.batch.BatchDemo.readers.CustomAgtDtlsReader">
+		<!-- <property name="rowMapper" ref="customAgentDtlsRowMapper" /> -->
+	</bean>
+	<!-- Inject the custom item processor -->
+	<bean id="customAgtBnsProcessor"
+		class="com.demo.batch.BatchDemo.processors.CustomAgtBnsProcessor">
+
+	</bean>
+	<!-- Inject the custome item writer -->
+	<bean id="customAgtDtlsWriter"
+		class="com.demo.batch.BatchDemo.writers.CustomAgtBnsWriter">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<!-- Listeners -->
+	<bean id="customStepListener"
+		class="com.demo.batch.BatchDemo.listeners.StepListener"></bean>
+	<bean id="customReaderListener"
+		class="com.demo.batch.BatchDemo.listeners.CustomItemReaderListener"></bean>
+	<bean id="customProcessorListener"
+		class="com.demo.batch.BatchDemo.listeners.CustomItemProcessorListener"></bean>
+	<bean id="customWriterListener"
+		class="com.demo.batch.BatchDemo.listeners.CustomItemWriterListener"></bean>
+
+	<!-- <batch:job id="firstJob"> <batch:step id="step1" parent="helloWorldStep"></batch:step> 
+		</batch:job> -->
+
+	<batch:job id="agentBonusCalculation">
+		<batch:step id="step2">
+			<batch:tasklet transaction-manager="transactionManager">
+				<batch:chunk reader="customAgentDetailsReader"
+					processor="customAgtBnsProcessor" writer="customAgtDtlsWriter"
+					commit-interval="5"></batch:chunk>
+				<batch:listeners>
+					<batch:listener ref="customStepListener" />
+					<batch:listener ref="customReaderListener" />
+					<batch:listener ref="customProcessorListener" />
+					<batch:listener ref="customWriterListener" />
+				</batch:listeners>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+</beans>
