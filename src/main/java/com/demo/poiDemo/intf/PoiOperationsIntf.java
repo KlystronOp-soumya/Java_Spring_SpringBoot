@@ -10,4 +10,6 @@ public interface PoiOperationsIntf {
 
 	void setData(List<EmployeeEntity> e);
 
+	void readWorkbook(String fileName);
+
 }
