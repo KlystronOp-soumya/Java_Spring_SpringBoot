@@ -10,7 +10,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>PoiDemo</name>
-	<description>A simple Demo on Poi with Connection Pooling .</description>
+	<description>A simple Demo on Poi with Connection Pooling</description>
 
 
 	<properties>
