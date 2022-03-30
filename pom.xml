@@ -10,10 +10,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>PoiDemo</name>
-	<description>A simple PoiDemo.</description>
+	<description>A simple Demo on Poi with Connection Pooling .</description>
 
 
 	<properties>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMddHH</maven.build.timestamp.format>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -66,7 +68,7 @@
 	</dependencies>
 
 	<build>
-		<finalName></finalName>
+		<finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
 				defaults (may be moved to parent pom) -->
 			<plugins>
