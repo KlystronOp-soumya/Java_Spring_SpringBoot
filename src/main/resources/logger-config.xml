@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" name="PoiDemo">
+
+	<Properties>
+		<Property name="logPattern">%d{yyyy-mm-dd HH:mm:ss} [%p] %m</Property>
+		<Property name="loggerFilePath">logs/poidemo.log</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		</Console>
+
+		<RollingFile name="debugLog" fileName="${loggerFilePath}"
+			filePattern="%d{yyyy-mm-dd_HH_mm}_app.log.gz" append="True">
+
+			<LevelRangeFilter minLevel="INFO" maxLevel="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<PatternLayout>
+				<Pattern>${logPattern}</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="100" />
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.demo.poiDemo.entity" additivity="false"
+			level="DEBUG">
+			<AppenderRef ref="debugLog" />
+
+		</Logger>
+
+		<Logger name="com.demo.poiDemo.impl" additivity="false"
+			level="DEBUG">
+			<AppenderRef ref="debugLog" />
+
+		</Logger>
+
+		<Logger name="com.demo.poiDemo.util" additivity="false"
+			level="DEBUG">
+			<AppenderRef ref="debugLog" />
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<!-- Root logger referring to console appender -->
+		<Root level="INFO" additivity="false">
+			<AppenderRef ref="Console" />
+		</Root>
+
+	</Loggers>
+
+
+</Configuration>
