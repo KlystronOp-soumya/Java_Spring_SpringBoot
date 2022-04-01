@@ -49,4 +49,25 @@ public class CheckConnectionUtil {
 			}
 		}
 	}
+
+	public static void checkHikariDs() {
+		Connection conn = null;
+		try {
+			conn = DBConnectionUtil.getHikariDataSource().getConnection();
+			if (conn != null) {
+				LOGGER.info("Connection Established Successfully");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

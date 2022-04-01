@@ -28,7 +28,8 @@ public class PoiDemoDriverApp {
 		LOGGER.info("Setting the configs for DB");
 		setDataBaseConfigs();
 		// CheckConnectionUtil.checkDbConnection();
-		CheckConnectionUtil.checkBasicDbConnection();
+		// CheckConnectionUtil.checkBasicDbConnection();
+		CheckConnectionUtil.checkHikariDs();
 		// TODO Auto-generated method stub
 		// PoiOperationsIntf poiOperations = new PoiOperationsImpl();
 		// EmployeeService employeeService = new EmployeeService();

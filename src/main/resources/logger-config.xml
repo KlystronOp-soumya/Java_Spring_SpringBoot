@@ -12,7 +12,7 @@
 		</Console>
 
 		<RollingFile name="debugLog" fileName="${loggerFilePath}"
-			filePattern="%d{yyyy-mm-dd_HH_mm}_app.log.gz" append="True">
+			filePattern="%d{yyyy-mm-dd_HH_mm}_app.log.gz" append="False">
 
 			<LevelRangeFilter minLevel="INFO" maxLevel="DEBUG" onMatch="ACCEPT"
 				onMismatch="DENY" />
@@ -24,7 +24,7 @@
 			<PatternLayout>
 				<Pattern>${logPattern}</Pattern>
 			</PatternLayout>
-			<DefaultRolloverStrategy max="100" />
+			<DefaultRolloverStrategy max="1000" />
 		</RollingFile>
 
 	</Appenders>
