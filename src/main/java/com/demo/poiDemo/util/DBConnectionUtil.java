@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class DBConnectionUtil {
 
@@ -29,6 +31,7 @@ public class DBConnectionUtil {
 			dataSource.setURL(dbConfigsMap.get("DB_URL") + dbConfigsMap.get("DB_SCHEMA"));
 			dataSource.setUser(dbConfigsMap.get("DB_USER"));
 			dataSource.setPassword(dbConfigsMap.get("DB_PWD"));
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -51,6 +54,7 @@ public class DBConnectionUtil {
 			basicDataSource.setPassword(dbConfigsMap.get("DB_PWD"));
 			basicDataSource.setCacheState(true);
 			basicDataSource.setPoolPreparedStatements(true);
+			basicDataSource.setDefaultAutoCommit(true);
 
 			info(LOGGER, "Configured properly");
 		} catch (Exception e) {
@@ -58,7 +62,39 @@ public class DBConnectionUtil {
 		}
 		return basicDataSource;
 	}
+
 	// using HikariCp
+	public static HikariDataSource getHikariDataSource() {
+		HikariDataSource hikariDataSource = null;
+		HikariConfig hikariConfig = null;
+
+		try {
+			/*
+			 * hikariDataSource = new HikariDataSource();
+			 * hikariDataSource.setDriverClassName(dbConfigsMap.get("DB_DRIVER"));
+			 * hikariDataSource.setJdbcUrl(dbConfigsMap.get("DB_URL"));
+			 * hikariDataSource.setUsername(dbConfigsMap.get("DB_USER"));
+			 * hikariDataSource.setPassword(dbConfigsMap.get("DB_PWD"));
+			 * hikariDataSource.setSchema(dbConfigsMap.get("DB_SCHEMA"));
+			 * hikariDataSource.setAutoCommit(true);
+			 * hikariDataSource.setMaximumPoolSize(20);
+			 */
+			hikariConfig = new HikariConfig(); // constructor with the file path is also available
+			hikariConfig.setDriverClassName(dbConfigsMap.get("DB_DRIVER"));
+			hikariConfig.setJdbcUrl(dbConfigsMap.get("DB_URL"));
+			hikariConfig.setUsername(dbConfigsMap.get("DB_USER"));
+			hikariConfig.setPassword(dbConfigsMap.get("DB_PWD"));
+			hikariConfig.setSchema(dbConfigsMap.get("DB_SCHEMA"));
+			hikariConfig.setMaximumPoolSize(20);
+			hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+			hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+			hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+			hikariDataSource = new HikariDataSource(hikariConfig);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return hikariDataSource;
+	}
 
 	public HashMap<String, String> getDbConfigsMap() {
 		return dbConfigsMap;
