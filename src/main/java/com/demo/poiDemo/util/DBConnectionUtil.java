@@ -81,10 +81,11 @@ public class DBConnectionUtil {
 			 */
 			hikariConfig = new HikariConfig(); // constructor with the file path is also available
 			hikariConfig.setDriverClassName(dbConfigsMap.get("DB_DRIVER"));
-			hikariConfig.setJdbcUrl(dbConfigsMap.get("DB_URL"));
+			hikariConfig.setSchema(dbConfigsMap.get("DB_SCHEMA"));
+			hikariConfig.setJdbcUrl(dbConfigsMap.get("DB_URL") + hikariConfig.getSchema());
 			hikariConfig.setUsername(dbConfigsMap.get("DB_USER"));
 			hikariConfig.setPassword(dbConfigsMap.get("DB_PWD"));
-			hikariConfig.setSchema(dbConfigsMap.get("DB_SCHEMA"));
+
 			hikariConfig.setMaximumPoolSize(20);
 			hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
 			hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");

@@ -9,6 +9,7 @@ public class EmployeeEntity implements Serializable {
 
 	private String empName;
 	private String empDesig;
+	private String lob;
 	private BigDecimal empSal;
 
 	public EmployeeEntity() {
@@ -19,6 +20,14 @@ public class EmployeeEntity implements Serializable {
 		super();
 		this.empName = empName;
 		this.empDesig = empDesig;
+		this.empSal = empSal;
+	}
+
+	public EmployeeEntity(String empName, String empDesig, String lob, BigDecimal empSal) {
+		super();
+		this.empName = empName;
+		this.empDesig = empDesig;
+		this.lob = lob;
 		this.empSal = empSal;
 	}
 
@@ -44,6 +53,20 @@ public class EmployeeEntity implements Serializable {
 
 	public void setEmpSal(BigDecimal empSal) {
 		this.empSal = empSal;
+	}
+
+	public String getLob() {
+		return lob;
+	}
+
+	public void setLob(String lob) {
+		this.lob = lob;
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeEntity [empName=" + empName + ", empDesig=" + empDesig + ", lob=" + lob + ", empSal=" + empSal
+				+ "]";
 	}
 
 }

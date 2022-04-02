@@ -1,25 +1,30 @@
 package com.demo.poiDemo;
 
+import static com.demo.poiDemo.util.LoggerConfigUtil.info;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.demo.poiDemo.entity.EmployeeEntity;
+import com.demo.poiDemo.impl.EmployeeDAOImpl;
+import com.demo.poiDemo.intf.EmployeeDAOIntf;
 
 public class EmployeeService {
 
 	private static final Logger LOGGER = LogManager.getLogger(EmployeeService.class);
 
+	private EmployeeDAOIntf employeeDAO;
 	private List<EmployeeEntity> employees;
 
 	public EmployeeService() {
 		// TODO Auto-generated constructor stub
 		// Instantiate the employee list
-		this.employees = new ArrayList<EmployeeEntity>();// initial capacity is 10
-		this.createEmployee();
+		// this.employees = new ArrayList<EmployeeEntity>();// initial capacity is 10
+		// this.createEmployee();
+		this.employeeDAO = new EmployeeDAOImpl();
 	}
 
 	protected void createEmployee() {
@@ -39,5 +44,19 @@ public class EmployeeService {
 		else {
 			return this.employees;
 		}
+	}
+
+	public List<EmployeeEntity> getEmployeesFromRepo() {
+		info(LOGGER, "Inside Service class::Get employees from Database");
+		List<EmployeeEntity> empList = null;
+		try {
+			empList = this.employeeDAO.getAllEmployees();
+			if (empList.isEmpty() || empList == null)
+				throw new NullPointerException();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e);
+		}
+		return empList;
 	}
 }

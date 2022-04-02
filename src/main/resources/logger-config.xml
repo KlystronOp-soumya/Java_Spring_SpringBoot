@@ -17,7 +17,6 @@
 			<LevelRangeFilter minLevel="INFO" maxLevel="DEBUG" onMatch="ACCEPT"
 				onMismatch="DENY" />
 			<Policies>
-				<OnStartupTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="20 MB" />
 				<TimeBasedTriggeringPolicy />
 			</Policies>
