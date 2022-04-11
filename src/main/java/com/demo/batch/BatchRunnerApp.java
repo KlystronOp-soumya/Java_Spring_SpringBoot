@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParametersIncrementer;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +27,13 @@ public class BatchRunnerApp implements CommandLineRunner {
 	@Autowired
 	private CustomJobParameterConfig jobparameters;
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private JobParametersIncrementer jobParametersIncrementer;
-
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			LOGGER.info("Job was started....");
 			JobExecution jobExecution = jobLauncher.run(job, this.jobparameters.getCustomJobParameters());
+			LOGGER.info("Execution Context: " + jobExecution.getExecutionContext().toString());
 			LOGGER.info("Job Starting time: " + jobExecution.getStartTime());
 			LOGGER.info("Current Execution Status Of Job: " + jobExecution.getStatus());
 
@@ -48,7 +44,7 @@ public class BatchRunnerApp implements CommandLineRunner {
 			LOGGER.info("Current Execution Status Of Job: " + jobExecution.getStatus());
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			System.err.println(e);
 		}
 
 	}

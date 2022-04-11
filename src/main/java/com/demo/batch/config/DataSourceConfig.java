@@ -2,9 +2,12 @@ package com.demo.batch.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -37,6 +40,8 @@ public class DataSourceConfig {
 	@Nullable
 	private String pwdH2;
 
+	@Bean
+	@Primary
 	public DataSource dataSourceMySql() {
 		this.dataSourceBuilder = DataSourceBuilder.create();
 		this.dataSourceBuilder.driverClassName(this.dbDriverMySql);
@@ -46,6 +51,8 @@ public class DataSourceConfig {
 		return dataSourceBuilder.build();
 	}
 
+	@Bean
+	@Qualifier("dataSourceH2")
 	public DataSource dataSourceH2() {
 		this.dataSourceBuilder = DataSourceBuilder.create();
 		this.dataSourceBuilder.driverClassName(this.dbDriverH2);

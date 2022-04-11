@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.demo.batch.config.CustomJobParameterIncrementor;
-import com.demo.batch.job.custom.CustomJobRepository;
+import com.demo.batch.config.CustomBatchBasicConfigurer;
 
 @Configuration
 public class BatchJobConfig {
@@ -22,13 +21,10 @@ public class BatchJobConfig {
 	private JobBuilderFactory jobBuilderFactory; // interface
 
 	@Autowired
-	private CustomJobRepository jobRepo;
+	private CustomBatchBasicConfigurer basicBatchConfig;
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory; // interface
-
-	@Autowired
-	private CustomJobParameterIncrementor jobParametersIncrementer;
 
 	@Bean
 	public Step storePackageStep() {
@@ -80,10 +76,15 @@ public class BatchJobConfig {
 
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-				String item = chunkContext.getStepContext().getJobParameters().get("item").toString();
-				String date = chunkContext.getStepContext().getJobParameters().get("run.date").toString();
-				System.out.println("Item was packaged...");
-				System.out.println(String.format("The %s has been packaged on %s.", item, date));
+				/*
+				 * String item =
+				 * chunkContext.getStepContext().getJobParameters().get("item").toString();
+				 * String date =
+				 * chunkContext.getStepContext().getJobParameters().get("run.date").toString();
+				 * System.out.println("Item was packaged...");
+				 * System.out.println(String.format("The %s has been packaged on %s.", item,
+				 * date));
+				 */
 				return RepeatStatus.FINISHED;
 			}
 		}).build();
@@ -96,11 +97,11 @@ public class BatchJobConfig {
 		try {
 
 			// this.jobBuilderFactory = new
-			// JobBuilderFactory(this.jobRepo.createJobRepository());
-			job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.jobRepo.createJobRepository())
-					.incrementer(jobParametersIncrementer).preventRestart().start(packageItemStep())
-					.next(driveToAddressStep()).on("FAILED").to(storePackageStep()).from(driveToAddressStep()).on("*")
-					.to(givePackageToCustomerStep()).end().build();
+			// JobBuilderFactory(this.basicBatchConfig.batchConfigurer().getJobRepository());
+			job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.basicBatchConfig.getJobRepository())
+					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED")
+					.to(storePackageStep()).from(driveToAddressStep()).on("*").to(givePackageToCustomerStep()).end()
+					.build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

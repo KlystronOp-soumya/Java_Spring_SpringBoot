@@ -1,0 +1,234 @@
+2022-04-11 23:32:22 INFO  App:20 - App running...
+2022-04-11 23:32:22 INFO  App:20 - App running...
+2022-04-11 23:32:22 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 8752 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:32:22 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:32:24 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:32:24 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:32:24 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-11 23:38:11 INFO  App:20 - App running...
+2022-04-11 23:38:11 INFO  App:20 - App running...
+2022-04-11 23:38:11 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 6180 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:38:11 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:38:12 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:38:12 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:38:13 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:38:13 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:38:13 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-04-11 23:38:13 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-04-11 23:38:13 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-11 23:40:55 INFO  App:20 - App running...
+2022-04-11 23:40:55 INFO  App:20 - App running...
+2022-04-11 23:40:55 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 10560 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:40:55 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:40:56 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:40:57 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:40:57 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:40:57 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:40:57 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-04-11 23:40:57 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-04-11 23:40:57 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-11 23:41:25 INFO  App:20 - App running...
+2022-04-11 23:41:25 INFO  App:20 - App running...
+2022-04-11 23:41:25 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 13168 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:41:25 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:41:26 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:41:27 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:41:27 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:41:27 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:41:27 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-04-11 23:41:27 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-04-11 23:41:27 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-11 23:47:09 INFO  App:20 - App running...
+2022-04-11 23:47:09 INFO  App:20 - App running...
+2022-04-11 23:47:09 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 10248 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:47:09 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:47:10 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:47:11 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:47:11 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:47:11 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:47:11 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-04-11 23:47:11 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-04-11 23:47:11 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-11 23:48:47 INFO  App:20 - App running...
+2022-04-11 23:48:47 INFO  App:20 - App running...
+2022-04-11 23:48:47 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 5844 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:48:47 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:48:48 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:48:49 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:48:49 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:48:49 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:48:49 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-11 23:48:49 INFO  App:61 - Started App in 2.201 seconds (JVM running for 3.401)
+2022-04-11 23:48:49 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-11 23:48:50 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=11:48, dateOfOrder=2022-04-11}]
+2022-04-11 23:48:50 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-04-11 23:48:51 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 442ms
+2022-04-11 23:48:51 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-04-11 23:48:51 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 392ms
+2022-04-11 23:48:52 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-04-11 23:48:52 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 302ms
+2022-04-11 23:48:52 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=0, timeOfOrder=11:48, dateOfOrder=2022-04-11}] and the following status: [COMPLETED] in 2s261ms
+2022-04-11 23:48:52 INFO  BatchRunnerApp:36 - Execution Context: {}
+2022-04-11 23:48:52 INFO  BatchRunnerApp:37 - Job Starting time: Mon Apr 11 23:48:50 IST 2022
+2022-04-11 23:48:52 INFO  BatchRunnerApp:38 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:48:52 INFO  BatchRunnerApp:43 - Job Ending time: Mon Apr 11 23:48:52 IST 2022
+2022-04-11 23:48:52 INFO  BatchRunnerApp:44 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:51:21 INFO  App:20 - App running...
+2022-04-11 23:51:21 INFO  App:20 - App running...
+2022-04-11 23:51:21 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 15720 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:51:21 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:51:22 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:51:23 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:51:23 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:51:23 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:51:23 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:51:23 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:51:23 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-11 23:51:23 INFO  App:61 - Started App in 2.17 seconds (JVM running for 3.403)
+2022-04-11 23:51:23 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-11 23:51:38 INFO  App:20 - App running...
+2022-04-11 23:51:38 INFO  App:20 - App running...
+2022-04-11 23:51:39 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 13208 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:51:39 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:51:39 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:51:40 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:51:40 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:51:40 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:51:40 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-11 23:51:40 INFO  App:61 - Started App in 2.198 seconds (JVM running for 3.413)
+2022-04-11 23:51:40 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-11 23:51:41 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=11:51, dateOfOrder=2022-04-11}]
+2022-04-11 23:51:42 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-04-11 23:51:42 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 413ms
+2022-04-11 23:51:42 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-04-11 23:51:43 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 375ms
+2022-04-11 23:51:43 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-04-11 23:51:43 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 503ms
+2022-04-11 23:51:44 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=0, timeOfOrder=11:51, dateOfOrder=2022-04-11}] and the following status: [COMPLETED] in 2s373ms
+2022-04-11 23:51:44 INFO  BatchRunnerApp:36 - Execution Context: {}
+2022-04-11 23:51:44 INFO  BatchRunnerApp:37 - Job Starting time: Mon Apr 11 23:51:41 IST 2022
+2022-04-11 23:51:44 INFO  BatchRunnerApp:38 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:51:44 INFO  BatchRunnerApp:43 - Job Ending time: Mon Apr 11 23:51:44 IST 2022
+2022-04-11 23:51:44 INFO  BatchRunnerApp:44 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:53:46 INFO  App:20 - App running...
+2022-04-11 23:53:46 INFO  App:20 - App running...
+2022-04-11 23:53:46 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 16316 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:53:46 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:53:47 INFO  CustomBatchBasicConfigurer:27 - Overridden CreateJobRepository
+2022-04-11 23:53:47 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:53:48 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:53:48 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:53:48 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:53:48 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-11 23:53:48 INFO  App:61 - Started App in 2.199 seconds (JVM running for 3.401)
+2022-04-11 23:53:48 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-11 23:53:49 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=11:53, dateOfOrder=2022-04-11}]
+2022-04-11 23:53:49 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-04-11 23:53:49 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 314ms
+2022-04-11 23:53:50 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-04-11 23:53:50 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 331ms
+2022-04-11 23:53:51 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-04-11 23:53:51 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 223ms
+2022-04-11 23:53:51 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=0, timeOfOrder=11:53, dateOfOrder=2022-04-11}] and the following status: [COMPLETED] in 2s411ms
+2022-04-11 23:53:51 INFO  BatchRunnerApp:36 - Execution Context: {}
+2022-04-11 23:53:51 INFO  BatchRunnerApp:37 - Job Starting time: Mon Apr 11 23:53:49 IST 2022
+2022-04-11 23:53:51 INFO  BatchRunnerApp:38 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:53:51 INFO  BatchRunnerApp:43 - Job Ending time: Mon Apr 11 23:53:51 IST 2022
+2022-04-11 23:53:51 INFO  BatchRunnerApp:44 - Current Execution Status Of Job: COMPLETED
+2022-04-11 23:56:33 INFO  App:20 - App running...
+2022-04-11 23:56:33 INFO  App:20 - App running...
+2022-04-11 23:56:33 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 5892 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-11 23:56:33 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-11 23:56:34 INFO  CustomBatchBasicConfigurer:29 - Overridden CreateJobRepository
+2022-04-11 23:56:34 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-11 23:56:35 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-11 23:56:35 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:56:35 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:56:35 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-11 23:56:35 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-11 23:56:35 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-11 23:56:35 INFO  App:61 - Started App in 2.249 seconds (JVM running for 3.461)
+2022-04-11 23:56:35 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-12 00:01:20 INFO  App:20 - App running...
+2022-04-12 00:01:21 INFO  App:20 - App running...
+2022-04-12 00:01:21 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 15192 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-12 00:01:21 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-12 00:01:22 INFO  CustomBatchBasicConfigurer:33 - Overridden CreateJobRepository
+2022-04-12 00:01:22 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-12 00:01:22 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-12 00:01:22 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-12 00:01:23 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-12 00:01:23 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-12 00:01:23 INFO  App:61 - Started App in 2.189 seconds (JVM running for 3.379)
+2022-04-12 00:01:23 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-12 00:01:27 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=12:01, dateOfOrder=2022-04-12}]
+2022-04-12 00:01:31 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-04-12 00:01:32 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 1s567ms
+2022-04-12 00:01:34 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-04-12 00:01:36 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 2s55ms
+2022-04-12 00:01:38 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-04-12 00:01:40 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 1s589ms
+2022-04-12 00:01:42 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=0, timeOfOrder=12:01, dateOfOrder=2022-04-12}] and the following status: [COMPLETED] in 14s80ms
+2022-04-12 00:01:42 INFO  BatchRunnerApp:36 - Execution Context: {}
+2022-04-12 00:01:42 INFO  BatchRunnerApp:37 - Job Starting time: Tue Apr 12 00:01:27 IST 2022
+2022-04-12 00:01:42 INFO  BatchRunnerApp:38 - Current Execution Status Of Job: COMPLETED
+2022-04-12 00:01:42 INFO  BatchRunnerApp:43 - Job Ending time: Tue Apr 12 00:01:41 IST 2022
+2022-04-12 00:01:42 INFO  BatchRunnerApp:44 - Current Execution Status Of Job: COMPLETED
+2022-04-12 00:05:00 INFO  App:20 - App running...
+2022-04-12 00:05:00 INFO  App:20 - App running...
+2022-04-12 00:05:00 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 12476 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-12 00:05:00 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-12 00:05:02 INFO  CustomBatchBasicConfigurer:31 - Overridden CreateJobRepository
+2022-04-12 00:05:02 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-12 00:05:02 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-12 00:05:02 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-12 00:05:03 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-12 00:05:20 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-12 00:05:20 INFO  App:61 - Started App in 20.367 seconds (JVM running for 22.07)
+2022-04-12 00:05:20 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-12 00:05:25 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=12:05, dateOfOrder=2022-04-12}]
+2022-04-12 00:07:17 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-04-12 00:07:17 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-04-12 00:07:17 INFO  App:20 - App running...
+2022-04-12 00:07:17 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 12476 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-12 00:07:17 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-12 00:07:17 INFO  CustomBatchBasicConfigurer:31 - Overridden CreateJobRepository
+2022-04-12 00:07:17 INFO  HikariDataSource:110 - HikariPool-2 - Starting...
+2022-04-12 00:07:17 INFO  HikariDataSource:123 - HikariPool-2 - Start completed.
+2022-04-12 00:07:17 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-12 00:07:17 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-12 00:10:29 INFO  App:20 - App running...
+2022-04-12 00:10:29 INFO  App:20 - App running...
+2022-04-12 00:10:30 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 6816 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-04-12 00:10:30 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-04-12 00:10:31 INFO  CustomBatchBasicConfigurer:31 - Overridden CreateJobRepository
+2022-04-12 00:10:31 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-04-12 00:10:31 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-04-12 00:10:32 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: MYSQL
+2022-04-12 00:10:32 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-04-12 00:11:55 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-04-12 00:11:55 INFO  App:61 - Started App in 86.157 seconds (JVM running for 87.862)
+2022-04-12 00:11:55 INFO  BatchRunnerApp:34 - Job was started....
+2022-04-12 00:11:59 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=0, timeOfOrder=12:10, dateOfOrder=2022-04-12}]
+2022-04-12 00:12:07 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-04-12 00:12:12 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 4s931ms
+2022-04-12 00:12:13 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-04-12 00:12:13 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 202ms
+2022-04-12 00:12:17 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-04-12 00:12:17 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 446ms
+2022-04-12 00:12:17 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=0, timeOfOrder=12:10, dateOfOrder=2022-04-12}] and the following status: [COMPLETED] in 17s946ms
+2022-04-12 00:12:17 INFO  BatchRunnerApp:36 - Execution Context: {}
+2022-04-12 00:12:17 INFO  BatchRunnerApp:37 - Job Starting time: Tue Apr 12 00:11:59 IST 2022
+2022-04-12 00:12:17 INFO  BatchRunnerApp:38 - Current Execution Status Of Job: COMPLETED
+2022-04-12 00:12:17 INFO  BatchRunnerApp:43 - Job Ending time: Tue Apr 12 00:12:17 IST 2022
+2022-04-12 00:12:17 INFO  BatchRunnerApp:44 - Current Execution Status Of Job: COMPLETED
