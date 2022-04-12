@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.demo.batch.config.CustomBatchBasicConfigurer" })
+@ComponentScan(basePackages = { "com.demo.batch.config" })
 public class App {
 
 	/* The Logger */
