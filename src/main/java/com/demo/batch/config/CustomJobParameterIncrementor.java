@@ -3,13 +3,11 @@ package com.demo.batch.config;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersIncrementer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class CustomJobParameterIncrementor implements JobParametersIncrementer {
 
-	@Bean
 	@Override
 	public JobParameters getNext(JobParameters parameters) {
 		// TODO Auto-generated method stub

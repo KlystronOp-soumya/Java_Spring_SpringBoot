@@ -8,11 +8,9 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import com.demo.batch.config.CustomJobParameterConfig;
 
-@Component
 @EnableBatchProcessing
 public class BatchRunnerApp implements CommandLineRunner {
 

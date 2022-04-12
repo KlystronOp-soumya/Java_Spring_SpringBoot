@@ -6,11 +6,10 @@ import java.util.Date;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class CustomJobParameterConfig {
 
 	private JobParameters jobParameters;
@@ -22,7 +21,6 @@ public class CustomJobParameterConfig {
 	@NonNull
 	private String orderTime;
 
-	@Bean
 	public JobParameters getCustomJobParameters() {
 		// Map<String, JobParameter> jobParamMap = new HashMap<>();
 		Calendar calendar = Calendar.getInstance();
