@@ -29,7 +29,7 @@ public class CustomBatchBasicConfigurer extends DefaultBatchConfigurer {
 	protected JobRepository createJobRepository() throws Exception {
 		JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
 		LOGGER.info("Overridden CreateJobRepository");
-		factory.setDataSource(this.dataSource.dataSourceMySql());
+		factory.setDataSource(this.dataSource.dataSourceH2());
 		factory.setTransactionManager(batchConfigurer().getTransactionManager());
 		factory.afterPropertiesSet();
 		return factory.getObject();
