@@ -1,1 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<beans 
+xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc 
+		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- In order to use the annotation based configuration -->
+<context:annotation-config />        
+      <!-- Import the DB properties -->
+      <context:property-placeholder
+		location="classpath:database/db-config.properties" />
+      <!-- Configure here normal DataSource -->
+      <!-- connect to database -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${mysql.driver}" />
+		<property name="url" value="${mysql.url}" />
+		<property name="username" value="${mysql.user}" />
+		<property name="password" value="${mysql.password}" />
+	</bean>
+      <!-- Configure here HikariCp -->
+      <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+    <property name="poolName" value="springHikariCP" />
+    <property name="connectionTestQuery" value="SELECT 1" />
+    <property name="jdbcUrl" value="${mysql.url}"/>
+    <property name="username" value="${mysql.user}"/>
+    <property name="password" value="${mysql.password}"/>
+    <property name="dataSourceClassName" value="${mysql.datasource}"/>
+    <property name="maximumPoolSize" value="100" />
+    <property name="idleTimeout" value="10" />
+
+    <property name="dataSourceProperties">
+        <props>
+            <prop key="url">${mysql.url}</prop>
+            <prop key="user">${mysql.user}</prop>
+            <prop key="password">${mysql.password}</prop>
+        </props>
+    </property>
+</bean>
+
+<!--  -->
+      <!-- Configure here jdbc:initalize-script -->
+      
+      <!-- Configure here ResourcePopulator -->  
+        
+</beans>
