@@ -90,7 +90,7 @@ public class BatchJobConfig {
 		}).build();
 	}
 
-	@Bean
+	@Bean(name = "deliverPackageJob")
 	public Job deliverPackageJob() {
 		// applying the conditional flow
 		Job job = null;
@@ -109,4 +109,22 @@ public class BatchJobConfig {
 
 		return job;
 	}
+
+	/*
+	 * @Bean public Step getTheChasis() { return
+	 * this.stepBuilderFactory.get("getCarChasis").tasklet(new Tasklet() {
+	 * 
+	 * @Override public RepeatStatus execute(StepContribution contribution,
+	 * ChunkContext chunkContext) throws Exception { // TODO Auto-generated method
+	 * stub System.out.println("Chasis Put On The  Assembly Line"); return
+	 * RepeatStatus.FINISHED; } }).build(); }
+	 * 
+	 * @Bean
+	 * 
+	 * @Qualifier("carManufacturingJob") public Job carManufactureJob() {
+	 * 
+	 * return
+	 * this.jobBuilderFactory.get("Car Manufacturing Job").flow(getTheChasis()).end(
+	 * ).build(); }
+	 */
 }

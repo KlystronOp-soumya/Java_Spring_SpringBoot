@@ -30,22 +30,45 @@ public class BatchRunnerApp implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+
+		/*
+		 * ApplicationContext context = new
+		 * AnnotationConfigApplicationContext(BatchJobConfig.class); Job myJob; try {
+		 * 
+		 * List<String> jobNames = new ArrayList<>(); jobNames.add("deliverPackageJob");
+		 * jobNames.add("carManufactureJob");
+		 * 
+		 * for (String eachJob : jobNames) { if (context.containsBean(eachJob)) { myJob
+		 * = (Job) context.getBean(eachJob);
+		 */
+
+		// execute the Job
 		try {
+			// ApplicationContext context = new
+			// AnnotationConfigApplicationContext(BatchJobConfig.class);
 			LOGGER.info("Job was started....");
+			LOGGER.info("Job Name: " + job.getName());
+
 			JobExecution jobExecution = jobLauncher.run(job, this.jobparameters.getCustomJobParameters());
-			LOGGER.info("Execution Context: " + jobExecution.getExecutionContext().toString());
+
+			LOGGER.info("Job name: " + job.getName());
 			LOGGER.info("Job Starting time: " + jobExecution.getStartTime());
 			LOGGER.info("Current Execution Status Of Job: " + jobExecution.getStatus());
-
-			while (jobExecution.isRunning()) {
-				System.out.println("....");
-			}
 			LOGGER.info("Job Ending time: " + jobExecution.getEndTime());
 			LOGGER.info("Current Execution Status Of Job: " + jobExecution.getStatus());
+			/*
+			 * else
+			 * 
+			 * { throw new JobStartException("the Job with the name: " + eachJob +
+			 * "is not present in the context"); }}
+			 */
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e);
-		}
+		} /*
+			 * finally { ((AbstractApplicationContext) context).close(); }
+			 */
 
 	}
 
