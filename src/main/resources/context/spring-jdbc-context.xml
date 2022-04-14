@@ -16,12 +16,12 @@
 	<!-- In order to use the annotation based configuration -->
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.demo.SpringJdbcDemo.service" />
+		base-package="com.demo.SpringJdbcDemo" />
 	<import resource="classpath:database/db-config-context.xml" />
 
 	<!-- Test Service Bean -->
 	<bean id="testServiceBean"
-		class="com.demo.SpringJdbcDemo.service.TestService" scope="prototype" />
+		class="com.demo.SpringJdbcDemo.service.TestService" />
 	<!-- HikariCP configuration -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">

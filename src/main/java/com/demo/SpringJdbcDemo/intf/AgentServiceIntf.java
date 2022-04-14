@@ -1,0 +1,5 @@
+package com.demo.SpringJdbcDemo.intf;
+
+public interface AgentServiceIntf {
+
+}
