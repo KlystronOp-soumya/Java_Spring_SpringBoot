@@ -61,3 +61,10 @@
 2022-04-14 19:31:06 INFO  App:29 - Inside Main Class
 2022-04-14 19:31:08 INFO  AgentService:25 - Inside AgentService :: doCheck
 2022-04-14 19:31:08 INFO  App:41 - XML based configuration was loaded successfully
+2022-04-14 20:43:23 INFO  App:29 - Inside Main Class
+2022-04-14 20:43:36 INFO  AgentService:25 - Inside AgentService :: doCheck
+2022-04-14 20:43:36 INFO  App:41 - XML based configuration was loaded successfully
+2022-04-14 20:45:49 INFO  App:29 - Inside Main Class
+2022-04-14 20:47:31 INFO  App:29 - Inside Main Class
+2022-04-14 20:47:35 INFO  AgentService:25 - Inside AgentService :: doCheck
+2022-04-14 20:47:35 INFO  App:43 - XML based configuration was loaded successfully

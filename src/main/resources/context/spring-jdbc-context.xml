@@ -22,9 +22,5 @@
 	<!-- Test Service Bean -->
 	<bean id="testServiceBean"
 		class="com.demo.SpringJdbcDemo.service.TestService" />
-	<!-- HikariCP configuration -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		destroy-method="close">
-		<constructor-arg ref="hikariConfig" />
-	</bean>
+	
 </beans>

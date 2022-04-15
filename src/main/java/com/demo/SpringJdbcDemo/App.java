@@ -30,6 +30,8 @@ public class App {
 
 			ApplicationContext contextXML = new ClassPathXmlApplicationContext(ConstEnums.SPRING_CONTEXT_PATH.value);
 
+			((AbstractApplicationContext) contextXML).refresh();
+
 			AgentService agentService = (AgentService) contextXML.getBean("agentServiceBean");
 			agentService.doCheck();
 
