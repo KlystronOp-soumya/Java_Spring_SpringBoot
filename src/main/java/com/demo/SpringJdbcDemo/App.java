@@ -33,7 +33,7 @@ public class App {
 			((AbstractApplicationContext) contextXML).refresh();
 
 			AgentService agentService = (AgentService) contextXML.getBean("agentServiceBean");
-			agentService.doCheck();
+			agentService.doTestDBConnection();
 
 			/*
 			 * DataSource dataSource = (DataSource) contextXML.getBean("dataSource"); if

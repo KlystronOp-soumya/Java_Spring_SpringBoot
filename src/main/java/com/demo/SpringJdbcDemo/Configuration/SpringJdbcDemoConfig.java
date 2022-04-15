@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
+import com.demo.SpringJdbcDemo.service.AgentRowMapperService;
 import com.demo.SpringJdbcDemo.service.AgentService;
 import com.demo.SpringJdbcDemo.service.TestService;
 
@@ -22,11 +23,20 @@ public class SpringJdbcDemoConfig {
 		return new AgentService();
 	}
 
+	/*
+	 * @Bean("agentDAO") public AgentDAO agentDAO() { return new AgentDAO(); }
+	 */
+
 	@Bean
 	public ResourceDatabasePopulator resourceDatabasePopulator() {
 
 		ResourceDatabasePopulator rsrcDbPopulator = new ResourceDatabasePopulator();
 		// other configurations
 		return rsrcDbPopulator;
+	}
+
+	@Bean("agentRowMapper")
+	public AgentRowMapperService agentRowMapper() {
+		return new AgentRowMapperService();
 	}
 }
