@@ -4,3 +4,5 @@
 target
 .vsCode
 .vscode
+*.mv.db
+*.trace.db
