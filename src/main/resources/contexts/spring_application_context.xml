@@ -27,6 +27,6 @@
 		class="com.demo.SpringOrmDemo.service.AgentServiceImpl" />
 		
 	<bean id="agentDao" class="com.demo.SpringOrmDemo.DAO.AgentDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 </beans>

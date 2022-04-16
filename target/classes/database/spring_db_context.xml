@@ -21,7 +21,6 @@
 	<!-- Import the DB properties -->
 	<context:property-placeholder
 		location="classpath:database/db-config.properties" />
-	
 	<!-- <import resource="" /> -->
 	<!-- Only Embedded Database H2 will be used -->
 	<!-- connect to database H2 -->
@@ -56,9 +55,12 @@
 		<constructor-arg ref="hikariConfig" />
 	</bean>
 	<!-- SessionFacotry Config using Connection Pooling -->
-	<bean id="sessionFactory"
+	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
+		<property name="packagesToScan">
+			<value> com.demo.SpringOrmDemo.entity</value>
+		</property>
 		<!-- <property name="mappingResources"> <list> <value></value> </list> 
 			</property> -->
 		<property name="hibernateProperties">
@@ -75,14 +77,14 @@
 	<!-- TransactionManager config -->
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	<!-- Hibernate Template -->
 	<bean id="template"
 		class="org.springframework.orm.hibernate5.HibernateTemplate">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	<!-- Resource Populator -->
 	<bean id="databasePopulator"

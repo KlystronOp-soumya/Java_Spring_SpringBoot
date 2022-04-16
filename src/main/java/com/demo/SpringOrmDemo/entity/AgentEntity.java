@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Agent")
+@Table(name = "AGENT")
 public class AgentEntity {
 
 	@Column(name = "COLL_OFF", columnDefinition = "Collection Office", length = 3, nullable = false)

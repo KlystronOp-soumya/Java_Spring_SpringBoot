@@ -3,8 +3,9 @@ package com.demo.SpringOrmDemo.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.SpringOrmDemo.entity.AgentEntity;
 import com.demo.SpringOrmDemo.entity.AgentQualifEntity;
@@ -18,7 +19,7 @@ public class AgentServiceImpl implements AgentService {
 
 	// constructor injection to be implemented
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public List<AgentEntity> getAllActiveAgents() {
 		// TODO Auto-generated method stub
 		return null;
