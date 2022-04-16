@@ -6,9 +6,9 @@ import org.hibernate.SessionFactory;
 
 import com.demo.SpringOrmDemo.entity.AgentEntity;
 
-public interface AgentDaoIntf {
+public interface AgentDao {
 
-	void setSession(SessionFactory sessionFactory);
+	void setSessionFactory(SessionFactory sessionFactory);
 
 	void saveAgent(AgentEntity agtEntity);
 

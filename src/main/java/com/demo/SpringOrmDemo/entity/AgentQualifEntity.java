@@ -6,8 +6,10 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "Agent_Bonus_Qualif")
+@Entity
+@Table(name = "AGENT_QUALIF")
 public class AgentQualifEntity {
 
 	@Column(name = "COLL_OFF", columnDefinition = "Collection Office", length = 3, nullable = false)
