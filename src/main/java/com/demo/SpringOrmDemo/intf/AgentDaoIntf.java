@@ -10,7 +10,7 @@ public interface AgentDaoIntf {
 
 	void setSession(SessionFactory sessionFactory);
 
-	void saveAgent();
+	void saveAgent(AgentEntity agtEntity);
 
 	List<AgentEntity> getAllActiveAgents();
 }

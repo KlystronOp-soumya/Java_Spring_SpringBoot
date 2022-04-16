@@ -9,14 +9,16 @@ import com.demo.SpringOrmDemo.intf.AgentDaoIntf;
 
 public class AgentDAO implements AgentDaoIntf {
 
+	private transient SessionFactory sessionFactory;
+
 	@Override
 	public void setSession(SessionFactory sessionFactory) {
 		// TODO Auto-generated method stub
-
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	public void saveAgent() {
+	public void saveAgent(AgentEntity agtEntity) {
 		// TODO Auto-generated method stub
 
 	}
