@@ -3,12 +3,10 @@ package com.demo.SpringOrmDemo.DAO;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
 
 import com.demo.SpringOrmDemo.entity.AgentEntity;
 import com.demo.SpringOrmDemo.intf.AgentDao;
 
-@Repository
 public class AgentDaoImpl implements AgentDao {
 
 	private transient SessionFactory sessionFactory;
@@ -22,7 +20,10 @@ public class AgentDaoImpl implements AgentDao {
 	@Override
 	public void saveAgent(AgentEntity agtEntity) {
 		// TODO Auto-generated method stub
-		this.sessionFactory.getCurrentSession().save(agtEntity);
+		// this.sessionFactory.getCurrentSession().save(agtEntity);
+		this.sessionFactory.getCurrentSession().persist(agtEntity);
+		this.sessionFactory.getCurrentSession().flush();
+		// this.sessionFactory.getCurrentSession().close();
 	}
 
 	@Override
