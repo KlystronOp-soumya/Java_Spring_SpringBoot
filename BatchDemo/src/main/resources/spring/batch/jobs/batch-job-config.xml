@@ -12,11 +12,11 @@
         http://www.springframework.org/schema/batch
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
 
-	<import resource="classpath:/spring/batch/config/db-config.xml" />
+
 	<import
 		resource="classpath:/spring/batch/config/spring-context.xml" />
 	<context:component-scan
-		base-package="org.springframework.jdbc.datasource"></context:component-scan>
+		base-package="org.springframework.jdbc.datasource" />
 
 	<!-- Add the tasklet implementation as dependency -->
 	<bean id="helloWorld"

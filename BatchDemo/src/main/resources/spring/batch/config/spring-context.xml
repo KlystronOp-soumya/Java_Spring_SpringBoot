@@ -11,9 +11,10 @@
 
 	
 	<context:component-scan base-package="com.demo.batch"/>
+	<!-- Database Config for Batch imported -->
 	<import resource="classpath:/spring/batch/config/db-config.xml"/>
 	
-	<bean id = "checkDatabaseConn" class = "com.demo.batch.Util.CheckDBConn" ></bean>
+	<bean id = "checkDatabaseConn" class = "com.demo.batch.Util.CheckDBConn" />
 	<!-- stored job-meta in memory -->
 	<!--  
 	<bean id="jobRepository"

@@ -22,7 +22,9 @@
 		<property name="username" value="${userName}" />
 		<property name="password" value="${passWord}" />
 	</bean>
-
+	
+	<!-- Hikari Connection Pooling Configuration -->
+	
 	<bean id="transactionManager"
 		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
 
@@ -34,4 +36,8 @@
 		<jdbc:script
 			location="org/springframework/batch/core/schema-h2.sql" />
 	</jdbc:initialize-database> -->
+	
+	<!-- ResourceDatabase Populator -->
+	<bean id="databasePopulator"
+		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" />
 </beans>
