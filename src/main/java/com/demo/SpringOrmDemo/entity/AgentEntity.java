@@ -1,29 +1,44 @@
 package com.demo.SpringOrmDemo.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "AGENT")
-public class AgentEntity {
+public class AgentEntity implements Serializable {
 
-	@Column(name = "COLL_OFF", columnDefinition = "Collection Office", length = 3, nullable = false)
-	private String collOff;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "AGT_ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
+
+	@Column(name = "COLL_OFF")
+	private String collOff;
+
+	@Column(name = "AGT_ID")
 	private String agentId;
+
 	@Column(name = "AGT_NO", nullable = false)
 	private String agentNo;
+
 	@Column(name = "POL_NO", nullable = false)
 	private String polNo;
+
 	@Column(name = "LOB", nullable = false)
 	private String LOB;
-	@Column(name = "commission", nullable = true, precision = 2, length = 11)
+
+	@Column(name = "commission", nullable = true)
 	private BigDecimal commission;
 
 	public String getCollOff() {

@@ -1,20 +1,31 @@
 package com.demo.SpringOrmDemo.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "AGENT_QUALIF")
-public class AgentQualifEntity {
+public class AgentQualifEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
 
 	@Column(name = "COLL_OFF", columnDefinition = "Collection Office", length = 3, nullable = false)
 	private String coll_off;
-	@Id
+
 	@Column(name = "AGT_ID", nullable = false)
 	private String agentId;
 	@Column(name = "AGT_NO", nullable = false)
@@ -25,7 +36,7 @@ public class AgentQualifEntity {
 	private String LOB;
 	@Column(name = "QUALIF_STATUS", nullable = false)
 	private String qualifStatus;
-	@Column(name = "AGT_BONUS", nullable = true, precision = 2, length = 7)
+	@Column(name = "AGT_BONUS", nullable = true, length = 7)
 	private BigDecimal agentBonus;
 	@Column(name = "calDay", nullable = false)
 	private int calDay;

@@ -1,12 +1,12 @@
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\service\package-info.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\DAO\package-info.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\DAO\AgentDaoImpl.java
+D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\intf\AgentDao.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\config\package-info.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\entity\AgentQualifEntity.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\App.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\entity\AgentEntity.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\intf\AgentService.java
-D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\intf\AgentDaoIntf.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\repo\package-info.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\service\AgentServiceImpl.java
 D:\Program Files\Java Programs\SpringOrmDemo\src\main\java\com\demo\SpringOrmDemo\entity\package-info.java

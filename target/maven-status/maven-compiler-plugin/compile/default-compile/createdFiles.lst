@@ -1,8 +1,8 @@
 com\demo\SpringOrmDemo\intf\AgentService.class
 com\demo\SpringOrmDemo\App.class
 com\demo\SpringOrmDemo\Util\ConfigPathEnum.class
-com\demo\SpringOrmDemo\intf\AgentDaoIntf.class
 com\demo\SpringOrmDemo\entity\AgentQualifEntity.class
 com\demo\SpringOrmDemo\service\AgentServiceImpl.class
 com\demo\SpringOrmDemo\DAO\AgentDaoImpl.class
+com\demo\SpringOrmDemo\intf\AgentDao.class
 com\demo\SpringOrmDemo\entity\AgentEntity.class

@@ -17,28 +17,30 @@
         https://www.springframework.org/schema/aop/spring-aop.xsd">
 	<tx:annotation-driven
 		transaction-manager="txManager" />
-	<context:annotation-config />
 	<!-- Import the DB properties -->
 	<context:property-placeholder
 		location="classpath:database/db-config.properties" />
 	<!-- <import resource="" /> -->
 	<!-- Only Embedded Database H2 will be used -->
 	<!-- connect to database H2 -->
-	<!-- <bean id="dataSourceH2" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-		<property name="driverClassName" value="${h2.driver}" /> <property name="url" 
-		value="${h2.url}" /> <property name="username" value="${h2.user}" /> <property 
-		name="password" value="${h2.password}" /> </bean> -->
 	<!-- DataSource Config -->
+	<bean id="dataSourceH2"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${mysql.driver}" />
+		<property name="url" value="${mysql.url}" />
+		<property name="username" value="${mysql.user}" />
+		<property name="password" value="${mysql.password}" />
+	</bean>
 	<!-- HikariConfig -->
 	<!-- Configure here HikariCp -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="springHikariCP" />
 		<property name="connectionTestQuery"
 			value="SELECT 1 FROM DUAL" />
 		<property name="jdbcUrl" value="${h2.url}" />
 		<property name="username" value="${h2.user}" />
 		<property name="password" value="${h2.password}" />
-		<!-- <property name="dataSourceClassName" value="${mysql.datasource}" /> -->
+		<property name="dataSourceClassName" value="${mysql.datasource}" />
 		<property name="maximumPoolSize" value="10" />
 		<property name="idleTimeout" value="10" />
 		<property name="dataSourceProperties">
@@ -49,15 +51,15 @@
 			</props>
 		</property>
 	</bean>
-	<!-- HikariCP configuration -->
+	HikariCP configuration
 	<bean id="hikariDataSource"
 		class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig" />
-	</bean>
+	</bean> -->
 	<!-- SessionFacotry Config using Connection Pooling -->
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="hikariDataSource" />
+		<property name="dataSource" ref="dataSourceH2" />
 		<property name="packagesToScan">
 			<value> com.demo.SpringOrmDemo.entity</value>
 		</property>
@@ -65,11 +67,12 @@
 			</property> -->
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.dialect">${mysql.hibernate.dialect}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.connection.autocommit">${hibernate.connection.autocommit}</prop>
-				<prop key="hibernate.connection.isolation">${hibernate.connection.isolation}</prop>
+				<!-- <prop key="hibernate.connection.isolation">${hibernate.connection.isolation}</prop> -->
 				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
 			</props>
 		</property>
