@@ -23,7 +23,7 @@ public class AgentQualifEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int Id;
 
-	@Column(name = "COLL_OFF", columnDefinition = "Collection Office", length = 3, nullable = false)
+	@Column(name = "COLL_OFF", length = 3, nullable = false)
 	private String coll_off;
 
 	@Column(name = "AGT_ID", nullable = false)
