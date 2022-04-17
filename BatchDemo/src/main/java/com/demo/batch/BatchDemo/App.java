@@ -11,7 +11,6 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.demo.batch.BatchDemo.enums.Constants;
 import com.demo.batch.Util.DateTimeUtil;
 import com.demo.batch.Util.LoggerUtil;
 
@@ -37,9 +36,8 @@ public class App {
 
 	public static void main(String[] args) {
 		LoggerUtil.info(LOGGER, "Inside main class");
-
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				Constants.SPRING_BATCH_CONFIG_PATH.value);
+		String[] springConfig = { "spring/batch/jobs/batch-job-config.xml" };
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(springConfig);
 
 		// CheckDBConn objCheckDBConn = (CheckDBConn)
 		// context.getBean("checkDatabaseConn",CheckDBConn.class) ;
