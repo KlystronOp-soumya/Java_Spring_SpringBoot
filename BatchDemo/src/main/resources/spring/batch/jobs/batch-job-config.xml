@@ -50,25 +50,30 @@
 	</bean>
 
 	<!-- Listeners -->
+	<bean id="customJobListener" class="com.demo.batch.BatchDemo.listeners.CustomJobLoggerListener" />
 	<bean id="customStepListener"
-		class="com.demo.batch.BatchDemo.listeners.StepListener"></bean>
+		class="com.demo.batch.BatchDemo.listeners.StepListener" />
 	<bean id="customReaderListener"
-		class="com.demo.batch.BatchDemo.listeners.CustomItemReaderListener"></bean>
+		class="com.demo.batch.BatchDemo.listeners.CustomItemReaderListener" />
 	<bean id="customProcessorListener"
-		class="com.demo.batch.BatchDemo.listeners.CustomItemProcessorListener"></bean>
+		class="com.demo.batch.BatchDemo.listeners.CustomItemProcessorListener" />
 	<bean id="customWriterListener"
-		class="com.demo.batch.BatchDemo.listeners.CustomItemWriterListener"></bean>
+		class="com.demo.batch.BatchDemo.listeners.CustomItemWriterListener" />
 
+<!-- Job parameter validator -->
+<bean id="customJobParameterValidator" class="com.demo.batch.BatchDemo.validator.CustomJobParameterValidator" />
 	<!-- <batch:job id="firstJob"> <batch:step id="step1" parent="helloWorldStep"></batch:step> 
 		</batch:job> -->
 
 	<batch:job id="agentBonusCalculation">
+	<batch:validator ref="customJobParameterValidator" />
 		<batch:step id="step2">
 			<batch:tasklet transaction-manager="transactionManager">
 				<batch:chunk reader="customAgentDetailsReader"
 					processor="customAgtBnsProcessor" writer="customAgtDtlsWriter"
 					commit-interval="5"></batch:chunk>
 				<batch:listeners>
+				<batch:listener ref="customJobListener" />
 					<batch:listener ref="customStepListener" />
 					<batch:listener ref="customReaderListener" />
 					<batch:listener ref="customProcessorListener" />

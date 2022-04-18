@@ -54,10 +54,11 @@ public class App {
 		int batchDay = DateTimeUtil.getCalDay();
 		int batchMonth = DateTimeUtil.getCalMonth();
 		int batchYear = DateTimeUtil.getCalYear();
-
+		batchYear = 2020;// temp line
+		// Becuase of the timestamp each batch run will be different
 		JobParameters jobParameters = new JobParametersBuilder().addLong("timestamp", System.currentTimeMillis())
-				.addString("run.date", getBatchRunDate()).addString("calDay", Integer.toString(batchYear))
-				.addString("calMonth", Integer.toString(batchMonth)).addString("calMonth", Integer.toString(batchYear))
+				.addString("run.date", getBatchRunDate()).addString("calDay", Integer.toString(batchDay))
+				.addString("calMonth", Integer.toString(batchMonth)).addString("calYear", Integer.toString(batchYear))
 				.toJobParameters();
 
 		try {
@@ -66,6 +67,7 @@ public class App {
 			 * CheckDBConn.isConnected() ;
 			 */
 			LoggerUtil.info(LOGGER, "Job started");
+
 			execution = jobLauncher.run(job, jobParameters);
 			System.out.println("Exit Status : " + execution.getStatus());
 			System.out.println("Done");
