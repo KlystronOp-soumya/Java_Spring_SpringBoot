@@ -54,7 +54,6 @@ public class App {
 		int batchDay = DateTimeUtil.getCalDay();
 		int batchMonth = DateTimeUtil.getCalMonth();
 		int batchYear = DateTimeUtil.getCalYear();
-		batchYear = 2020;// temp line
 		// Becuase of the timestamp each batch run will be different
 		JobParameters jobParameters = new JobParametersBuilder().addLong("timestamp", System.currentTimeMillis())
 				.addString("run.date", getBatchRunDate()).addString("calDay", Integer.toString(batchDay))
