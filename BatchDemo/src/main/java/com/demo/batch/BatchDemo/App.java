@@ -58,7 +58,7 @@ public class App {
 		JobParameters jobParameters = new JobParametersBuilder().addLong("timestamp", System.currentTimeMillis())
 				.addString("run.date", getBatchRunDate()).addString("calDay", Integer.toString(batchDay))
 				.addString("calMonth", Integer.toString(batchMonth)).addString("calYear", Integer.toString(batchYear))
-				.toJobParameters();
+				.addString("transactionDate", getBatchRunDate()).toJobParameters();
 
 		try {
 			/*
