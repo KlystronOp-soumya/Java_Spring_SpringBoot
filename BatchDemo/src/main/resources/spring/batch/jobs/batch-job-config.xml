@@ -65,9 +65,11 @@
 	<!-- <batch:job id="firstJob"> <batch:step id="step1" parent="helloWorldStep"></batch:step> 
 		</batch:job> -->
 
+<!-- Add Step that would Generate a Excel report after successfull step complition -->
+
 	<batch:job id="agentBonusCalculation">
 	<batch:validator ref="customJobParameterValidator" />
-		<batch:step id="step2">
+		<batch:step id="calculateBonus_Step" >
 			<batch:tasklet transaction-manager="transactionManager">
 				<batch:chunk reader="customAgentDetailsReader"
 					processor="customAgtBnsProcessor" writer="customAgtDtlsWriter"
@@ -83,4 +85,5 @@
 		</batch:step>
 	</batch:job>
 
+<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
 </beans>
