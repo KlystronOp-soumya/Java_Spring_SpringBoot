@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.batch.BatchDemo.DAO.intf.AgentBonusDAO;
 import com.demo.batch.BatchDemo.entity.Agent;
 import com.demo.batch.BatchDemo.entity.AgentBnsQualifEntity;
 import com.demo.batch.BatchDemo.services.intf.AgentBonusIntf;
@@ -12,8 +15,12 @@ import com.demo.batch.Util.InstanceUtil;
 public class AgentBonusImpl implements AgentBonusIntf {
 
 	/**/
-	private  List<Agent> agentList;
+	private List<Agent> agentList;
 	private List<AgentBnsQualifEntity> agtBnsQualifList;
+
+	@Autowired
+	private AgentBonusDAO agtBnsDao;
+
 	@Override
 	public void createAgents() {
 		// TODO Auto-generated method stub
@@ -51,7 +58,7 @@ public class AgentBonusImpl implements AgentBonusIntf {
 	@Override
 	public List<AgentBnsQualifEntity> getAgtQualifList() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.agtBnsDao.getAgentQualifData();
 	}
 
 	@Override
@@ -64,8 +71,7 @@ public class AgentBonusImpl implements AgentBonusIntf {
 	public void displayAgentDetails() {
 		// TODO Auto-generated method stub
 		System.out.println("Details are as follows: ");
-		for(Agent eachObjAgent : this.agentList)
-		{
+		for (Agent eachObjAgent : this.agentList) {
 			System.out.println(eachObjAgent);
 		}
 
@@ -76,10 +82,5 @@ public class AgentBonusImpl implements AgentBonusIntf {
 		// TODO Auto-generated method stub
 
 	}
-
-
-
-
-
 
 }
