@@ -14,7 +14,7 @@
 	<!-- Database Config for Batch imported -->
 	<import resource="classpath:/spring/batch/config/db-config.xml"/>
 	
-	<bean id = "checkDatabaseConn" class = "com.demo.batch.Util.CheckDBConn" />
+	
 	<!-- stored job-meta in memory -->
 	<!--  
 	<bean id="jobRepository"
@@ -38,5 +38,6 @@
 		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 		<property name="jobRepository" ref="jobRepository" />
 	</bean>
+
 
 </beans>

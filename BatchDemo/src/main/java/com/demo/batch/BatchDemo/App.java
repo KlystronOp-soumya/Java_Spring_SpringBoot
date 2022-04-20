@@ -18,7 +18,6 @@ import com.demo.batch.Util.LoggerUtil;
  * Hello world!
  *
  */
-@SuppressWarnings("unused")
 public class App {
 	private static final Logger LOGGER = Logger.getLogger(App.class);
 
