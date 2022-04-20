@@ -1,5 +1,8 @@
 .metadata
 .settings
-target
+target\
 .classpath
 .project
+logs\
+results\
+.xls
