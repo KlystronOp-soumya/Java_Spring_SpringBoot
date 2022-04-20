@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,25 +10,37 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/batch
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
-
-
 	<import
 		resource="classpath:/spring/batch/config/spring-context.xml" />
 	<context:component-scan
 		base-package="org.springframework.jdbc.datasource" />
-
+	<!-- Adding the beans -->
 	<!-- Add the tasklet implementation as dependency -->
+	<!-- the service and Dao bean -->
+	<bean id="checkDatabaseConn"
+		class="com.demo.batch.Util.CheckDBConn" />
+	<bean id="agentSrvc"
+		class="com.demo.batch.BatchDemo.services.impl.AgentBonusImpl" />
+	<bean id="agentBonusDao"
+		class="com.demo.batch.BatchDemo.DAO.impl.AgentBonusDAOImpl">
+		<!-- Setter for the DataSource -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- Tasklet Beans -->
 	<bean id="helloWorld"
 		class="com.demo.batch.BatchDemo.tasklets.HelloWorld" scope="step" />
-
-	<!-- the service bean -->
-	<bean id="agentSrvc"
-		class="com.demo.batch.BatchDemo.services.impl.AgentBonusImpl"></bean>
-
+	<bean id="agentReportGen"
+		class="com.demo.batch.BatchDemo.tasklets.AgentReportGenerator"
+		scope="step">
+		<property name="agentBonusService"  ref="agentSrvc" />
+		</bean>
+	<!-- Beans Section End -->
 	<batch:step id="helloWorldStep">
 		<batch:tasklet ref="helloWorld" /> <!-- refers to the takslets which falls under the step-helloworld -->
 	</batch:step>
-
+	<batch:step id="excelReportGen">
+		<batch:tasklet ref="agentReportGen" />
+	</batch:step>
 	<!-- RowMapper -->
 	<bean id="customAgentDtlsRowMapper"
 		class="com.demo.batch.BatchDemo.mappers.AgentDtlsRowMapper"></bean>
@@ -41,16 +52,15 @@
 	<!-- Inject the custom item processor -->
 	<bean id="customAgtBnsProcessor"
 		class="com.demo.batch.BatchDemo.processors.CustomAgtBnsProcessor">
-
 	</bean>
 	<!-- Inject the custome item writer -->
 	<bean id="customAgtDtlsWriter"
 		class="com.demo.batch.BatchDemo.writers.CustomAgtBnsWriter">
 		<constructor-arg ref="dataSource" />
 	</bean>
-
 	<!-- Listeners -->
-	<bean id="customJobListener" class="com.demo.batch.BatchDemo.listeners.CustomJobLoggerListener" />
+	<bean id="customJobListener"
+		class="com.demo.batch.BatchDemo.listeners.CustomJobLoggerListener" />
 	<bean id="customStepListener"
 		class="com.demo.batch.BatchDemo.listeners.StepListener" />
 	<bean id="customReaderListener"
@@ -59,23 +69,24 @@
 		class="com.demo.batch.BatchDemo.listeners.CustomItemProcessorListener" />
 	<bean id="customWriterListener"
 		class="com.demo.batch.BatchDemo.listeners.CustomItemWriterListener" />
-
-<!-- Job parameter validator -->
-<bean id="customJobParameterValidator" class="com.demo.batch.BatchDemo.validator.CustomJobParameterValidator" />
+	<bean id="agentReportGenListener"
+		class="com.demo.batch.BatchDemo.listeners.AgentReportGenerationListener" />
+	<!-- Job parameter validator -->
+	<bean id="customJobParameterValidator"
+		class="com.demo.batch.BatchDemo.validator.CustomJobParameterValidator" />
 	<!-- <batch:job id="firstJob"> <batch:step id="step1" parent="helloWorldStep"></batch:step> 
 		</batch:job> -->
-
-<!-- Add Step that would Generate a Excel report after successfull step complition -->
-
+	<!-- Add Step that would Generate a Excel report after successfull step 
+		complition -->
 	<batch:job id="agentBonusCalculation">
-	<batch:validator ref="customJobParameterValidator" />
-		<batch:step id="calculateBonus_Step" >
+		<batch:validator ref="customJobParameterValidator" />
+		<batch:step id="calculateBonus_Step" next="reportGen_Step">
 			<batch:tasklet transaction-manager="transactionManager">
 				<batch:chunk reader="customAgentDetailsReader"
 					processor="customAgtBnsProcessor" writer="customAgtDtlsWriter"
 					commit-interval="5"></batch:chunk>
 				<batch:listeners>
-				<batch:listener ref="customJobListener" />
+					<batch:listener ref="customJobListener" />
 					<batch:listener ref="customStepListener" />
 					<batch:listener ref="customReaderListener" />
 					<batch:listener ref="customProcessorListener" />
@@ -83,7 +94,12 @@
 				</batch:listeners>
 			</batch:tasklet>
 		</batch:step>
+		<!-- After Calculation of the Previous step this Step will be executed -->
+		<batch:step id="reportGen_Step" parent="excelReportGen">
+			<batch:listeners>
+				<batch:listener ref="agentReportGenListener" />
+			</batch:listeners>
+		</batch:step>
 	</batch:job>
-
-<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
+	<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
 </beans>
