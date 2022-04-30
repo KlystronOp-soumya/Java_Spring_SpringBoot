@@ -1,15 +1,14 @@
 package com.demo.SpringJdbcDemo.service;
 
-import java.sql.SQLException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.demo.SpringJdbcDemo.DAO.AgentDAO;
+import com.demo.SpringJdbcDemo.intf.AgentRepositoryIntf;
+import com.demo.SpringJdbcDemo.intf.AgentServiceIntf;
 
 @Service(value = "agentServiceBean")
-public class AgentService {
+public class AgentService implements AgentServiceIntf {
 	/* The Logger */
 	private static final Logger LOGGER = LogManager.getLogger(AgentService.class);
 
@@ -19,16 +18,21 @@ public class AgentService {
 	 */
 
 	// Add the DAO
-	private transient AgentDAO agentDAO;
+	private transient AgentRepositoryIntf agentDAO;
 
 	// Default Constructor
 	public AgentService() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public AgentService(AgentDAO agentDAO) {
-		// TODO Auto-generated constructor stub
+	// Constructor injection
+	public AgentService(AgentRepositoryIntf agentDAO) {
 		this.agentDAO = agentDAO;
+		populateResources();
+	}
+
+	private void populateResources() {
+		// TODO Auto-generated method stub
+		this.agentDAO.populateReosurces();
 	}
 	/*
 	 * Constructor Injection
@@ -37,20 +41,37 @@ public class AgentService {
 	 * Auto-generated constructor stub this.testService = testService; }
 	 */
 
+	@Override
+	public void getAllAgentsList() {
+		// TODO Auto-generated method stub
+		LOGGER.info("Inside Service class:: getAllAgentList");
+		try {
+			this.agentDAO.getAllAgentsList().stream().forEach((agent) -> System.out.println(agent));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e);
+		}
+
+	}
+
+	@Override
+	public void addAgent() {
+		// TODO Auto-generated method stub
+
+	}
+
 	/*
 	 * public void doCheck() { LOGGER.info("Inside AgentService :: doCheck");
 	 * this.testService.doGreet(); }
 	 */
 
-	public void doTestDBConnection() {
-		LOGGER.info("Inside AgentService:: doTestDBConnection");
-		try {
-			this.agentDAO.checkConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	/*
+	 * public void doTestDBConnection() {
+	 * LOGGER.info("Inside AgentService:: doTestDBConnection"); try {
+	 * this.agentDAO.checkConnection(); } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } }
+	 */
+
 	/*
 	 * @Autowired public void setTestService(TestService testService) {
 	 * this.testService = testService; }

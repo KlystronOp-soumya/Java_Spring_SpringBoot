@@ -24,7 +24,7 @@
     	<!-- Root logger referring to console appender -->
         <Root level="INFO" additivity="false">
             <AppenderRef ref="CONSOLE" />
-            <AppenderRef ref="DEBUGLOG" />
+            <!-- <AppenderRef ref="DEBUGLOG" /> -->
         </Root>
         
 </Loggers>

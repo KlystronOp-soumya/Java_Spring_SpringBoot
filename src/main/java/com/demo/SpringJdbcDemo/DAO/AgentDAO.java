@@ -1,9 +1,10 @@
 package com.demo.SpringJdbcDemo.DAO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
 import org.springframework.stereotype.Repository;
 
+import com.demo.SpringJdbcDemo.entity.AgentEntity;
+import com.demo.SpringJdbcDemo.enums.ConstEnums;
 import com.demo.SpringJdbcDemo.intf.AgentRepositoryIntf;
+import com.demo.SpringJdbcDemo.service.AgentRowMapperService;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Repository
@@ -38,7 +42,7 @@ public class AgentDAO implements AgentRepositoryIntf {
 	 * }
 	 */
 
-	@Override
+	@Override // setter injection
 	public void setHikariDataSource(HikariDataSource hikariDataSource) {
 		// TODO Auto-generated method stub
 		LOGGER.info("Set HikariDataSource");
@@ -53,45 +57,38 @@ public class AgentDAO implements AgentRepositoryIntf {
 		this.resourceDatabasePopulator = resourceDatabasePopulator;
 	}
 
-	@Override
+	@Override // setter injection
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		// TODO Auto-generated method stub
 		LOGGER.info("Set JdbcTemplate");
 		this.jdbctemplate = jdbcTemplate;
 	}
 
-	public void checkConnection() throws SQLException {
-		// init
-		connection = null;
-		try {
-			populateReosurces();
-			connection = this.hikariDataSource.getConnection();
-			// PreparedStatement pstmt =
-			// connection.prepareStatement(this.hikariDataSource.getConnectionTestQuery());
-
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM AGENT");
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				LOGGER.info("Connection Tested:: OK");
-
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
-			connection.close();
-			this.hikariDataSource.close();
-			// this.dataSource.getConnection().close();
-		}
-	}
+	// The method was commented.
+	/*
+	 * public void checkConnection() throws SQLException { // init connection =
+	 * null; try { populateReosurces(); connection =
+	 * this.hikariDataSource.getConnection(); // PreparedStatement pstmt = //
+	 * connection.prepareStatement(this.hikariDataSource.getConnectionTestQuery());
+	 * 
+	 * PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM AGENT");
+	 * rs = pstmt.executeQuery(); if (rs.next()) {
+	 * LOGGER.info("Connection Tested:: OK");
+	 * 
+	 * }
+	 * 
+	 * } catch (Exception e) { // TODO: handle exception } finally {
+	 * connection.close(); this.hikariDataSource.close(); //
+	 * this.dataSource.getConnection().close(); } }
+	 */
 
 	@Override
 	public void populateReosurces() {
 		// TODO Auto-generated method stub
 		LOGGER.info("Populating Reosurce");
 		try {
-			this.resourceDatabasePopulator.addScripts(new ClassPathResource("database/create_drop.sql"),
-					new ClassPathResource("database/schema.sql"));
+			this.resourceDatabasePopulator.addScripts(new ClassPathResource(ConstEnums.CREATE_SCRIPT_CLASSPATH.value),
+					new ClassPathResource(ConstEnums.INSERT_DATA_CLASSPATH.value));
 			this.resourceDatabasePopulator.populate(this.hikariDataSource.getConnection());
 		} catch (ScriptException e) {
 			// TODO Auto-generated catch block
@@ -100,6 +97,54 @@ public class AgentDAO implements AgentRepositoryIntf {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		LOGGER.info("Resource Population Done");
+	}
+
+	/*
+	 * Method to fetch all the agents from Database
+	 * 
+	 * @param
+	 * 
+	 * @return List<AgentEntity>
+	 * 
+	 */
+	@Override
+	public List<AgentEntity> getAllAgentsList() {
+		// TODO Auto-generated method stub
+		LOGGER.info("Inside DAO::getAllAgentsList method");
+		List<AgentEntity> agentList = null;
+		final String queryString = "SELECT COLL_OFF,AGENT_ID,AGENT_NO,POL_NO,LOB,COMMISSION FROM AGENT_TEST";
+		try {
+			agentList = new ArrayList<>();
+			agentList = this.jdbctemplate.query(queryString, new AgentRowMapperService());
+
+			if (agentList == null || agentList.isEmpty())
+				throw new NullPointerException("Agent List can not be empty");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+
+			try {
+				this.jdbctemplate.getDataSource().getConnection().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return agentList;
+	}
+
+	@Override
+	public void addAgent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public AgentEntity searchAgentById(String collOffice, String agentId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

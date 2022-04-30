@@ -33,7 +33,7 @@ public class App {
 			((AbstractApplicationContext) contextXML).refresh();
 
 			AgentService agentService = (AgentService) contextXML.getBean("agentServiceBean");
-			agentService.doTestDBConnection();
+			// agentService.doTestDBConnection();
 
 			/*
 			 * DataSource dataSource = (DataSource) contextXML.getBean("dataSource"); if
@@ -41,6 +41,7 @@ public class App {
 			 * LOGGER.info("DB Connection was successfull"); }
 			 */
 			LOGGER.info("XML based configuration was loaded successfully");
+			agentService.getAllAgentsList();
 			((AbstractApplicationContext) contextXML).close();
 
 			/*
