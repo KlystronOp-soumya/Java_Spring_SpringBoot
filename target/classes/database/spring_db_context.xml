@@ -90,6 +90,6 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	<!-- Resource Populator -->
-	<bean id="databasePopulator"
-		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" />
+	<!-- <bean id="databasePopulator"
+		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" /> -->
 </beans>

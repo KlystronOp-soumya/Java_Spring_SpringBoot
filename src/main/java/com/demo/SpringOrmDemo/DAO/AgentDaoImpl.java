@@ -1,6 +1,9 @@
 package com.demo.SpringOrmDemo.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.hibernate.SessionFactory;
 
@@ -26,10 +29,21 @@ public class AgentDaoImpl implements AgentDao {
 		// this.sessionFactory.getCurrentSession().close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AgentEntity> getAllActiveAgents() {
 		// TODO Auto-generated method stub
-		return null;
+		List<AgentEntity> activeAgtList = null;
+		Query query = this.sessionFactory.getCurrentSession().createNativeQuery("SELECT * FROM hibjpatest.AGENT",
+				AgentEntity.class);
+		activeAgtList = new ArrayList<>();
+		activeAgtList = (List<AgentEntity>) query.getResultList();
+		this.sessionFactory.getCurrentSession().flush();
+
+		if (activeAgtList.isEmpty() || activeAgtList == null)
+			throw new NullPointerException("Agent List can not be empty");
+
+		return activeAgtList;
 	}
 
 }

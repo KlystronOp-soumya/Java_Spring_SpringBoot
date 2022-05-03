@@ -17,8 +17,9 @@ public class App {
 		ApplicationContext context = new ClassPathXmlApplicationContext(ConfigPathEnum.SPRING_CONTEXT_PATH.value);
 		System.out.println("Hello World!");
 		AgentService agtService = (AgentServiceImpl) context.getBean("agentService");
-
 		agtService.saveAgent(agtService.creatAgentEntity());
+
+		agtService.getAllActiveAgents().stream().forEach((eachAgt) -> System.out.println(eachAgt));
 		((AbstractApplicationContext) context).close();
 	}
 }

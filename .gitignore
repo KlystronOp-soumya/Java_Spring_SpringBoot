@@ -1,8 +1,7 @@
-.settings
+.settings\
 .classpath
 .project
 target\
 .vsCode
-.vscode
 *.mv.db
 *.trace.db

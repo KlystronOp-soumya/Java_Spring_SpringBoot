@@ -22,7 +22,7 @@ public class AgentServiceImpl implements AgentService {
 	@Transactional
 	public List<AgentEntity> getAllActiveAgents() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.agentDao.getAllActiveAgents();
 	}
 
 	@Override
