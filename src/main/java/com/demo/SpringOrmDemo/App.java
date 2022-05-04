@@ -19,7 +19,9 @@ public class App {
 		AgentService agtService = (AgentServiceImpl) context.getBean("agentService");
 		agtService.saveAgent(agtService.creatAgentEntity());
 
-		agtService.getAllActiveAgents().stream().forEach((eachAgt) -> System.out.println(eachAgt));
+		// agtService.getAllActiveAgents().stream().forEach((eachAgt) ->
+		// System.out.println(eachAgt));
+		agtService.getAllActiveAgentsUsingRepo().stream().forEach((eachAgt) -> System.out.println(eachAgt));
 		((AbstractApplicationContext) context).close();
 	}
 }

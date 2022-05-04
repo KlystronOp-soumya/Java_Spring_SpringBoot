@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.demo.SpringOrmDemo.DAO.repository.AgentRepository;
 import com.demo.SpringOrmDemo.entity.AgentEntity;
 import com.demo.SpringOrmDemo.entity.AgentQualifEntity;
 import com.demo.SpringOrmDemo.intf.AgentDao;
@@ -16,6 +17,14 @@ public class AgentServiceImpl implements AgentService {
 
 	@Autowired
 	private transient AgentDao agentDao;
+
+	private transient AgentRepository agentRepository;
+
+	@Override
+	public void setAgentRepository(AgentRepository agentRepository) {
+		// TODO Auto-generated method stub
+		this.agentRepository = agentRepository;
+	}
 
 	// constructor injection to be implemented
 	@Override
@@ -51,6 +60,13 @@ public class AgentServiceImpl implements AgentService {
 
 		return obj;
 
+	}
+
+	@Override
+	@Transactional
+	public List<AgentEntity> getAllActiveAgentsUsingRepo() {
+		// TODO Auto-generated method stub
+		return this.agentRepository.findAll();
 	}
 
 }

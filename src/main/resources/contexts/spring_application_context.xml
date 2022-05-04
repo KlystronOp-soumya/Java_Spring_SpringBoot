@@ -22,11 +22,16 @@
 		base-package="com.demo.SpringOrmDemo" />
 	<import resource="classpath:database/spring_db_context.xml" />
 	<!-- Add the beans -->
+	<!-- Repository Class -->
+	<bean id="agentRepository"
+		class="com.demo.SpringOrmDemo.DAO.repository.AgentRepository" />
 	<!-- Service Class -->
 	<bean id="agentService"
-		class="com.demo.SpringOrmDemo.service.AgentServiceImpl" />
-		
-	<bean id="agentDao" class="com.demo.SpringOrmDemo.DAO.AgentDaoImpl">
+		class="com.demo.SpringOrmDemo.service.AgentServiceImpl">
+		<property name="agentRepository" ref="agentRepository" />
+	</bean>
+	<bean id="agentDao"
+		class="com.demo.SpringOrmDemo.DAO.AgentDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 </beans>
