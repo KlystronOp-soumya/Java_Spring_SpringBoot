@@ -1,7 +1,6 @@
 package com.demo.SpringOrmDemo;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.demo.SpringOrmDemo.Util.ConfigPathEnum;
@@ -19,9 +18,10 @@ public class App {
 		AgentService agtService = (AgentServiceImpl) context.getBean("agentService");
 		agtService.saveAgent(agtService.creatAgentEntity());
 
-		// agtService.getAllActiveAgents().stream().forEach((eachAgt) ->
-		// System.out.println(eachAgt));
-		agtService.getAllActiveAgentsUsingRepo().stream().forEach((eachAgt) -> System.out.println(eachAgt));
-		((AbstractApplicationContext) context).close();
+		agtService.getAllActiveAgents().stream().forEach((eachAgt) -> System.out.println(eachAgt));
+		/*
+		 * agtService.getAllActiveAgentsUsingRepo().stream().forEach((eachAgt) ->
+		 * System.out.println(eachAgt)); ((AbstractApplicationContext) context).close();
+		 */
 	}
 }
