@@ -30,9 +30,10 @@
 	<bean id="customLineAggregator" class="com.demo.batch.Util.CustomLineAggregatorUtil">
 		<property name="fieldExtractor">
 			<bean  class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-				<property name="names" value="" />
+				<property name="names" value="agentId,name,designation,LOB,bonusAmt,bonusPerct,bonusPayout,calDay,calMonth,calYear,qualifStatus" />
 			</bean>
 		</property>
+		<property name="format" value="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" />
 	</bean>
 	<!-- Tasklet Beans -->
 	<bean id="helloWorld"
@@ -68,7 +69,7 @@
 	 <property name="shouldDeleteIfExists" value="true" />
 	 <property name="resource" >
 	 <bean class="org.springframework.core.io.FileSystemResource">
-	 	<constructor-arg value="" /> <!-- Put the output filename in the porperties file -->
+	 	<constructor-arg value="${bonus_result_path}" />
 	 </bean>
 	 </property>
 	</bean>
