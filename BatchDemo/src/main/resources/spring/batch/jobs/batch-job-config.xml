@@ -26,10 +26,10 @@
 		<!-- Setter for the DataSource -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="customLineAggregator" class="com.demo.batch.Util.CustomLineAggregatorUtil">
+	<bean id="formatterLineAggregator" class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
 		<property name="fieldExtractor">
 			<bean  class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-				<property name="names" value="agentId,name,designation,LOB,bonusAmt,bonusPerct,bonusPayout,calDay,calMonth,calYear,qualifStatus" />
+				<property name="names" value="agtId,name,designation,LOB,bonusAmt,bonusPerct,bonusPayout,calDay,calMonth,calYear,qualifStatus" />
 			</bean>
 		</property>
 		<property name="format" value="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" />
@@ -64,14 +64,14 @@
 		class="com.demo.batch.BatchDemo.writers.CustomAgtBnsWriter">
 		<constructor-arg ref="dataSource" />
 	</bean>
-	<bean id="customAgtBnsQlfFileWriter" class="com.demo.batch.BatchDemo.writers.CustomAgentBonusFlatFileWriter">
-	 <property name="lineAggregator" ref="customLineAggregator" />
-	 <property name="shouldDeleteIfExists" value="true" />
-	 <property name="resource" >
+	<bean id="customAgtBnsQlfFileWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+	<property name="resource" >
 	 <bean class="org.springframework.core.io.FileSystemResource">
 	 	<constructor-arg value="${bonus_result_path}" />
 	 </bean>
 	 </property>
+	 <property name="lineAggregator" ref="formatterLineAggregator" />
+	 <property name="shouldDeleteIfExists" value="true" />	 
 	</bean>
 	<!-- Listeners -->
 	<bean id="customJobListener"
@@ -121,19 +121,19 @@
 			</batch:tasklet>
 		</batch:step>
 		<!-- After Calculation of the Previous step this Step will be executed -->
-		<batch:step id="reportGen_Step" parent="excelReportGen">
+		<batch:step id="reportGen_Step" parent="excelReportGen" next="agentQualifFileWrite_Step">
 			<batch:listeners>
 				<batch:listener ref="agentReportGenListener" />
 			</batch:listeners>
 		</batch:step>
 		
-		<batch:step id="agentQualifFileWrite" parent="flatFileWriting">
-		<batch:listeners>
+		<batch:step id="agentQualifFileWrite_Step" parent="flatFileWriting">
+		<!-- <batch:listeners>
 				<batch:listener ref="customJobListener" />
 				<batch:listener ref="customStepListener" />
 				<batch:listener ref="customReaderListener" />
 				<batch:listener ref="customWriterListener" />
-		</batch:listeners>
+		</batch:listeners> -->
 		</batch:step>
 	</batch:job>
 	<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
