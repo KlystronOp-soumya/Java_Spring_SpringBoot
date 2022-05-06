@@ -22,135 +22,122 @@ import com.demo.batch.Util.LoggerUtil;
 public class CustomAgtDtlsReader implements ItemReader<Agent> {
 
 	/* logger */
-	private static final Logger LOGGER = Logger.getLogger(CustomAgtDtlsReader.class) ;
-	
+	private static final Logger LOGGER = Logger.getLogger(CustomAgtDtlsReader.class);
+
 	@Autowired
-	private transient DataSource dataSource ;
-	
+	private transient DataSource dataSource;
+
 	@Autowired
 	private transient AgentDtlsRowMapper agtDtlsRowMapper;
-	
 
 	/*
 	 * public void setAgtDtlsRowMapper(AgentDtlsRowMapper agtDtlsRowMapper) {
 	 * this.agtDtlsRowMapper = agtDtlsRowMapper; }
 	 */
 
-
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
 
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
 
-
 	public void setRs(ResultSet rs) {
 		this.rs = rs;
 	}
 
-
 	public void setStmt(Statement stmt) {
 		this.stmt = stmt;
 	}
-
 
 	public void setRowNum(int rowNum) {
 		this.rowNum = rowNum;
 	}
 
 	private Connection connection;
-	
-	private ResultSet rs = null ;
-	
+
+	private ResultSet rs = null;
+
 	private Statement stmt;
-	
-	protected String query ;
-	
-	private int rowNum= 0;
-	
-	
+
+	protected String query;
+
+	private int rowNum = 0;
+
 //	public CustomAgtDtlsReader(DataSource dataSource) {
 //		// TODO Auto-generated constructor stub
 //		this.dataSource = dataSource ;
 //	}
-	
+
 	@Override
 	public Agent read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 		// TODO Auto-generated method stub
-		Agent agtMappedObj = null;	
+		Agent agtMappedObj = null;
 		try {
-			
-			if(null == rs)
-			{
+
+			if (null == rs) {
 				LoggerUtil.debug(LOGGER, "Result set is null,initializing the reader");
 				this.initReader();
 			}
-				
-			
-			if(rs.next())
-			{
-				LoggerUtil.debug(LOGGER,"rowMapper called");
-				
-				rowNum++ ;
-				agtMappedObj= agtDtlsRowMapper.mapRow(rs, rowNum);
-				System.out.printf("Current row %d mapped",rowNum);
+
+			if (rs.next()) {
+				LoggerUtil.debug(LOGGER, "rowMapper called");
+
+				rowNum++;
+				agtMappedObj = agtDtlsRowMapper.mapRow(rs, rowNum);
+				System.out.printf("Current row %d mapped", rowNum);
 			}
-			
-		}catch (NullPointerException npe) {
+
+		} catch (NullPointerException npe) {
 			// TODO: handle exception
 			npe.printStackTrace();
-		} 
-		catch (Exception e) {
+			this.closeReader();
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			this.closeReader();
 		}
 		return agtMappedObj;
 	}
-	
 
-	private void initReader() //Service -> DAO -> DB
+	private void initReader() // Service -> DAO -> DB
 	{
-		 this.connection = null ;
-		 this.rs= null;
-		 this.stmt = null;
-		 String queryString = this.getQuery() ;
-		 try {
-			 connection = this.dataSource.getConnection();
-			 stmt= connection.createStatement();
-			 rs=stmt.executeQuery(queryString);
-			 //this.closeReader();
-			
+		this.connection = null;
+		this.rs = null;
+		this.stmt = null;
+		String queryString = this.getQuery();
+		try {
+			connection = this.dataSource.getConnection();
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(queryString);
+			// this.closeReader();
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		 
-		 
-		
+
 	}
-	
+
 	private String getQuery() {
-		
+
 		query = "SELECT AGT_ID,NAME,DESIGNATION,LOB,BONUS FROM AGENT";
 		return query;
 	}
-	
-	private void closeReader()
-	{
+
+	private void closeReader() {
 		try {
-			if(rs!= null)
+			if (rs != null)
 				rs.close();
-			if(stmt != null)
+			if (stmt != null)
 				stmt.close();
-			if(connection != null)
+			if (connection != null)
 				connection.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+
 	}
 }
