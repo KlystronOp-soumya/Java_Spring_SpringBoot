@@ -26,7 +26,6 @@
 		<!-- Setter for the DataSource -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
 	<bean id="customLineAggregator" class="com.demo.batch.Util.CustomLineAggregatorUtil">
 		<property name="fieldExtractor">
 			<bean  class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
@@ -49,6 +48,7 @@
 		class="com.demo.batch.BatchDemo.mappers.AgentDtlsRowMapper" />
 	<bean id="customAgentBnsQualifRowMapper"
 		class="com.demo.batch.BatchDemo.mappers.AgentBnsQualifRowMapper" />
+		
 	<!-- Injecting the custom item reader -->
 	<bean id="customAgentDetailsReader"
 		class="com.demo.batch.BatchDemo.readers.CustomAgtDtlsReader">
@@ -128,6 +128,12 @@
 		</batch:step>
 		
 		<batch:step id="agentQualifFileWrite" parent="flatFileWriting">
+		<batch:listeners>
+				<batch:listener ref="customJobListener" />
+				<batch:listener ref="customStepListener" />
+				<batch:listener ref="customReaderListener" />
+				<batch:listener ref="customWriterListener" />
+		</batch:listeners>
 		</batch:step>
 	</batch:job>
 	<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
