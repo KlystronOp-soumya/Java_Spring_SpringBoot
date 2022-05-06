@@ -3,6 +3,7 @@ package com.demo.batch.BatchDemo.readers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -39,11 +40,13 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 		try {
 			if (null == rs)
 				initReader();
-			else {
+
+			if (rs.next())
 				agtBnsQualifEntity = this.agtBnsQualifRowMapper.mapRow(this.rs, this.rs.getRow());
-			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return agtBnsQualifEntity;
 	}
@@ -53,7 +56,7 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 		return query;
 	}
 
-	protected void initReader() {
+	protected void initReader() throws SQLException {
 		LOGGER.info("Initializing the Reader");
 		Connection conn = null;
 		try {
