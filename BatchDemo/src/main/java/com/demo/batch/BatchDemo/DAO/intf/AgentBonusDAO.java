@@ -1,5 +1,7 @@
 package com.demo.batch.BatchDemo.DAO.intf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -10,7 +12,9 @@ public interface AgentBonusDAO {
 
 	void setDataSource(DataSource dataSource);
 
-	List<AgentBnsQualifEntity> getAgentQualifData();
+	List<AgentBnsQualifEntity> getAgentQualifData() throws SQLException;
+
+	ResultSet getAgentBnsQualifResultSet();
 
 	void saveQualifAgentList(List<AgentBnsQualifEntity> agentBnsQualifList);
 }

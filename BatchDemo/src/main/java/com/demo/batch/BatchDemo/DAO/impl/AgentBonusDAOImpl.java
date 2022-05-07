@@ -3,6 +3,7 @@ package com.demo.batch.BatchDemo.DAO.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +21,14 @@ public class AgentBonusDAOImpl implements AgentBonusDAO {
 	private ResultSet rs;
 
 	@Override
-	public List<AgentBnsQualifEntity> getAgentQualifData() {
+	public List<AgentBnsQualifEntity> getAgentQualifData() throws SQLException {
 		// TODO Auto-generated method stub
 		List<AgentBnsQualifEntity> qualifAgtList = new ArrayList<>();
-		this.connection = null;
+		PreparedStatement pstmt = null;
 		String query = "SELECT AGT_ID,NAME,DESIGNATION,LOB,BONUS,BONUS_PCT,BONUS_PAYOUT,CALDAY,CALMONTH,CALYEAR FROM agent_bonus_qualif";
 		try {
 			this.connection = this.dataSource.getConnection();
-			PreparedStatement pstmt = this.connection.prepareStatement(query);
+			pstmt = this.connection.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -52,6 +53,13 @@ public class AgentBonusDAOImpl implements AgentBonusDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		} finally {
+			if (null != pstmt)
+				pstmt.close();
+			if (null != this.rs)
+				rs.close();
+			if (null != this.connection)
+				connection.close();
 		}
 		return qualifAgtList;
 	}
@@ -67,6 +75,24 @@ public class AgentBonusDAOImpl implements AgentBonusDAO {
 	public void saveQualifAgentList(List<AgentBnsQualifEntity> agentBnsQualifList) {
 		// TODO Auto-generated method stub
 		// to be used in the Writer
+	}
+
+	@Override
+	public ResultSet getAgentBnsQualifResultSet() {
+		// TODO Auto-generated method stub
+		this.rs = null;
+		PreparedStatement pstmt = null;
+		String query = "SELECT AGT_ID,NAME,DESIGNATION,LOB,BONUS,BONUS_PCT,BONUS_PAYOUT,CALDAY,CALMONTH,CALYEAR,QUALIF_STATUS FROM agent_bonus_qualif";
+		try {
+			this.connection = this.dataSource.getConnection();
+			pstmt = this.connection.prepareStatement(query);
+			rs = pstmt.executeQuery();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return this.rs;
 	}
 
 }

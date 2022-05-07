@@ -126,7 +126,7 @@ public class CustomAgtDtlsReader implements ItemReader<Agent> {
 		return query;
 	}
 
-	private void closeReader() {
+	public void closeReader() {
 		try {
 			if (rs != null)
 				rs.close();

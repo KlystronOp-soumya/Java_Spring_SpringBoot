@@ -128,12 +128,10 @@
 		</batch:step>
 		
 		<batch:step id="agentQualifFileWrite_Step" parent="flatFileWriting">
-		<!-- <batch:listeners>
+		<batch:listeners>
 				<batch:listener ref="customJobListener" />
 				<batch:listener ref="customStepListener" />
-				<batch:listener ref="customReaderListener" />
-				<batch:listener ref="customWriterListener" />
-		</batch:listeners> -->
+		</batch:listeners>
 		</batch:step>
 	</batch:job>
 	<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->

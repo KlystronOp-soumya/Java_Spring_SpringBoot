@@ -1,6 +1,8 @@
 package com.demo.batch.BatchDemo.services.impl;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class AgentBonusImpl implements AgentBonusIntf {
 	}
 
 	@Override
-	public List<AgentBnsQualifEntity> getAgtQualifList() {
+	public List<AgentBnsQualifEntity> getAgtQualifList() throws SQLException {
 		// TODO Auto-generated method stub
 		return this.agtBnsDao.getAgentQualifData();
 	}
@@ -81,6 +83,12 @@ public class AgentBonusImpl implements AgentBonusIntf {
 	public void displayAgtBnsDetails() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public ResultSet getAgtBnsQualifResultSet() {
+		// TODO Auto-generated method stub
+		return this.agtBnsDao.getAgentBnsQualifResultSet();
 	}
 
 }

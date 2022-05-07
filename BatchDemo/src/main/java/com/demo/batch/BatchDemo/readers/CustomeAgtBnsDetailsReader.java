@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.demo.batch.BatchDemo.entity.AgentBnsQualifEntity;
 import com.demo.batch.BatchDemo.mappers.AgentBnsQualifRowMapper;
+import com.demo.batch.BatchDemo.services.impl.AgentBonusImpl;
 
 public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEntity> {
 	/* logger */
@@ -26,6 +27,9 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 
 	@Autowired
 	private transient AgentBnsQualifRowMapper agtBnsQualifRowMapper;
+
+	@Autowired
+	private transient AgentBonusImpl agtService;
 
 	private ResultSet rs;
 
@@ -39,7 +43,8 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 		AgentBnsQualifEntity agtBnsQualifEntity = null;
 		try {
 			if (null == rs)
-				initReader();
+				// initReader();
+				this.rs = this.agtService.getAgtBnsQualifResultSet();
 
 			if (rs.next())
 				agtBnsQualifEntity = this.agtBnsQualifRowMapper.mapRow(this.rs, this.rs.getRow());
@@ -47,6 +52,7 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			closeReader();
 		}
 		return agtBnsQualifEntity;
 	}
@@ -67,6 +73,20 @@ public class CustomeAgtBnsDetailsReader implements ItemReader<AgentBnsQualifEnti
 
 			if (rs == null)
 				throw new NullPointerException("Empty Result set");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+
+	private void closeReader() {
+		try {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
 
 		} catch (Exception e) {
 			// TODO: handle exception
