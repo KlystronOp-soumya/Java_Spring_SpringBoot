@@ -1,0 +1,8 @@
+.settings\
+logs\
+log\
+.metadata\
+.classpath
+.project
+target\
+*.txt
