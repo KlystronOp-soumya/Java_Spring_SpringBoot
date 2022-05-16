@@ -12,7 +12,6 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
-
 	<!-- In order to use the annotation based configuration -->
 	<tx:annotation-driven
 		transaction-manager="txManager" />
@@ -20,40 +19,28 @@
 	<!-- Import the DB properties -->
 	<context:property-placeholder
 		location="classpath:database/db-config.properties" />
-		
 	<!-- Configure here normal DataSource -->
 	<!-- connect to database MYSQL -->
-	<!-- <bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${mysql.driver}" />
-		<property name="url" value="${mysql.url}" />
-		<property name="username" value="${mysql.user}" />
-		<property name="password" value="${mysql.password}" />
-	</bean> -->
-
-
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="${mysql.driver}" /> <property name="url" 
+		value="${mysql.url}" /> <property name="username" value="${mysql.user}" /> 
+		<property name="password" value="${mysql.password}" /> </bean> -->
 	<!-- connect to database H2 -->
-	<!-- <bean id="dataSourceH2"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${h2.driver}" />
-		<property name="url" value="${h2.url}" />
-		<property name="username" value="${h2.user}" />
-		<property name="password" value="${h2.password}" />
-	</bean> -->
-	
+	<!-- <bean id="dataSourceH2" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="${h2.driver}" /> <property name="url" 
+		value="${h2.url}" /> <property name="username" value="${h2.user}" /> <property 
+		name="password" value="${h2.password}" /> </bean> -->
 	<!-- Configure here HikariCp -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" >
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="springHikariCP" />
 		<property name="connectionTestQuery"
 			value="SELECT 1 FROM DUAL" />
 		<property name="jdbcUrl" value="${h2.url}" />
 		<property name="username" value="${h2.user}" />
 		<property name="password" value="${h2.password}" />
-		<!-- <property name="dataSourceClassName"
-			value="${mysql.datasource}" /> -->
+		<!-- <property name="dataSourceClassName" value="${mysql.datasource}" /> -->
 		<property name="maximumPoolSize" value="100" />
 		<property name="idleTimeout" value="10" />
-
 		<property name="dataSourceProperties">
 			<props>
 				<prop key="url">${h2.url}</prop>
@@ -62,26 +49,47 @@
 			</props>
 		</property>
 	</bean>
-
 	<!-- HikariCP configuration -->
 	<bean id="hikariDataSource"
 		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-	
 	<!-- Transaction Manager For JDBC -->
 	<bean id="txManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<!-- <property name="dataSource" ref="dataSource" /> -->
-		<property name="dataSource" ref="hikariDataSource"/>
+		<property name="dataSource" ref="hikariDataSource" />
 	</bean>
-
-	
-
-	
-	
-	
-		
+	<!-- Entity Manager Factory -->
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="SpringJPADemo" />
+		<property name="dataSource" ref="hikariDataSource" />
+		<property name="packageToScan"
+			value="com.demo.SpringJPADemo.models" />
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<!-- Hibernate configurations -->
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.connection.autocommit">${hibernate.connection.autocommit}</prop>
+				<prop key="hibernate.connection.isolation">${hibernate.connection.isolation}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<!-- Hibernate Connection Pooling -->
+				<prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+				<prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+				<prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+				<prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+				<prop key="hibernate.c3p0.idle_test_period">${hibernate.c3p0.idle_test_period}</prop>
+			</props>
+		</property>
+	</bean>
 	<!-- Configure here ResourcePopulator Populates, initializes, or cleans 
 		up a database using SQL scripts defined in external resources. -->
 	<bean id="databasePopulator"
