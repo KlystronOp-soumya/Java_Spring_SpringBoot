@@ -65,7 +65,7 @@
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="SpringJPADemo" />
 		<property name="dataSource" ref="hikariDataSource" />
-		<property name="packageToScan"
+		<property name="packagesToScan"
 			value="com.demo.SpringJPADemo.models" />
 		<property name="jpaVendorAdapter">
 			<bean
