@@ -27,7 +27,8 @@ public class StepListener implements StepExecutionListener {
 		System.out.println("The step: " + stepExecution.getStepName() + " was successfully executed"
 				+ stepExecution.getExitStatus());
 		try {
-			this.dataSource.getConnection().close();
+			if (!this.dataSource.getConnection().isClosed())
+				this.dataSource.getConnection().close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

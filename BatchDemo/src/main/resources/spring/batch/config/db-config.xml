@@ -16,7 +16,7 @@
 		location="classpath:db-config.properties" />
 	<!-- connect to database -->
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource" scope="singleton">
 		<property name="driverClassName" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${userName}" />
@@ -25,6 +25,9 @@
 	
 	<!-- Hikari Connection Pooling Configuration -->
 	
+	<!-- JPA configuration -->
+	
+	<!-- JdbcTemplate Configuration -->
 	<bean id="transactionManager"
 		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
 

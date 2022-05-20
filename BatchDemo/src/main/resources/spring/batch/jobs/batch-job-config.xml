@@ -26,13 +26,25 @@
 		<!-- Setter for the DataSource -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="formatterLineAggregator" class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
+	<bean id="initAndClearDao"
+		class="com.demo.batch.BatchDemo.DAO.impl.InitializeAndClearDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="initAndClearSrvce"
+		class="com.demo.batch.BatchDemo.services.impl.InitAndClearService">
+		<property name="initAndClrDao" ref="initAndClearDao" />
+	</bean>
+	<bean id="formatterLineAggregator"
+		class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
 		<property name="fieldExtractor">
-			<bean  class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-				<property name="names" value="agtId,name,designation,LOB,bonusAmt,bonusPerct,bonusPayout,calDay,calMonth,calYear,qualifStatus" />
+			<bean
+				class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+				<property name="names"
+					value="agtId,name,designation,LOB,bonusAmt,bonusPerct,bonusPayout,calDay,calMonth,calYear,qualifStatus" />
 			</bean>
 		</property>
-		<property name="format" value="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" />
+		<property name="format"
+			value="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" />
 	</bean>
 	<!-- Tasklet Beans -->
 	<bean id="helloWorld"
@@ -42,19 +54,24 @@
 		scope="step">
 		<property name="agentBonusService" ref="agentSrvc" />
 	</bean>
+	<bean id="intializeAndClearTask"
+		class="com.demo.batch.BatchDemo.tasklets.InitializeAndClearDB"
+		scope="step">
+		<constructor-arg ref="initAndClearSrvce" />
+	</bean>
 	<!-- Beans Section End -->
 	<!-- RowMapper -->
 	<bean id="customAgentDtlsRowMapper"
 		class="com.demo.batch.BatchDemo.mappers.AgentDtlsRowMapper" />
 	<bean id="customAgentBnsQualifRowMapper"
 		class="com.demo.batch.BatchDemo.mappers.AgentBnsQualifRowMapper" />
-		
 	<!-- Injecting the custom item reader -->
 	<bean id="customAgentDetailsReader"
 		class="com.demo.batch.BatchDemo.readers.CustomAgtDtlsReader">
 		<!-- <property name="rowMapper" ref="customAgentDtlsRowMapper" /> -->
 	</bean>
-	<bean id="customAgtBnsQualifReader" class="com.demo.batch.BatchDemo.readers.CustomeAgtBnsDetailsReader" />
+	<bean id="customAgtBnsQualifReader"
+		class="com.demo.batch.BatchDemo.readers.CustomeAgtBnsDetailsReader" />
 	<!-- Inject the custom item processor -->
 	<bean id="customAgtBnsProcessor"
 		class="com.demo.batch.BatchDemo.processors.CustomAgtBnsProcessor">
@@ -64,14 +81,15 @@
 		class="com.demo.batch.BatchDemo.writers.CustomAgtBnsWriter">
 		<constructor-arg ref="dataSource" />
 	</bean>
-	<bean id="customAgtBnsQlfFileWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-	<property name="resource" >
-	 <bean class="org.springframework.core.io.FileSystemResource">
-	 	<constructor-arg value="${bonus_result_path}" />
-	 </bean>
-	 </property>
-	 <property name="lineAggregator" ref="formatterLineAggregator" />
-	 <property name="shouldDeleteIfExists" value="true" />	 
+	<bean id="customAgtBnsQlfFileWriter"
+		class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource">
+			<bean class="org.springframework.core.io.FileSystemResource">
+				<constructor-arg value="${bonus_result_path}" />
+			</bean>
+		</property>
+		<property name="lineAggregator" ref="formatterLineAggregator" />
+		<property name="shouldDeleteIfExists" value="true" />
 	</bean>
 	<!-- Listeners -->
 	<bean id="customJobListener"
@@ -96,17 +114,29 @@
 	<batch:step id="helloWorldStep">
 		<batch:tasklet ref="helloWorld" /> <!-- refers to the takslets which falls under the step-helloworld -->
 	</batch:step>
+	<batch:step id="initializeClear_step">
+		<batch:tasklet ref="intializeAndClearTask" />
+	</batch:step>
 	<batch:step id="excelReportGen">
 		<batch:tasklet ref="agentReportGen" />
 	</batch:step>
 	<batch:step id="flatFileWriting">
-		<batch:tasklet >
-			<batch:chunk  reader="customAgtBnsQualifReader" writer="customAgtBnsQlfFileWriter" commit-interval="10" cache-capacity="100"/>
+		<batch:tasklet>
+			<batch:chunk reader="customAgtBnsQualifReader"
+				writer="customAgtBnsQlfFileWriter" commit-interval="10"
+				cache-capacity="100" />
 		</batch:tasklet>
 	</batch:step>
 	<batch:job id="agentBonusCalculation">
 		<batch:validator ref="customJobParameterValidator" />
-		<batch:step id="calculateBonus_Step" next="reportGen_Step">
+		<batch:step id="initialize_clear_step1"
+			parent="initializeClear_step" next="calculateBonus_Step2">
+			<batch:listeners>
+				<batch:listener ref="customJobListener" />
+				<batch:listener ref="customStepListener" />
+			</batch:listeners>
+		</batch:step>
+		<batch:step id="calculateBonus_Step2" next="reportGen_Step3">
 			<batch:tasklet transaction-manager="transactionManager">
 				<batch:chunk reader="customAgentDetailsReader"
 					processor="customAgtBnsProcessor" writer="customAgtDtlsWriter"
@@ -121,17 +151,18 @@
 			</batch:tasklet>
 		</batch:step>
 		<!-- After Calculation of the Previous step this Step will be executed -->
-		<batch:step id="reportGen_Step" parent="excelReportGen" next="agentQualifFileWrite_Step">
+		<batch:step id="reportGen_Step3" parent="excelReportGen"
+			next="agentQualifFileWrite_Step4">
 			<batch:listeners>
 				<batch:listener ref="agentReportGenListener" />
 			</batch:listeners>
 		</batch:step>
-		
-		<batch:step id="agentQualifFileWrite_Step" parent="flatFileWriting">
-		<batch:listeners>
+		<batch:step id="agentQualifFileWrite_Step4"
+			parent="flatFileWriting">
+			<batch:listeners>
 				<batch:listener ref="customJobListener" />
 				<batch:listener ref="customStepListener" />
-		</batch:listeners>
+			</batch:listeners>
 		</batch:step>
 	</batch:job>
 	<!-- Add Jobs that populates data CSV/FILE to DB and Vice Versa -->
