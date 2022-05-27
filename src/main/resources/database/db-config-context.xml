@@ -4,6 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/jdbc 
@@ -11,7 +12,9 @@
 		http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa
+     	https://www.springframework.org/schema/data/jpa/spring-jpa.xsd ">
 	<!-- In order to use the annotation based configuration -->
 	<tx:annotation-driven
 		transaction-manager="txManager" />
@@ -59,9 +62,11 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<!-- <property name="dataSource" ref="dataSource" /> -->
 		<property name="dataSource" ref="hikariDataSource" />
-	</bean>
+	</bean> <!-- This transaction manager is not required here -->
+	
+	
 	<!-- Entity Manager Factory -->
-	<bean id="emf"
+	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="SpringJPADemo" />
 		<property name="dataSource" ref="hikariDataSource" />
@@ -96,8 +101,12 @@
 			</props>
 		</property>
 	</bean>
+	<bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	<jpa:repositories base-package="com.demo.SpringJPADemo.repositories" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="jpaTxManager"/>
 	<!-- Configure here ResourcePopulator Populates, initializes, or cleans 
 		up a database using SQL scripts defined in external resources. -->
 	<bean id="databasePopulator"
-		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" />
+		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" scope="protoype"/>
 </beans>
