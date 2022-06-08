@@ -1,10 +1,13 @@
 package com.demo.batch;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -13,11 +16,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.demo.batch.config.CustomBatchBasicConfigurer;
+import com.demo.batch.config.DeliveryDecider;
+import com.demo.batch.config.PackageAcceptanceDecider;
 
 @Configuration
 public class BatchJobConfig {
 
-	@Autowired
+	/* The Logger */
+	private static final Logger LOGGER = LogManager.getLogger(BatchJobConfig.class);
+	// The job decider
+	/*
+	 * @Autowired
+	 * 
+	 * @Qualifier("deliveryTimeDecider") private JobExecutionDecider decider;
+	 * 
+	 * @Autowired
+	 * 
+	 * @Qualifier("itemAcceptDecider") private JobExecutionDecider
+	 * acceptanceDecider;
+	 * 
+	 */ @Autowired
 	private JobBuilderFactory jobBuilderFactory; // interface
 
 	@Autowired
@@ -25,6 +43,52 @@ public class BatchJobConfig {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory; // interface
+
+	@Bean
+	public JobExecutionDecider decider() {
+		return new DeliveryDecider();
+	}
+
+	@Bean
+	public JobExecutionDecider acceptanceDecider() {
+		return new PackageAcceptanceDecider();
+	}
+
+	@Bean
+	public Step refundCustomerStep() {
+		return this.stepBuilderFactory.get("refundCustomerStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Wrong item! Refunding the money to the customer");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	public Step thankingCustomerStep() {
+		return this.stepBuilderFactory.get("thankingCustomerStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Customer took the package! Thanks!!");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	public Step leavePackageAtDoorStep() {
+		return this.stepBuilderFactory.get("leavePackageAtDoorStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Leaving the package at Door for Customer");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
 
 	@Bean
 	public Step storePackageStep() {
@@ -93,6 +157,7 @@ public class BatchJobConfig {
 	@Bean(name = "deliverPackageJob")
 	public Job deliverPackageJob() {
 		// applying the conditional flow
+		LOGGER.info("Executing Delivery Package Job");
 		Job job = null;
 		try {
 
@@ -100,8 +165,10 @@ public class BatchJobConfig {
 			// JobBuilderFactory(this.basicBatchConfig.batchConfigurer().getJobRepository());
 			job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.basicBatchConfig.getJobRepository())
 					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED")
-					.to(storePackageStep()).from(driveToAddressStep()).on("*").to(givePackageToCustomerStep()).end()
-					.build();
+					.to(storePackageStep()).from(driveToAddressStep()).on("*").to(decider()).on("PRESENT")
+					.to(givePackageToCustomerStep()).from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep())
+					.next(acceptanceDecider()).on("ACCEPTED").to(thankingCustomerStep()).from(acceptanceDecider())
+					.on("REJECTED").to(refundCustomerStep()).end().build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

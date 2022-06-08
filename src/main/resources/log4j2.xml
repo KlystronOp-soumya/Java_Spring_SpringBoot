@@ -21,6 +21,7 @@
 </Appenders>
 
 <Loggers>
+
     	<!-- Root logger referring to console appender -->
         <Root level="INFO" additivity="false">
             <AppenderRef ref="CONSOLE" />

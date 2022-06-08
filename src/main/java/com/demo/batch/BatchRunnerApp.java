@@ -8,11 +8,13 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.demo.batch.config.CustomJobParameterConfig;
 
 @Configuration
+@ComponentScan(basePackages = "com.demo.batch.config")
 @EnableBatchProcessing
 public class BatchRunnerApp implements CommandLineRunner {
 
@@ -22,7 +24,7 @@ public class BatchRunnerApp implements CommandLineRunner {
 	JobLauncher jobLauncher;
 
 	@Autowired
-	Job job;
+	Job job; // Bean was created in the BatchJobConfig
 
 	@Autowired
 	private CustomJobParameterConfig jobparameters;
@@ -65,7 +67,9 @@ public class BatchRunnerApp implements CommandLineRunner {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+
 			System.err.println(e);
+			System.exit(-1);
 		} /*
 			 * finally { ((AbstractApplicationContext) context).close(); }
 			 */

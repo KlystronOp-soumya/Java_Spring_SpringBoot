@@ -16,7 +16,7 @@ public class CustomJobParameterConfig {
 	private JobParameters jobParameters;
 
 	@NonNull
-	private long orderNum = 0;
+	private long orderNum = 1;
 	@NonNull
 	private String orderDate;
 	@NonNull

@@ -1122,3 +1122,32 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2022-04-14 01:07:17 INFO  BatchRunnerApp:52 - Current Execution Status Of Job: COMPLETED
 2022-04-14 01:07:17 INFO  BatchRunnerApp:53 - Job Ending time: Thu Apr 14 01:07:17 IST 2022
 2022-04-14 01:07:17 INFO  BatchRunnerApp:54 - Current Execution Status Of Job: COMPLETED
+2022-06-09 01:51:18 INFO  App:19 - App running...
+2022-06-09 01:51:19 INFO  App:19 - App running...
+2022-06-09 01:51:19 INFO  App:55 - Starting App on LAPTOP-7TTN79OF with PID 12772 (started by SOUMYADEEP PAUL in D:\Program Files\Spring\UltimateSpringBootBatchDemo)
+2022-06-09 01:51:19 INFO  App:651 - No active profile set, falling back to default profiles: default
+2022-06-09 01:51:21 INFO  CustomBatchBasicConfigurer:31 - Overridden CreateJobRepository
+2022-06-09 01:51:21 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-06-09 01:51:22 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-06-09 01:51:22 INFO  JobRepositoryFactoryBean:184 - No database type set, using meta data indicating: H2
+2022-06-09 01:51:22 INFO  SimpleJobLauncher:209 - No TaskExecutor has been set, defaulting to synchronous executor.
+2022-06-09 01:51:22 INFO  BatchJobConfig:160 - Executing Delivery Package Job
+2022-06-09 01:51:23 INFO  HikariDataSource:110 - HikariPool-2 - Starting...
+2022-06-09 01:51:25 INFO  HikariDataSource:123 - HikariPool-2 - Start completed.
+2022-06-09 01:51:26 INFO  OptionalLiveReloadServer:58 - LiveReload server is running on port 35729
+2022-06-09 01:51:26 INFO  App:61 - Started App in 7.047 seconds (JVM running for 13.744)
+2022-06-09 01:51:26 INFO  BatchRunnerApp:51 - Job was started....
+2022-06-09 01:51:26 INFO  BatchRunnerApp:52 - Job Name: deliverPackageJob
+2022-06-09 01:51:26 INFO  SimpleJobLauncher:145 - Job: [FlowJob: [name=deliverPackageJob]] launched with the following parameters: [{orderNum=1, timeOfOrder=01:51, dateOfOrder=2022-06-09}]
+2022-06-09 01:51:26 INFO  SimpleStepHandler:146 - Executing step: [packageItemStep]
+2022-06-09 01:51:26 INFO  AbstractStep:272 - Step: [packageItemStep] executed in 47ms
+2022-06-09 01:51:26 INFO  SimpleStepHandler:146 - Executing step: [driveToAddressStep]
+2022-06-09 01:51:26 INFO  AbstractStep:272 - Step: [driveToAddressStep] executed in 25ms
+2022-06-09 01:51:26 INFO  SimpleStepHandler:146 - Executing step: [givePackageToCustomer]
+2022-06-09 01:51:26 INFO  AbstractStep:272 - Step: [givePackageToCustomer] executed in 32ms
+2022-06-09 01:51:26 INFO  SimpleJobLauncher:149 - Job: [FlowJob: [name=deliverPackageJob]] completed with the following parameters: [{orderNum=1, timeOfOrder=01:51, dateOfOrder=2022-06-09}] and the following status: [COMPLETED] in 345ms
+2022-06-09 01:51:26 INFO  BatchRunnerApp:56 - Job name: deliverPackageJob
+2022-06-09 01:51:26 INFO  BatchRunnerApp:57 - Job Starting time: Thu Jun 09 01:51:26 IST 2022
+2022-06-09 01:51:27 INFO  BatchRunnerApp:58 - Current Execution Status Of Job: COMPLETED
+2022-06-09 01:51:27 INFO  BatchRunnerApp:59 - Job Ending time: Thu Jun 09 01:51:26 IST 2022
+2022-06-09 01:51:27 INFO  BatchRunnerApp:60 - Current Execution Status Of Job: COMPLETED
