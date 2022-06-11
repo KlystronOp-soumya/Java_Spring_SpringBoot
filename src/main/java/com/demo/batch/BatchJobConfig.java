@@ -165,12 +165,27 @@ public class BatchJobConfig {
 
 			// this.jobBuilderFactory = new
 			// JobBuilderFactory(this.basicBatchConfig.batchConfigurer().getJobRepository());
+			// adding the fail to stop the job
+			/*
+			 * job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.
+			 * basicBatchConfig.getJobRepository())
+			 * .preventRestart().start(packageItemStep()).next(driveToAddressStep()).on(
+			 * "FAILED")
+			 * .to(storePackageStep()).from(driveToAddressStep()).on("*").to(decider()).on(
+			 * "PRESENT")
+			 * .to(givePackageToCustomerStep()).from(decider()).on("NOT PRESENT").to(
+			 * leavePackageAtDoorStep())
+			 * .next(acceptanceDecider()).on("ACCEPTED").to(thankingCustomerStep()).from(
+			 * acceptanceDecider()) .on("REJECTED").to(refundCustomerStep()).end().build();
+			 */
+
+			// removing the storePackageStep
 			job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.basicBatchConfig.getJobRepository())
-					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED")
-					.to(storePackageStep()).from(driveToAddressStep()).on("*").to(decider()).on("PRESENT")
-					.to(givePackageToCustomerStep()).from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep())
-					.next(acceptanceDecider()).on("ACCEPTED").to(thankingCustomerStep()).from(acceptanceDecider())
-					.on("REJECTED").to(refundCustomerStep()).end().build();
+					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED").fail()
+					.from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(givePackageToCustomerStep())
+					.from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep()).next(acceptanceDecider())
+					.on("ACCEPTED").to(thankingCustomerStep()).from(acceptanceDecider()).on("REJECTED")
+					.to(refundCustomerStep()).end().build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
