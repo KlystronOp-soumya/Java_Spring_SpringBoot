@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.job.flow.JobExecutionDecider;
@@ -20,6 +21,7 @@ import com.demo.batch.config.DeliveryDecider;
 import com.demo.batch.config.PackageAcceptanceDecider;
 
 @Configuration
+@EnableBatchProcessing
 public class BatchJobConfig {
 
 	/* The Logger */
