@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="searchController.js" type="text/javascript"></script>
+<title>Search</title>
+<style>
+
+ul {
+  list-style-type: none;
+  margin: 10;
+  padding: 25;
+  overflow: hidden;
+ 
+}
+li {
+  float: left;
+}
+
+#search_icon{
+font-size:30px;
+color: white;
+margin-left: 10px;
+padding-left: 10px;
+border: 1px solid black;
+border-radius: 50%;
+background: #2c2c2c;
+}
+label{
+color:white;
+background-color:#2c2c2c;
+padding: 5px;
+font-size:25px;
+}
+</style>
+</head>
+<body ng-app="mySearchApp" ng-controller="searchCtrl" >
+<center>
+<ul>
+<li><label> search</label></li>
+<li id="search_icon"><i class="fa fa-search" aria-hidden="true" ></i></li>
+</ul>
+<div  >
+  <input type="text" name="searchBar" placeholder="Enter ID"  ng-model="emp_id">
+  <button type="button" name="btn" ng-click="getEmployee()">Search</button>
+   <table class="table" ng-show="found">
+   <thead>
+     <tr>
+       <th scope="col">#</th>
+       <th scope="col">First Name</th>
+       <th scope="col">Last Name</th>
+       <th scope="col">Position</th>
+       <th scope="col">Salary</th>
+     </tr>
+   </thead>
+   <tbody  ng-model="fetchedEmployee" >
+   <tr>
+    <td>{{fetchedEmployee.emp_id}}</td>
+    <td>{{fetchedEmployee.fname}}</td>
+    <td>{{fetchedEmployee.lname}}</td>
+    <td>{{fetchedEmployee.position}}</td>
+    <td>{{fetchedEmployee.salary}}</td>
+   </tr>
+   </tbody>
+ </table> 
+  
+</div>
+   
+   <!-- insert a search icon and onclick show the search field  -->
+   
+ </center>
+
+
+
+</body>
+</html>

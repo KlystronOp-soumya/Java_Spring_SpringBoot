@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Index</title>
+
+<!-- scripts import -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+<!-- Manual Scripts  -->
+<script src="scripts/indexController.js" type="text/javascript"></script>
+<script src="scripts/showAllController.js" type="text/javascript"></script>
+<script src="scripts/search1Controller.js" type="text/javascript"></script>
+<script src="scripts/registrationController.js" type="text/javascript"></script>
+
+</head>
+<body ng-app="mainApp" ng-controller="indexController">
+
+<!-- Navbar -->
+ <div class="navbar_container" ng-include src=" 'navbar.html' "></div>
+ <div class="welcome_container" ng-include src=" 'welcome.html' "></div>
+<!--  
+ <ul>
+     <li><a href="#!">Home</a></li>
+     <li><a href="#!employees"></a></li>
+     <li><a href="#!search">Search</a></li>
+</ul> -->
+<!-- Router -->
+<div ng-view></div>
+
+
+
+</body>
+</html>

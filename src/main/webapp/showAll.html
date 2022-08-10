@@ -1,0 +1,30 @@
+<div ng-controller="showAllController">
+<span style="color:red;font-weight:bold;" ng-model="showError"></span>
+ <div>
+ <!-- <div ng-repeat="each_emp in showResponse">
+ <label>{{each_emp.fname +' '+each_emp.lname }}</label>
+ </div> -->
+
+ <table class="table">
+   <thead>
+     <tr>
+       <th scope="col">#</th>
+       <th scope="col">First Name</th>
+       <th scope="col">Last Name</th>
+       <th scope="col">Position</th>
+       <th scope="col">Salary</th>
+     </tr>
+   </thead>
+   <tbody ng-repeat="each_emp in showEmployees">
+   <tr>
+    <td>{{each_emp.emp_id}}</td>
+    <td>{{each_emp.fname}}</td>
+    <td>{{each_emp.lname}}</td>
+    <td>{{each_emp.position}}</td>
+    <td>{{each_emp.salary}}</td>
+   </tr>
+   </tbody>
+ </table> 
+
+</div>
+</div>
