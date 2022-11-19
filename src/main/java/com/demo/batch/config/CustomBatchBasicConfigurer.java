@@ -21,6 +21,7 @@ public class CustomBatchBasicConfigurer extends DefaultBatchConfigurer {
 	 * The Bean annotation can not be put here To use a custom BatchConfigurer the
 	 * context must contain precisely one, found 2 , was thrown
 	 */
+
 	public BatchConfigurer batchConfigurer() {
 		return new DefaultBatchConfigurer(this.dataSource.dataSourceMySql());
 	}
@@ -29,7 +30,7 @@ public class CustomBatchBasicConfigurer extends DefaultBatchConfigurer {
 	protected JobRepository createJobRepository() throws Exception {
 		JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
 		LOGGER.info("Overridden CreateJobRepository");
-		factory.setDataSource(this.dataSource.dataSourceH2());
+		factory.setDataSource(this.dataSource.dataSourceMySql());
 		factory.setTransactionManager(batchConfigurer().getTransactionManager());
 		factory.afterPropertiesSet();
 		return factory.getObject();
