@@ -12,7 +12,7 @@ public class PackageAcceptanceDecider implements JobExecutionDecider {
 	public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
 		// TODO Auto-generated method stub
 		// boolean isRightItem = new Random().nextFloat() < 0.7f ? true : false;
-		boolean isRightItem = true;
+		boolean isRightItem = false;
 		if (isRightItem)
 			return new FlowExecutionStatus("ACCEPTED");
 		else {
