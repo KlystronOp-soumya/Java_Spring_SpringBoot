@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -13,12 +14,14 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.demo.batch.config.CustomBatchBasicConfigurer;
 import com.demo.batch.config.DeliveryDecider;
 import com.demo.batch.config.PackageAcceptanceDecider;
+import com.demo.batch.listeners.CustomeStepListener;
 
 @Configuration
 @EnableBatchProcessing
@@ -37,7 +40,8 @@ public class BatchJobConfig {
 	 * @Qualifier("itemAcceptDecider") private JobExecutionDecider
 	 * acceptanceDecider;
 	 * 
-	 */ @Autowired
+	 */
+	@Autowired
 	private JobBuilderFactory jobBuilderFactory; // interface
 
 	@Autowired
@@ -54,6 +58,12 @@ public class BatchJobConfig {
 	@Bean
 	public JobExecutionDecider acceptanceDecider() {
 		return new PackageAcceptanceDecider();
+	}
+
+	// Listener
+	@Bean
+	public StepExecutionListener stepListener() {
+		return new CustomeStepListener();
 	}
 
 	@Bean
@@ -113,7 +123,7 @@ public class BatchJobConfig {
 				System.out.println("Given the package to the customer.");
 				return RepeatStatus.FINISHED;
 			}
-		}).build();
+		}).listener(stepListener()).build();
 	}
 
 	@Bean
@@ -184,7 +194,7 @@ public class BatchJobConfig {
 					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED").fail()
 					.from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(givePackageToCustomerStep())
 					.from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep()).next(acceptanceDecider())
-					.on("ACCEPTED").to(thankingCustomerStep()).from(acceptanceDecider()).on("REJECTED")
+					.on("VALID").to(thankingCustomerStep()).from(acceptanceDecider()).on("REJECTED")
 					.to(refundCustomerStep()).end().build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -194,21 +204,25 @@ public class BatchJobConfig {
 		return job;
 	}
 
-	/*
-	 * @Bean public Step getTheChasis() { return
-	 * this.stepBuilderFactory.get("getCarChasis").tasklet(new Tasklet() {
-	 * 
-	 * @Override public RepeatStatus execute(StepContribution contribution,
-	 * ChunkContext chunkContext) throws Exception { // TODO Auto-generated method
-	 * stub System.out.println("Chasis Put On The  Assembly Line"); return
-	 * RepeatStatus.FINISHED; } }).build(); }
-	 * 
-	 * @Bean
-	 * 
-	 * @Qualifier("carManufacturingJob") public Job carManufactureJob() {
-	 * 
-	 * return
-	 * this.jobBuilderFactory.get("Car Manufacturing Job").flow(getTheChasis()).end(
-	 * ).build(); }
-	 */
+	@Bean
+	public Step getTheChasis() {
+		return this.stepBuilderFactory.get("getCarChasis").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception { // TODO
+																														// Auto-generated
+																														// method
+																														// stub
+				System.out.println("Chasis Put On The  Assembly Line");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	@Qualifier("carManufacturingJob")
+	public Job carManufactureJob() {
+		return this.jobBuilderFactory.get("Car Manufacturing Job").flow(getTheChasis()).end().build();
+	}
+
 }
