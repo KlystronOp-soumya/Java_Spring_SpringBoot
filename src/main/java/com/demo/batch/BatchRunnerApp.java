@@ -6,15 +6,13 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import com.demo.batch.config.CustomJobParameterConfig;
 
-@Configuration
-@ComponentScan(basePackages = "com.demo.batch.config")
-
+@Component
 public class BatchRunnerApp implements CommandLineRunner {
 
 	/* The Logger */
@@ -23,6 +21,7 @@ public class BatchRunnerApp implements CommandLineRunner {
 	JobLauncher jobLauncher;
 
 	@Autowired
+	@Qualifier("carManufacturingJob")
 	Job job; // Bean was created in the BatchJobConfig
 
 	@Autowired
