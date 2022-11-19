@@ -31,14 +31,34 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//adding the credentials manually
 		auth.inMemoryAuthentication().withUser("Soumya").password("13608").roles("ADMIN","DEVELOPER") ;
+		
+		//another user added
+		auth.inMemoryAuthentication().withUser("Soumya").password("13626").roles("QA") ;
 	}
+	
+	//security for all api
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception {
+	 * http.csrf().disable() ;
+	 * http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic()
+	 * ; }
+	 */
+	
+	//security for url
+	//applies security only for the url which starts from /rest
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception {
+	 * http.authorizeRequests().antMatchers("/rest/**").fullyAuthenticated().and().
+	 * httpBasic() ; }
+	 */
+	
+	//security based on role
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable() ;
-		http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic() ;
+		http.authorizeRequests().antMatchers("/rest/**").hasAnyRole("ADMIN","DEVELOPER").anyRequest().fullyAuthenticated().and().httpBasic() ;
 	}
-	
 	@Bean
 	public static NoOpPasswordEncoder passwordEncoder()
 	{
