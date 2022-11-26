@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN" name="DbToCSV_logger">
+<Appenders>
+<Console name="CONSOLE" target="SYSTEM_OUT">
+<PatternLayout  pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss} %-5p}{INFO=cyan} %c{1}:%L - %m%n"/>
+</Console>
+<RollingFile name="DEBUGLOG" fileName="logs/DBToCSV_Batch.log"
+			filePattern="%d{yyyy-mm-dd_HH_mm}_app.log.gz" append="true">
+
+			<LevelRangeFilter minLevel="DEBUG" maxLevel="INFO" onMatch="ACCEPT"
+				onMismatch="NEUTRAL" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100000 KB" />
+			</Policies>
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+</Appenders>
+
+<Loggers>
+	
+		<logger name="com.demo.SpringBootBatch" level="INFO" additivity="false">
+  		<AppenderRef ref="CONSOLE" />
+  		</logger>
+  		<!-- <logger name="com.demo.SpringBootBatch" level="DEBUG" additivity="false">
+  		<AppenderRef ref="DEBUGLOG" />
+  		</logger> -->
+    	<!-- Root logger referring to console appender -->
+    	
+        <Root level="DEBUG" additivity="false">
+            <AppenderRef ref="DEBUGLOG" />
+        </Root>
+        
+</Loggers>
+</Configuration>
