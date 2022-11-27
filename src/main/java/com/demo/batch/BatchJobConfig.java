@@ -9,20 +9,28 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.JobExecutionDecider;
+import org.springframework.batch.core.job.flow.support.SimpleFlow;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.demo.batch.config.CustomBatchBasicConfigurer;
 import com.demo.batch.config.DeliveryDecider;
 import com.demo.batch.config.PackageAcceptanceDecider;
+import com.demo.batch.config.ReceiptDecider;
 import com.demo.batch.listeners.CustomeStepListener;
+import com.demo.batch.listeners.FlowersSelectionStepExecutionListener;
 
+/*
+ * Nests Billing job as a nested job with Package Item and Delivery flow
+ * 
+ * */
 @Configuration
 @EnableBatchProcessing
 public class BatchJobConfig {
@@ -50,20 +58,69 @@ public class BatchJobConfig {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory; // interface
 
-	@Bean
+	@Bean(name = { "deliveryDecider" })
 	public JobExecutionDecider decider() {
 		return new DeliveryDecider();
 	}
 
-	@Bean
+	@Bean(name = "packageAcceptanceDecider")
 	public JobExecutionDecider acceptanceDecider() {
 		return new PackageAcceptanceDecider();
+	}
+
+	@Bean(name = "receiptDecider")
+	public JobExecutionDecider receiptDecider() {
+		return new ReceiptDecider();
 	}
 
 	// Listener
 	@Bean
 	public StepExecutionListener stepListener() {
 		return new CustomeStepListener();
+	}
+
+	@Bean
+	public StepExecutionListener selectFlowerListener() {
+		return new FlowersSelectionStepExecutionListener();
+	}
+
+	@Bean
+	public Step selectFlowersStep() {
+		return this.stepBuilderFactory.get("selectFlowersStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Gathering flowers for order.");
+				return RepeatStatus.FINISHED;
+			}
+
+		}).listener(selectFlowerListener()).build();
+	}
+
+	@Bean
+	public Step removeThornsStep() {
+		return this.stepBuilderFactory.get("removeThornsStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Remove thorns from roses.");
+				return RepeatStatus.FINISHED;
+			}
+
+		}).build();
+	}
+
+	@Bean
+	public Step arrangeFlowersStep() {
+		return this.stepBuilderFactory.get("arrangeFlowersStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Arranging flowers for order.");
+				return RepeatStatus.FINISHED;
+			}
+
+		}).build();
 	}
 
 	@Bean
@@ -109,6 +166,42 @@ public class BatchJobConfig {
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 				System.out.println("Storing the package while the customer address is located.");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	public Step thankCustomerStep() {
+		return this.stepBuilderFactory.get("thankCustomerStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Thanking the customer.");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	public Step refundStep() {
+		return this.stepBuilderFactory.get("refundStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Refunding customer money.");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	@Bean
+	public Step leaveAtDoorStep() {
+		return this.stepBuilderFactory.get("leaveAtDoorStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Leaving the package at the door.");
 				return RepeatStatus.FINISHED;
 			}
 		}).build();
@@ -190,12 +283,22 @@ public class BatchJobConfig {
 			 */
 
 			// removing the storePackageStep
-			job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.basicBatchConfig.getJobRepository())
-					.preventRestart().start(packageItemStep()).next(driveToAddressStep()).on("FAILED").fail()
-					.from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(givePackageToCustomerStep())
-					.from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep()).next(acceptanceDecider())
-					.on("VALID").to(thankingCustomerStep()).from(acceptanceDecider()).on("REJECTED")
-					.to(refundCustomerStep()).end().build();
+			/*
+			 * job = this.jobBuilderFactory.get("deliverPackageJob").repository(this.
+			 * basicBatchConfig.getJobRepository())
+			 * .preventRestart().start(packageItemStep()).next(driveToAddressStep()).on(
+			 * "FAILED").fail()
+			 * .from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(
+			 * givePackageToCustomerStep())
+			 * .from(decider()).on("NOT PRESENT").to(leavePackageAtDoorStep()).next(
+			 * acceptanceDecider())
+			 * .on("VALID").to(thankingCustomerStep()).from(acceptanceDecider()).on(
+			 * "REJECTED") .to(refundCustomerStep()).end().build();
+			 */
+
+			// adding the nested job step
+			job = this.jobBuilderFactory.get("deliverPackageJob").start(packageItemStep()).on("*").to(deliveryFlow())
+					.next(nestedBillingJobStep()).end().build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -219,8 +322,53 @@ public class BatchJobConfig {
 		}).build();
 	}
 
+	// Step included to show the SendInvoice nested job
+	@Bean(name = "sendInvoice")
+	public Step sendInvoiceStep() {
+		return this.stepBuilderFactory.get("invoiceStep").tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				System.out.println("Invoice is sent to the customer");
+				return RepeatStatus.FINISHED;
+			}
+		}).build();
+	}
+
+	// step to build the nested job
 	@Bean
-	@Qualifier("carManufacturingJob")
+	public Step nestedBillingJobStep() {
+		return this.stepBuilderFactory.get("nestedBillingJob").job(billingJob()).build();
+	}
+
+	/*
+	 * Type flow bean
+	 * 
+	 * This externalize certain steps which are common in different jobs
+	 * 
+	 * The delivery process/steps are commons for both the jobs
+	 * 
+	 */
+	public Flow deliveryFlow() {
+		return new FlowBuilder<SimpleFlow>("deliveryFlow").start(driveToAddressStep()).on("FAILED").fail()
+				.from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(givePackageToCustomerStep())
+				.next(receiptDecider()).on("CORRECT").to(thankCustomerStep()).from(receiptDecider()).on("INCORRECT")
+				.to(refundStep()).from(decider()).on("NOT_PRESENT").to(leaveAtDoorStep()).build();
+	}
+
+	@Bean(name = { "prepareFlowers" })
+	public Job prepareFlowers() {
+		return this.jobBuilderFactory.get("prepareFlowersJob").start(selectFlowersStep()).on("TRIM_REQUIRED")
+				.to(removeThornsStep()).next(arrangeFlowersStep()).from(selectFlowersStep()).on("NO_TRIM_REQUIRED")
+				.to(arrangeFlowersStep()).from(arrangeFlowersStep()).on("*").to(deliveryFlow()).end().build();
+	}
+
+	@Bean(name = "billing")
+	public Job billingJob() {
+		return this.jobBuilderFactory.get("billingJob").start(sendInvoiceStep()).build();
+	}
+
+	@Bean(value = "carManufacturingJob")
 	public Job carManufactureJob() {
 		return this.jobBuilderFactory.get("Car Manufacturing Job").flow(getTheChasis()).end().build();
 	}
