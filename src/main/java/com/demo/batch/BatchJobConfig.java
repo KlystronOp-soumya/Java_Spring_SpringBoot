@@ -19,6 +19,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 import com.demo.batch.config.CustomBatchBasicConfigurer;
 import com.demo.batch.config.DeliveryDecider;
@@ -297,8 +298,14 @@ public class BatchJobConfig {
 			 */
 
 			// adding the nested job step
-			job = this.jobBuilderFactory.get("deliverPackageJob").start(packageItemStep()).on("*").to(deliveryFlow())
-					.next(nestedBillingJobStep()).end().build();
+			/*
+			 * job =
+			 * this.jobBuilderFactory.get("deliverPackageJob").start(packageItemStep()).on(
+			 * "*").to(deliveryFlow()) .next(nestedBillingJobStep()).end().build();
+			 */
+
+			job = this.jobBuilderFactory.get("deliverPackageJob").start(packageItemStep())
+					.split(new SimpleAsyncTaskExecutor()).add(deliveryFlow()).end().build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -354,6 +361,11 @@ public class BatchJobConfig {
 				.from(driveToAddressStep()).on("*").to(decider()).on("PRESENT").to(givePackageToCustomerStep())
 				.next(receiptDecider()).on("CORRECT").to(thankCustomerStep()).from(receiptDecider()).on("INCORRECT")
 				.to(refundStep()).from(decider()).on("NOT_PRESENT").to(leaveAtDoorStep()).build();
+	}
+
+	@Bean(name = "billingFlow")
+	public Flow billingFlow() {
+		return new FlowBuilder<SimpleFlow>("billingFlow").start(sendInvoiceStep()).build();
 	}
 
 	@Bean(name = { "prepareFlowers" })
