@@ -57,7 +57,7 @@ public class BatchExecutionConfig {
 		jobRepositoryFactoryBean.setTransactionManager(transactionManager());
 		jobRepositoryFactoryBean.afterPropertiesSet();
 
-		return (JobRepository) jobRepositoryFactoryBean.getObject();
+		return jobRepositoryFactoryBean.getObject();
 	}
 
 	@Bean
