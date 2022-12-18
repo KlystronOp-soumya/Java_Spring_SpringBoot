@@ -1,7 +1,14 @@
 com\demo\SpringJPADemo\models\CurPremEntity.class
 com\demo\SpringJPADemo\models\AgentEntPK.class
+com\demo\SpringJPADemo\intf\AgentServiceIntf.class
+com\demo\SpringJPADemo\repositories\CustomBaseRepository.class
+com\demo\SpringJPADemo\service\AgentServiceImpl.class
 com\demo\SpringJPADemo\App.class
 com\demo\SpringJPADemo\models\CommissionEntity.class
+com\demo\SpringJPADemo\util\ConstantsEnum.class
+com\demo\SpringJPADemo\util\CreateAndLoadData.class
+com\demo\SpringJPADemo\repositories\CustomAgentRepository.class
+com\demo\SpringJPADemo\intf\ClearAndLoadIntf.class
 com\demo\SpringJPADemo\models\AddressEntity.class
 com\demo\SpringJPADemo\models\CommissionPayoutEntity.class
 com\demo\SpringJPADemo\models\AgentEntity.class
