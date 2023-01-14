@@ -76,7 +76,7 @@ and [Spring Cloud Task](https://docs.spring.io/spring-cloud-task/docs/2.4.5/refe
 ![batch-task-demo_ss3](https://user-images.githubusercontent.com/69466192/212487792-8af4b52f-63b9-4c82-8f7f-d434a55f3897.JPG)
 
 ## **Integration for composite task**
-Combine this project  with [SpringCloudTask Demo](https://github.com/KlystronOp-soumya/Java_Spring_SpringBoot/blob/SpringCloudTask_Demo) in order to create a _composite task_ in spring cloud data flow server.
+Combine this project  with [SpringCloudTask Demo](https://github.com/KlystronOp-soumya/Java_Spring_SpringBoot.git) in order to create a _composite task_ in spring cloud data flow server.
 
 <li> <b>Steps to create composite task</b>
 <ol>
