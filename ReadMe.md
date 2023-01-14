@@ -65,4 +65,4 @@ launch the [DataFlow Server](http://localhost:9393/dashboard/)</li>
 >**Follow further steps from here**: [Reference Document](https://dataflow.spring.io/docs/batch-developer-guides/)
 and [Spring Cloud Task](https://docs.spring.io/spring-cloud-task/docs/2.4.5/reference/html/)
 
-<img src="bill-setup-task_ss1.png" alt="pipeline" />
+[bill-setup-task_ss1.png](https://github.com/KlystronOp-soumya/Java_Spring_SpringBoot/blob/SpringCloudTask_Demo/bill-setup-task_ss1.png)
