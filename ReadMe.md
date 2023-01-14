@@ -65,5 +65,9 @@ launch the [DataFlow Server](http://localhost:9393/dashboard/)</li>
 >**Follow further steps from here**: [Reference Document](https://dataflow.spring.io/docs/batch-developer-guides/)
 and [Spring Cloud Task](https://docs.spring.io/spring-cloud-task/docs/2.4.5/reference/html/)
 
-![bill-setup-task_ss1](https://user-images.githubusercontent.com/69466192/212474532-6d9d85f4-427c-4597-8a72-51866f8d8466.png)
+![bill-setup-task_ss1](https://user-i![Uploading bill-setup-task_ss1.JPG…]()
+mages.githubusercontent.com/69466192/
+
+![bill-setup-task_ss2](https://user-images.githubusercontent.com/69466192/212490928-8b5a296c-0eab-4d07-b9a6-fa2deafcb6ee.JPG)
+212474532-6d9d85f4-427c-4597-8a72-51866f8d8466.png)
 
