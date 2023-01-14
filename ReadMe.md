@@ -66,13 +66,15 @@ launch the [DataFlow Server](http://localhost:9393/dashboard/)</li>
 >**Follow further steps from here**: [Reference Document](https://dataflow.spring.io/docs/batch-developer-guides/)
 and [Spring Cloud Task](https://docs.spring.io/spring-cloud-task/docs/2.4.5/reference/html/)
 
-<ul>
-<li>Step 1</li>![batch-task-demo_ss1](https://user-images.githubusercontent.com/69466192/212487783-3d4fca15-2ee6-4e4a-8499-6e92b28c0ec0.JPG)
+#### Step 1
+![batch-task-demo_ss1](https://user-images.githubusercontent.com/69466192/212487783-3d4fca15-2ee6-4e4a-8499-6e92b28c0ec0.JPG)
 
-<li>Step 2</li>![batch-task-demo_ss2](https://user-images.githubusercontent.com/69466192/212487789-1b6233f0-102b-41ac-8802-baa71369115d.JPG)
+#### Step 2
+![batch-task-demo_ss2](https://user-images.githubusercontent.com/69466192/212487789-1b6233f0-102b-41ac-8802-baa71369115d.JPG)
 
-<li>Step 3</li>![batch-task-demo_ss3](https://user-images.githubusercontent.com/69466192/212487792-8af4b52f-63b9-4c82-8f7f-d434a55f3897.JPG)
-</ul>
+#### Step 3
+![batch-task-demo_ss3](https://user-images.githubusercontent.com/69466192/212487792-8af4b52f-63b9-4c82-8f7f-d434a55f3897.JPG)
+
 ## **Integration for composite task**
 Combine this project  with [SpringCloudTask Demo](https://github.com/KlystronOp-soumya/Java_Spring_SpringBoot/blob/SpringCloudTask_Demo) in order to create a _composite task_ in spring cloud data flow server.
 
