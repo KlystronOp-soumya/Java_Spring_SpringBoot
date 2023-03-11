@@ -119,9 +119,14 @@ public class PatientService {
 	@Transactional(readOnly = true)
 	public Patients getSpecificPatientDetails(final String adhaarCardNumber) {
 		// TODO Auto-generated method stub
+		LOGGER.info("Getting specific patient record") ;
 		Optional<Patients> patientsRecordOptional = Optional.ofNullable(this.patientRepository.findByPatientAdhaarCardNum(adhaarCardNumber)) ;
 		if(patientsRecordOptional.isPresent())
+		{
+			LOGGER.info("Record was fetched!!");
 			return patientsRecordOptional.get() ;
+		}
+			
 		else {
 			throw new NullPointerException("Data not found") ;
 		}
