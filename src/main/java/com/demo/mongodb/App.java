@@ -1,4 +1,4 @@
-package com.demo.mavendb;
+package com.demo.mongodb;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;

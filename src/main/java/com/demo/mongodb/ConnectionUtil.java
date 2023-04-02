@@ -1,4 +1,4 @@
-package com.demo.mavendb;
+package com.demo.mongodb;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

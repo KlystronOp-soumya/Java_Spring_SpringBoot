@@ -1,4 +1,4 @@
-package com.demo.mavendb;
+package com.demo.mongodb;
 
 import java.util.List;
 
