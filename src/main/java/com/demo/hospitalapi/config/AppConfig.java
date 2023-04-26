@@ -17,9 +17,11 @@ import com.demo.hospitalapi.repo.PatientRepository;
 import com.demo.hospitalapi.repo.intf.CustomPatientCRUDRepository;
 import com.demo.hospitalapi.service.PatientService;
 
+//import io.micrometer.core.instrument.MeterRegistry;
+
 @Configuration
 //@Profile(value = "dev")
-@Import(value = {DatabasePersistentConfig.class , com.demo.hospitalapi.config.qa.DatabasePersistentConfig.class , SwaggerConfig.class, AppCacheConfig.class})
+@Import(value = {DatabasePersistentConfig.class , com.demo.hospitalapi.config.qa.DatabasePersistentConfig.class , AppCacheConfig.class , SwaggerConfig.class})
 @ComponentScan(basePackages = "com.demo.hospitalapi")
 @EnableJpaRepositories(basePackages = "com.demo.hospitalapi.repo")
 public class AppConfig {
@@ -51,5 +53,10 @@ public class AppConfig {
 		return new CustomPatientCRUDRepositoryImpl(this.jdbcTemplate) ;
 	}
 	
+	/*
+	 * @Bean MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() { return
+	 * registry -> registry.config().commonTags("application",
+	 * "Simple-HospitalApi"); }
+	 */
 	
 }

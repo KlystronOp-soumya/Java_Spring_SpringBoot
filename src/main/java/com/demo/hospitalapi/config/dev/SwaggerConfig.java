@@ -1,6 +1,5 @@
 package com.demo.hospitalapi.config.dev;
 
-//import static springfox.documentation.builders.PathSelectors.regex;
 import static com.google.common.base.Predicates.or;
 
 import org.springframework.beans.factory.annotation.Autowired;

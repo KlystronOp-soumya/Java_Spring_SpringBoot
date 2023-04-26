@@ -1,0 +1,19 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /SimpleHospitalApi
+spring:
+  cache:
+    redis:
+      cache-null-values: false
+      enable-statistics: true
+    type: REDIS
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  profiles:
+    active: '@app.profile@'
+  application:
+    name: Simple-HospitalApi

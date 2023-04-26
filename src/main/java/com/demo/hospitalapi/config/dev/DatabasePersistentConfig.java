@@ -56,7 +56,8 @@ public class DatabasePersistentConfig {
 		hikariDataSource.setPoolName("HospitalApiConnectionPool");
 		hikariDataSource.setMaximumPoolSize(15);
 		hikariDataSource.setSchema("HOSPITALDB");
-
+		hikariDataSource.setMinimumIdle(5);
+		hikariDataSource.setIdleTimeout(30000L);
 		return hikariDataSource;
 		// return
 		// DataSourceBuilder.create().driverClassName(env.getProperty("h2.driver")).url(env.getProperty("h2.jdbc-url")).username(env.getProperty("h2.user")).password(env.getProperty("h2.password")).build()
