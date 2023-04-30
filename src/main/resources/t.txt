@@ -1,0 +1,1 @@
+INSERT INTO HOSPITAL(ID , NAME, CITY , RATING) VALUES ( 1001,'Appolo' , 'Kolkata' , 4.5) ;
