@@ -1,19 +1,15 @@
 package com.demo.cartapp.entity;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.apache.el.parser.AstFalse;
 
 @Entity
 public class CartProduct {
@@ -23,12 +19,14 @@ public class CartProduct {
 	private int cpId;
 	
 	//Many product can be part of single cart
-	@ManyToOne(fetch = FetchType.EAGER , cascade = {CascadeType.REMOVE})
-	@JoinColumn(name = "cartId" , referencedColumnName = "cartId", nullable = true , insertable = true)
+	//Had to remove Cascade.Remove as the design required something else
+	//Even if the the CartProduct is deleted the entry should be in the Cart
+	@ManyToOne(fetch = FetchType.EAGER ) //, cascade = {CascadeType.REMOVE}
+	@JoinColumn(name = "cartId" , referencedColumnName = "cartId", nullable = false , insertable = true , foreignKey = @ForeignKey(name="Fk_CartProduct_Cart"))
 	private Cart cart ;
 	
 	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER , targetEntity = Product.class)
-	@JoinColumn(name = "productId" , referencedColumnName = "productId")
+	@JoinColumn(name = "productId" , referencedColumnName = "productId" , foreignKey = @ForeignKey(name="Fk_CartProduc_Product"))
 	private Product product ;
 	private int quantity = 1;
 	public int getCpId() {

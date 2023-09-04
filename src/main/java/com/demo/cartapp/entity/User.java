@@ -39,7 +39,7 @@ public class User implements Serializable{
 	
 	//Multiple user can have Multiple roles
 	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
-	@JoinTable(name = "UserRole" , joinColumns  = @JoinColumn(name="user_id" , referencedColumnName = "user_id") , inverseJoinColumns =  @JoinColumn(name="role_id" , referencedColumnName = "role_id"))
+	@JoinTable(name = "UserRole" , joinColumns  = @JoinColumn(name="user_id" , referencedColumnName = "user_id" , foreignKey = @ForeignKey(name="Fk_UserRole_User")) , inverseJoinColumns =  @JoinColumn(name="role_id" , referencedColumnName = "role_id" , foreignKey = @ForeignKey(name= "Fk_UserRole_Role")))
 	@JsonIgnore
 	private Set<Role> roles ;
 

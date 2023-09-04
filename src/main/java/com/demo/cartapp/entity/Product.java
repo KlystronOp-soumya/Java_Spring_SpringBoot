@@ -30,12 +30,12 @@ public class Product implements Serializable{
 	
 	//Single user can have multiple products
 	@ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
-	@JoinColumn(name = "sellerId" , referencedColumnName = "user_id" , nullable = false)
+	@JoinColumn(name = "sellerId" , referencedColumnName = "user_id" , nullable = false , foreignKey = @ForeignKey(name="Fk_Product_User"))
 	private User seller ;
 	
 	//Multiple product can belong to same category
 	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-	@JoinColumn(name="categoryId" , referencedColumnName = "categoryId")
+	@JoinColumn(name="categoryId" , referencedColumnName = "categoryId" , foreignKey = @ForeignKey(name="Fk_Product_Category"))
 	private Category category ;
 
 	public int getProductId() {

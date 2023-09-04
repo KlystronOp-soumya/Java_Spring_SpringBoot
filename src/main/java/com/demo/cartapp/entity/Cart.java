@@ -3,7 +3,10 @@ package com.demo.cartapp.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,10 +23,10 @@ public class Cart {
 	private Double totalAmount ;
 	
 	@OneToOne(cascade =CascadeType.REMOVE)
-	@JoinColumn(name = "userId" , referencedColumnName = "user_id")
+	@JoinColumn(name = "userId" , referencedColumnName = "user_id" , foreignKey = @ForeignKey(name="Fk_Cart_User"))
 	private User user ;
 	
-	@OneToMany(mappedBy = "cart" , cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "cart" , cascade = CascadeType.REMOVE , fetch = FetchType.EAGER)
 	private List <CartProduct> cartProduct;
 	
 	public Integer getCartId() {
