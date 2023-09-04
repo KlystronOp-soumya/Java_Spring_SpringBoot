@@ -1,0 +1,30 @@
+logging:
+  logback:
+    rollingpolicy:
+      clean-history-on-start: true
+server:
+  port: 8098
+spring:
+  datasource:
+    hikari:
+      auto-commit: true
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:file:./data/samplecart;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+      password: ''
+      pool-name: cartAppPool
+      username: sa
+  h2:
+    console:
+      enabled: true
+  jpa:
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  sql:
+    init:
+      mode: always
