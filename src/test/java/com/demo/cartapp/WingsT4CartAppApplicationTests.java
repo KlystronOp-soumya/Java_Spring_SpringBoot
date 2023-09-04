@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.cartapp.entity.Cart;
+import com.demo.cartapp.entity.CartProduct;
 import com.demo.cartapp.entity.Category;
 import com.demo.cartapp.entity.Product;
 import com.demo.cartapp.entity.User;
@@ -187,6 +188,29 @@ class WingsT4CartAppApplicationTests {
 		assertEquals(u.getUserName(), c.getUser().getUserName());
 		assertThat(u.getRoles().toString().contains("CONSUMER")).isTrue() ;
 		
+	}
+	
+	@Test
+	@Order(7)
+	public void removeProductFromCart_test7()
+	{
+		Cart cart = this.cartRepo.findById(1).get() ;
+		assertEquals(1, cart.getCartProduct().size());
+		cart.getCartProduct().remove(0) ; // from the cart removing the cart product
+		this.cartRepo.save(cart) ; //saving null
+		CartProduct cartProduct = this.cartProductRepo.findById(1).get() ; //fetching Apple product
+		this.cartProductRepo.deleteById(1);//Apple product deleted
+		assertThat(this.cartProductRepo.findById(1)).isEmpty(); // this should be null
+	}
+	
+	@Test
+	@Order(8)
+	public void checkProductRemovedFromCart_test8()
+	{
+		//List<Cart> cartList = this.cartRepo.findAll() ;
+		//assertEquals(2, cartList.size());
+		Cart cart = this.cartRepo.findById(1).get() ;// 1 had
+		assertEquals(0 , cart.getCartProduct().size());
 	}
 	
 	@Autowired
