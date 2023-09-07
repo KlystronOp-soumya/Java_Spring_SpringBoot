@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -41,9 +42,11 @@ public class User implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
 	@JoinTable(name = "UserRole" , joinColumns  = @JoinColumn(name="user_id" , referencedColumnName = "user_id" , foreignKey = @ForeignKey(name="Fk_UserRole_User")) , inverseJoinColumns =  @JoinColumn(name="role_id" , referencedColumnName = "role_id" , foreignKey = @ForeignKey(name= "Fk_UserRole_Role")))
 	@JsonIgnore
+	@JsonManagedReference
 	private Set<Role> roles ;
 
 	@OneToMany(cascade = CascadeType.REMOVE , mappedBy = "seller")
+	@JsonManagedReference
 	private Set<Product> products ;
 	
 	@OneToOne(mappedBy = "user")

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Role implements Serializable {
 
@@ -25,6 +27,7 @@ public class Role implements Serializable {
 	private String role ;
 	
 	@ManyToMany(fetch = FetchType.EAGER , mappedBy = "roles" )
+	@JsonBackReference
 	private Set<User> users ;
 	
 	

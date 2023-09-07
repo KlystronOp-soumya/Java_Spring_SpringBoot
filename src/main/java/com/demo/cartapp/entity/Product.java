@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Product implements Serializable{
 	
@@ -31,11 +33,13 @@ public class Product implements Serializable{
 	//Single user can have multiple products
 	@ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
 	@JoinColumn(name = "sellerId" , referencedColumnName = "user_id" , nullable = false , foreignKey = @ForeignKey(name="Fk_Product_User"))
+	@JsonBackReference
 	private User seller ;
 	
 	//Multiple product can belong to same category
-	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER) //category could be deleted but the product should be there
 	@JoinColumn(name="categoryId" , referencedColumnName = "categoryId" , foreignKey = @ForeignKey(name="Fk_Product_Category"))
+	@JsonBackReference
 	private Category category ;
 
 	public int getProductId() {

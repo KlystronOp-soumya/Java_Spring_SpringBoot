@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Category {
@@ -21,6 +22,7 @@ public class Category {
 	private String categoryName ;
 	
 	@OneToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE} , mappedBy = "category" , targetEntity = Product.class)
+	@JsonManagedReference
 	private Set<Product> products ;
 	
 	public int getCategoryId() {

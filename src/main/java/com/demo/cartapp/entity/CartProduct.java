@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class CartProduct {
 	
@@ -23,6 +25,7 @@ public class CartProduct {
 	//Even if the the CartProduct is deleted the entry should be in the Cart
 	@ManyToOne(fetch = FetchType.EAGER ) //, cascade = {CascadeType.REMOVE}
 	@JoinColumn(name = "cartId" , referencedColumnName = "cartId", nullable = false , insertable = true , foreignKey = @ForeignKey(name="Fk_CartProduct_Cart"))
+	@JsonBackReference
 	private Cart cart ;
 	
 	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER , targetEntity = Product.class)

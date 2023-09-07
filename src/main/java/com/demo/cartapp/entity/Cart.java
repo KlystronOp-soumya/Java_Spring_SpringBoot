@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Cart {
 	
@@ -27,6 +29,7 @@ public class Cart {
 	private User user ;
 	
 	@OneToMany(mappedBy = "cart" , cascade = CascadeType.REMOVE , fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private List <CartProduct> cartProduct;
 	
 	public Integer getCartId() {
