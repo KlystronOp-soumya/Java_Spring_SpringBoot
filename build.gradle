@@ -1,0 +1,89 @@
+buildscript {
+	ext {
+	  springBootVersion = '2.7.5'
+	}
+	
+	dependencies {
+	  classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+  }
+
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'groovy'
+}
+
+group = 'com.demo'
+version = '0.0.1-SNAPSHOT'
+
+
+repositories {
+	mavenCentral()
+}
+
+java {
+	sourceCompatibility = '1.8'
+}
+
+
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+
+dependencies {
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation  group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+	// https://mvnrepository.com/artifact/org.apache.groovy/groovy
+	implementation ('org.codehaus.groovy:groovy') 
+	// https://mvnrepository.com/artifact/com.mchange/c3p0
+	// https://mvnrepository.com/artifact/org.ehcache/ehcache
+	
+	//implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
+	// https://mvnrepository.com/artifact/com.mchange/c3p0
+	implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
+
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly  group: 'com.h2database', name: 'h2', version: '1.4.200'
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.0'
+	// https://mvnrepository.com/artifact/io.micrometer/micrometer-core
+	implementation group: 'io.micrometer', name: 'micrometer-core', version: '1.11.1'
+	// https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+	implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.10.5'
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	//implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+	
+	//implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.0'
+	//implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.5.0'
+	
+	//second level cache configs
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.7.5'
+	implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+	implementation group: 'org.ehcache', name: 'ehcache', version: '3.8.1'
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootRun {
+	main = "com.demo.cartapi.SimpleCartApiApplication"
+}

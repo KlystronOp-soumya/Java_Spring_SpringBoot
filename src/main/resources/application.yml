@@ -1,0 +1,43 @@
+server:
+  address: localhost
+  port: 8093
+  
+spring:  
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active:
+    - ${PROFILE}
+    default: "dev"
+  main:
+    allow-bean-definition-overriding: true
+  #cache:
+    #jcache:
+      #config: classpath:ehcache.xml
+
+management:
+  endpoint:
+    beans:
+      enabled: true
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+
+        - '*'
+#springdoc:
+  #show-actuator: true
+  #api-docs:
+    #enabled: true
+  #enable-groovy: true
+  #paths-to-match:
+  #- /api/docs
+
+
+ 
+   
