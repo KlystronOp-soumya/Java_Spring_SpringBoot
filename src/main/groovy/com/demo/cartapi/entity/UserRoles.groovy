@@ -5,18 +5,24 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import javax.persistence.Table
 
 
 @Entity
-@Table(name="USER_ROLES")
+@Table(name="ROLES")
 class UserRoles implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long role_id
 	@Column(name="USER_ROLE")
 	String userRole
+	
+	
+	@ManyToMany(mappedBy="userRoles" , targetEntity=UserRoles.class)
+	Set<Users> users ;
+	
 	
 	
 }
