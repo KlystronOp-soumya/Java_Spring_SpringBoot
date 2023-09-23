@@ -15,12 +15,12 @@ class UserRoles implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long role_id
+	Long roleId
 	@Column(name="USER_ROLE")
 	String userRole
 	
 	
-	@ManyToMany(mappedBy="userRoles" , targetEntity=UserRoles.class)
+	@ManyToMany(mappedBy="userRoles")
 	Set<Users> users ;
 	
 	

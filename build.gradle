@@ -77,6 +77,9 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.7.5'
 	implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
 	implementation group: 'org.ehcache', name: 'ehcache', version: '3.8.1'
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache
+	implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.6.10.Final'
+	
 	
 }
 

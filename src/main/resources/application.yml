@@ -12,9 +12,18 @@ spring:
     default: "dev"
   main:
     allow-bean-definition-overriding: true
-  #cache:
-    #jcache:
-      #config: classpath:ehcache.xml
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  #jpa:
+    #defer-datasource-initialization: true
+    #show-sql: true
+    #hibernate:
+      #ddl-auto: create-drop
+  #sql:
+    #init:
+      #mode: always
+   
 
 management:
   endpoint:

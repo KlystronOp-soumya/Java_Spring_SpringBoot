@@ -4,8 +4,8 @@ import javax.persistence.Embeddable
 
 //composite key
 @Embeddable
-class ConsumerInfoPK {
+class ConsumerInfoPK implements Serializable{
 	
-	String conUserName
-	String email
+	String consumerUserId
+	String consumerEmail
 }

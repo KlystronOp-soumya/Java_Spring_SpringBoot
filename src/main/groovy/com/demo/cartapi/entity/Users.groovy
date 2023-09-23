@@ -25,23 +25,23 @@ class Users  implements Serializable{
 		
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	//@Column(name="ID")
 	int id
-	@Column(name="USERS_ID")
+	//@Column(name="USERS_ID")
 	String userId
-	@Column(name="USER_PWD")
+	//@Column(name="USER_PWD")
 	String userPwd
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role" , joinColumns = @JoinColumn(name="userId" ,  referencedColumnName = "user_id"  , 
+	@JoinTable(name = "user_role" , joinColumns = @JoinColumn(name="userId" ,  referencedColumnName = "userId"  , 
 		foreignKey = @ForeignKey(name="Fk_UserRole_User")) , 
-		inverseJoinColumns = @JoinColumn(name="role_id" , referencedColumnName = "role_id" , foreignKey= @ForeignKey(name= "Fk_UserRole_Role") ))
+		inverseJoinColumns = @JoinColumn(name="roleId" , referencedColumnName = "roleId" , foreignKey= @ForeignKey(name= "Fk_UserRole_Role") ))
 	Set<UserRoles> userRoles
 	
 	@OneToOne(mappedBy="user")
 	SellerInfo seller
 	
-	@OneToOne(mappedBy="")
+	@OneToOne(mappedBy="users")
 	ConsumersInfo consumer ;
 	
 	@OneToOne(mappedBy="cartUser")

@@ -2,6 +2,7 @@ package com.demo.cartapi.entity
 
 import javax.persistence.CascadeType
 import javax.persistence.EmbeddedId
+import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.ForeignKey
 import javax.persistence.JoinColumn
@@ -10,6 +11,7 @@ import javax.persistence.OneToOne
 
 import groovy.transform.NamedDelegate
 
+@Entity
 class SellerInfo implements Serializable{
 	
 	@EmbeddedId
@@ -21,11 +23,10 @@ class SellerInfo implements Serializable{
 	
 	//with the Users
 	@OneToOne(cascade=CascadeType.ALL , fetch=FetchType.EAGER , targetEntity=Users.class)
-	@JoinColumn(name="userId" , referencedColumnName="user_id" , foreignKey= @ForeignKey(name="FK_SELLER_USER"))
+	@JoinColumn(name="userId" , referencedColumnName="userId" , foreignKey= @ForeignKey(name="FK_SELLER_USER"))
 	Users user ;
 	
-	@OneToMany(fetch=FetchType.EAGER , mappedBy="sellers" , targetEntity=ProductInfo.class)
-	//TODO need to add mapping of seller into ProductInfo class
+	@OneToMany(mappedBy="sellerInfo")
 	List<ProductInfo> ProductInfoList;
 	
 }

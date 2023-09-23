@@ -12,11 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @SuppressWarnings("deprecation")
 @Configuration(value="simpleSecurityConfig")
+//@EnableWebSecurity
 @Profile(value=["dev"])
 class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 	
 	AuthenticationProvider authenticationProvider
 	
+	//for higher environments the authentication provider will be changed to active directory
 	SimpleCartSecurityDevConfig(AuthenticationProvider authenticationProvider)
 	{
 		this.authenticationProvider = authenticationProvider
@@ -27,12 +29,15 @@ class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 		// TODO Auto-generated method stub
 		http.csrf().disable()
 		http.headers().frameOptions().disable()
+		http.authenticationProvider(authenticationProvider)
 		http.authorizeRequests().anyRequest().permitAll()
 	}
 	
-	@Override
+	// do not need to override the configure method twice
+	// this is for higher version of Spring Boot Security
+	/*@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		auth.authenticationProvider(authenticationProvider).build()
-	}
+	}*/
 }
