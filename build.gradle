@@ -40,7 +40,10 @@ configurations {
 dependencies {
 	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-web')
+	{
+		exclude group: 'org.springframework.boot' , module: 'spring-boot-starter-logging'
+	}
 	//implementation  group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
 	// https://mvnrepository.com/artifact/org.apache.groovy/groovy
 	implementation ('org.codehaus.groovy:groovy') 
@@ -79,6 +82,9 @@ dependencies {
 	implementation group: 'org.ehcache', name: 'ehcache', version: '3.8.1'
 	// https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache
 	implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.6.10.Final'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.7.3'
+	
 	
 	
 }
