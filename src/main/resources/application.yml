@@ -13,7 +13,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   cache:
-    jcache:
+    ehcache:
       config: classpath:ehcache.xml
   #jpa:
     #defer-datasource-initialization: true

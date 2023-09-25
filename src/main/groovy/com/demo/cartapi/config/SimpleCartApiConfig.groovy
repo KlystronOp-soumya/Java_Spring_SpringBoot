@@ -3,6 +3,7 @@
  */
 package com.demo.cartapi.config
 
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Conditional
 import org.springframework.context.annotation.Configuration
@@ -21,6 +22,7 @@ import com.demo.cartapi.config.dev.SimpleCartSecurityDevConfig
 @Import(value=[DbPersistentDevConfig.class , SimpleCartSecurityDevConfig.class])
 @ComponentScan(basePackages=["com.demo.cartapi"])
 @EnableJpaRepositories(basePackages=["com.demo.cartapi.repo"])
+//@EnableCaching
 class SimpleCartApiConfig {
 	
 	

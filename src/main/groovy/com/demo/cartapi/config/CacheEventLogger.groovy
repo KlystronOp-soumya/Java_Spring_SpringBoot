@@ -9,7 +9,7 @@ class CacheEventLogger implements CacheEventListener<Object , Object> {
 
 	@Override
 	public void onEvent(CacheEvent event) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }
