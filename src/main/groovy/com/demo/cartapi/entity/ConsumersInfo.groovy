@@ -3,6 +3,7 @@ package com.demo.cartapi.entity
 import static javax.persistence.GenerationType.IDENTITY
 
 import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.EmbeddedId
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -22,14 +23,17 @@ import javax.persistence.criteria.Fetch
 import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Entity
-//@Table(name="CUSTOMER_INFO")
+@Table(name="CONSUMER_INFO")
 class ConsumersInfo implements Serializable {
 
 	@EmbeddedId
 	ConsumerInfoPK consumerInfoPK
 	
+	 @Column(name="CONSUMER_FNAME")
 	 String consumerFName 
+	 @Column(name="CONSUMER_LNAME")
 	 String consumerLName 
+	 @Column(name="CONSUMER_PHONE")
 	 String consumerPhone
 	 
 	 @OneToMany(cascade=CascadeType.ALL )
@@ -37,7 +41,7 @@ class ConsumersInfo implements Serializable {
 	 
 	 
 	 @OneToOne(cascade= CascadeType.ALL , fetch=FetchType.EAGER , targetEntity = Users.class)
-	 @JoinColumn(name="userId" , referencedColumnName="userId" , foreignKey= @ForeignKey( name = "FK_CONSUMERSINFO_USER"))
+	 @JoinColumn(name="USER_ID" , referencedColumnName="USER_ID" , foreignKey= @ForeignKey( name = "FK_CONSUMERSINFO_USER"))
 	 Users users
 	 
 	 @OneToOne(mappedBy="consumersInfo")

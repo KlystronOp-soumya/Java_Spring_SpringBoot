@@ -15,6 +15,7 @@ class UserRoles implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ROLE_ID")
 	Long roleId
 	@Column(name="USER_ROLE")
 	String userRole

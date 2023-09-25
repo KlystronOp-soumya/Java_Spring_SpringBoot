@@ -27,15 +27,15 @@ class Users  implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	//@Column(name="ID")
 	int id
-	//@Column(name="USERS_ID")
+	@Column(name="USER_ID")
 	String userId
-	//@Column(name="USER_PWD")
+	@Column(name="USER_PWD")
 	String userPwd
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role" , joinColumns = @JoinColumn(name="userId" ,  referencedColumnName = "userId"  , 
+	@JoinTable(name = "user_role" , joinColumns = @JoinColumn(name="USER_ID" ,  referencedColumnName = "USER_ID"  , 
 		foreignKey = @ForeignKey(name="Fk_UserRole_User")) , 
-		inverseJoinColumns = @JoinColumn(name="roleId" , referencedColumnName = "roleId" , foreignKey= @ForeignKey(name= "Fk_UserRole_Role") ))
+		inverseJoinColumns = @JoinColumn(name="ROLE_ID" , referencedColumnName = "ROLE_ID" , foreignKey= @ForeignKey(name= "FK_UserRole_Role") ))
 	Set<UserRoles> userRoles
 	
 	@OneToOne(mappedBy="user")

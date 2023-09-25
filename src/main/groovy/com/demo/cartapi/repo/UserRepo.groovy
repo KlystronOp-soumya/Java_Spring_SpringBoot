@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 import com.demo.cartapi.entity.Users
 
 interface UserRepo extends JpaRepository<Users , Integer>{
+	
+	
 }

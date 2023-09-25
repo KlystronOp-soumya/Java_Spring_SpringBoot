@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @SuppressWarnings("deprecation")
 @Configuration(value="simpleSecurityConfig")
-//@EnableWebSecurity
+@EnableWebSecurity
 @Profile(value=["dev"])
 class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 	
