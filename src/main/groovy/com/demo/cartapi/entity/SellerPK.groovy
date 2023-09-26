@@ -23,4 +23,23 @@ class SellerPK implements Serializable{
 	String IFSC ;
 	@Column(name="PHONE")
 	String phone ;
+	@Override
+	public int hashCode() {
+		return Objects.hash(GSTIN, IFSC, phone, sellerEmail, sellerId);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SellerPK other = (SellerPK) obj;
+		return (Objects.equals(GSTIN, other.GSTIN) && Objects.equals(IFSC, other.IFSC)
+				&& Objects.equals(phone, other.phone) && Objects.equals(sellerEmail, other.sellerEmail)
+				&& Objects.equals(sellerId, other.sellerId) );
+	}
+	
+	
 }
