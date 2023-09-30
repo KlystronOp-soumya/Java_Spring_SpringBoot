@@ -22,7 +22,7 @@ import com.demo.cartapi.config.dev.SimpleCartSecurityDevConfig
 @Import(value=[DbPersistentDevConfig.class , SimpleCartSecurityDevConfig.class])
 @ComponentScan(basePackages=["com.demo.cartapi"])
 @EnableJpaRepositories(basePackages=["com.demo.cartapi.repo"])
-//@EnableCaching
+@EnableCaching
 class SimpleCartApiConfig {
 	
 	

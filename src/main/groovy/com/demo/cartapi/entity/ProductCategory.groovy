@@ -8,12 +8,15 @@ import javax.persistence.Id
 import javax.persistence.OneToOne
 import javax.persistence.Table
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 @Entity
 @Table(name="PRODUCT_CATEGORY")
 class ProductCategory implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonIgnore(value=true)
 	Long id
 	
 	@Column(name="CATEGORY_ID")

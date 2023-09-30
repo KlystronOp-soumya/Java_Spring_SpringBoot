@@ -1,6 +1,9 @@
 server:
   address: localhost
   port: 8093
+  error:
+    whitelabel:
+      enabled: false
   
 spring:  
   h2:
