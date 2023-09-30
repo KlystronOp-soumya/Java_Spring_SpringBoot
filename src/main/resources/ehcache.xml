@@ -2,7 +2,7 @@
 	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
 	monitoring="autodetect" dynamicConfig="true">
 
-	<!-- <diskStore path="java.io.tmpdir/ehcache" /> -->
+	<diskStore path="D:/Program Files/Caches" />
 
 	<defaultCache maxEntriesLocalHeap="10000" eternal="false"
 		timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="30"
