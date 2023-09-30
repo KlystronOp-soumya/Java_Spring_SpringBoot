@@ -4,6 +4,9 @@ server:
   error:
     whitelabel:
       enabled: false
+    include-exception: false
+    include-stacktrace: never
+       
   
 spring:  
   h2:

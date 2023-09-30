@@ -35,7 +35,7 @@ class ProductCategoryService {
 	}
 	
 	@Transactional(readOnly=true , propagation = Propagation.REQUIRED)
-	//@org.springframework.cache.annotation.Cacheable(key="categoryId#" , condition="") 
+	//@org.springframework.cache.annotation.Cacheable(value="productCategoryCache" ,condition="#result!=null") 
 	public List<ProductCategory> getAllProductCategoryList()
 	{
 		List<ProductCategory> productCategoryList = null ;

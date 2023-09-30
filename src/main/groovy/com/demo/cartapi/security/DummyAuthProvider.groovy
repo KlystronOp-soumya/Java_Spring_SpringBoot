@@ -21,7 +21,7 @@ class DummyAuthProvider implements AuthenticationProvider{
 		
 		if(userId.equals("sdas") && password.equals("kolkata@100"))
 		{
-			return new UsernamePasswordAuthenticationToken(userId, 	password, Collections.EMPTY_LIST)
+			return new UsernamePasswordAuthenticationToken(userId, 	password, Arrays.asList("ADMIN"))
 		}
 		else
 		{

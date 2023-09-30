@@ -7,21 +7,30 @@
 	<defaultCache maxEntriesLocalHeap="10000" eternal="false"
 		timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="30"
 		maxEntriesLocalDisk="10000000" diskExpiryThreadIntervalSeconds="120"
-		memoryStoreEvictionPolicy="LRU" statistics="true">
+		memoryStoreEvictionPolicy="LRU" statistics="true" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</defaultCache>
 
-	<!-- <cache name="employee" maxEntriesLocalHeap="10000" eternal="false"
-		timeToIdleSeconds="5" timeToLiveSeconds="10">
+	<cache name="productCategoryCache" maxEntriesLocalHeap="100" eternal="false"
+		timeToIdleSeconds="5" timeToLiveSeconds="10" >
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<!-- <cache name="org.hibernate.cache.internal.StandardQueryCache"
+		maxEntriesLocalHeap="5" eternal="false" timeToLiveSeconds="120">
 		<persistence strategy="localTempSwap" />
 	</cache> -->
-
-	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+	
+	<cache name="default-query-results-region"
 		maxEntriesLocalHeap="5" eternal="false" timeToLiveSeconds="120">
 		<persistence strategy="localTempSwap" />
 	</cache>
 
-	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+	<!-- <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		maxEntriesLocalHeap="5000" eternal="true">
+		<persistence strategy="localTempSwap" />
+	</cache> -->
+	<cache name="default-update-timestamps-region"
 		maxEntriesLocalHeap="5000" eternal="true">
 		<persistence strategy="localTempSwap" />
 	</cache>

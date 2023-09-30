@@ -30,9 +30,8 @@ class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 		http.headers().frameOptions().disable()
 		http.authenticationProvider(authenticationProvider)
-		http.authorizeRequests().anyRequest().permitAll()
+		http.authorizeHttpRequests().anyRequest().permitAll()
 	}
-	
 	// do not need to override the configure method twice
 	// this is for higher version of Spring Boot Security
 	/*@Override
