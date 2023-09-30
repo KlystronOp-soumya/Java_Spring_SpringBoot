@@ -1,4 +1,4 @@
 package com.demo.cartapi.controller.exceptions
 
-class ProductCategoryControllerAdvice {
+class CartException extends Exception{
 }
