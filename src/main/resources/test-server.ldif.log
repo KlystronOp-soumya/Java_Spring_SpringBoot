@@ -1,0 +1,10 @@
+#!RESULT ERROR
+#!CONNECTION ldap://localhost:10389
+#!DATE 2023-02-28T02:59:59.853
+#!ERROR  [LDAP result code 32 - noSuchObject] NO_SUCH_OBJECT: failed for MessageType : ADD_REQUEST Message ID : 26     Add Request : Entry     dn: dc=springframework,dc=org     objectclass: top     objectclass: domain     objectclass: extensibleObject     dc: springframework : ERR_268 Cannot find a partition for dc=springframework,dc=org
+dn: dc=springframework,dc=org
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: springframework
+

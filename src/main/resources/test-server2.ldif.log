@@ -1,0 +1,10 @@
+#!RESULT ERROR
+#!CONNECTION ldap://localhost:10389
+#!DATE 2023-02-28T03:00:38.182
+#!ERROR  [LDAP result code 32 - noSuchObject] NO_SUCH_OBJECT: failed for MessageType : ADD_REQUEST Message ID : 27     Add Request : Entry     dn: dc=memorynotfound,dc=com     objectclass: top     objectclass: domain     objectclass: extensibleObject     dc: memorynotfound : ERR_268 Cannot find a partition for dc=memorynotfound,dc=com
+dn: dc=memorynotfound,dc=com
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: memorynotfound
+
