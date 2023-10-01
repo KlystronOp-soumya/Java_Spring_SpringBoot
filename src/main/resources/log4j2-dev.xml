@@ -53,14 +53,17 @@
   	<logger name="com.demo" level="INFO" additivity="false">
   		<AppenderRef ref="CONSOLE"/>
   		<AppenderRef ref="DEBUGLOG" />
-  	</logger>
+  	</logger> -->
   	<logger name="org.springframework" level="INFO" additivity="false">
-  		<AppenderRef ref="DEBUGLOG"/>
+  		<AppenderRef ref="CONSOLE"/>
   	</logger>
   	<logger name="org.springframework.*" level="DEBUG" additivity="false">
-  		<AppenderRef ref="DEBUGLOG"/>
+  		<AppenderRef ref="CONSOLE"/>
   	</logger>
-  	<logger name="org.springframework" level="ERROR" additivity="false">
+  	<logger name="org.springframework.scurity" level="DEBUG" additivity="false">
+  		<AppenderRef ref="CONSOLE"/>
+  	</logger>
+  	<!-- <logger name="org.springframework" level="ERROR" additivity="false">
   		<AppenderRef ref="ERRORLOG"/>
   	</logger>
   	<logger name="org.hibernate" level="INFO" additivity="false">
@@ -70,7 +73,7 @@
   	 <AppenderRef ref="ERRORLOG"/>
   	</logger> -->
 		<!-- Root logger referring to console appender -->
-		<Root level="WARN" additivity="false">
+		<Root level="INFO" additivity="false">
 			<AppenderRef ref="CONSOLE" />
 			<!-- <AppenderRef ref="DEBUGLOG" /> -->
 		</Root>
