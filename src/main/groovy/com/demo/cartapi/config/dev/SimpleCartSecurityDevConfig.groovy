@@ -1,5 +1,6 @@
 package com.demo.cartapi.config.dev
 
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.security.authentication.AuthenticationProvider
@@ -9,6 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.password.NoOpPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.web.bind.annotation.RequestMapping
+
+import groovyjarjarantlr4.v4.runtime.atn.SemanticContext.AND
 
 @SuppressWarnings("deprecation")
 @Configuration(value="simpleSecurityConfig")
@@ -30,7 +37,11 @@ class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 		http.headers().frameOptions().disable()
 		http.authenticationProvider(authenticationProvider)
-		http.authorizeHttpRequests().anyRequest().permitAll()
+		http.httpBasic()
+		http.authorizeRequests().mvcMatchers("/admin/manage/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		http.cors().disable()
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	}
 	// do not need to override the configure method twice
 	// this is for higher version of Spring Boot Security
@@ -39,4 +50,10 @@ class SimpleCartSecurityDevConfig extends WebSecurityConfigurerAdapter{
 		// TODO Auto-generated method stub
 		auth.authenticationProvider(authenticationProvider).build()
 	}*/
+	
+	@Bean
+	public PasswordEncoder passwordEncoder()
+	{
+		return NoOpPasswordEncoder.getInstance() 
+	}
 }
