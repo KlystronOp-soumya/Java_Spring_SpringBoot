@@ -22,6 +22,9 @@ import javax.jws.WebResult
 @RestControllerAdvice(basePackages="com.demo.cartapi.controller")
 class ProductCategoryControllerAdvice {
 	private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(ProductCategoryControllerAdvice.class)
+	/*
+	 * Do not need to keep Response Status if a ResponseEntity is used
+	 * */
 	//@ResponseStatus(code = HttpStatus.NOT_FOUND , reason = "Required record/records not found")
 	@ExceptionHandler(value = CartException.class)
 	public ResponseEntity<Map<String,ErrorResponseEntity>> handleProductCategoryRecordNFException(CartException ex , WebRequest req)

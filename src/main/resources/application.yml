@@ -6,8 +6,7 @@ server:
       enabled: false
     include-exception: false
     include-stacktrace: never
-       
-  
+
 spring:  
   h2:
     console:
