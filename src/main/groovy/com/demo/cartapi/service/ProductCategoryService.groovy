@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional
 
 import com.demo.cartapi.entity.ProductCategory
 import com.demo.cartapi.repo.ProductCategoryRepo
+import com.demo.cartapi.service.util.LoggerUtil
 
 import net.bytebuddy.asm.Advice.This
 
 @Service(value="productCategoryService")
 class ProductCategoryService {
 	
-	/* TODO All these apis are only exposed to the admins
+	/* TODO 
 	 * 
 	 * Get Product category list
 	 * Put Product category
@@ -38,6 +39,7 @@ class ProductCategoryService {
 	//@org.springframework.cache.annotation.Cacheable(value="productCategoryCache" ,condition="#result!=null") 
 	public List<ProductCategory> getAllProductCategoryList()
 	{
+		LoggerUtil.info("ProductCateSrvc:: etAllProductCategoryList ")
 		List<ProductCategory> productCategoryList = null ;
 		try {
 			
@@ -49,5 +51,24 @@ class ProductCategoryService {
 		} catch (Exception e) {
 			e.printStackTrace()
 		}
+		LoggerUtil.info("ProductCateSrvc:: fetched all product categories")
+		return productCategoryList
+	}
+	
+	@Transactional(readOnly=false , propagation = Propagation.REQUIRED)
+	public List<ProductCategory>  addAllProductCategoriesList(final List<ProductCategory> productCategoryList )
+	{
+		LoggerUtil.info("ProductCateSrvc:: addAllProductCategoriesList #" + productCategoryList.size())
+		List<ProductCategory> categoryList = null
+		try {
+			categoryList = productCategoryRepo.saveAndFlush(productCategoryList)
+			if(null == categoryList || categoryList.empty())
+				throw new RuntimeException("Could not added the categories")
+			
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
+		LoggerUtil.info("ProductCateSrvc:: products were added successfully")
+		return categoryList
 	}
 }

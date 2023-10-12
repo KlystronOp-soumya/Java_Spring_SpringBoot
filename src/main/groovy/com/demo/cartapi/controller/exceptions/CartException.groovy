@@ -6,4 +6,13 @@ class CartException extends Exception{
 	{
 		super(message)
 	}
+	
+	 CartException(String message, Throwable cause) {
+		super(message, cause)
+	}
+	
+	 CartException(Throwable cause) {
+		super(cause)
+	}
+	
 }

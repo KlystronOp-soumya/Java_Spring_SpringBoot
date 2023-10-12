@@ -10,4 +10,16 @@ class LoggerUtil {
 	{
 		LOGGER.info(message);
 	}
+	
+	static void error(def message)
+	{
+		if(System.getProperty("PROFILE").equalsIgnoreCase("dev"))
+		{
+			LOGGER.info(message)
+		}
+		else
+		{
+			LOGGER.error(message)
+		}
+	}
 }
