@@ -109,7 +109,7 @@ class ProductCategoryController {
 	public @ResponseBody ResponseEntity<List<ProductCategory>> deleteProductCategory(@RequestBody(required=true) 
 																					List<ProductCategory> productCategoryList )
 	{
-		
+		//TODO implement the body
 		return null;
 	}
 }
