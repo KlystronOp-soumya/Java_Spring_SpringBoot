@@ -4,6 +4,8 @@
 <Appenders>
 <Console name="CONSOLE" target="SYSTEM_OUT">
 <PatternLayout  pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+<ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+<!-- <LevelRangeFilter minLevel="DEBUG" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
 </Console>
 <!-- <RollingFile name="DEBUGLOG" fileName="logs/UltimateSpringBoot_Batch.log"
 			filePattern="%d{yyyy-mm-dd_HH_mm}_app.log.gz" append="true">
@@ -22,7 +24,7 @@
 
 <Loggers>
     	<!-- Root logger referring to console appender -->
-        <Root level="WARN" additivity="false">
+        <Root level="DEBUG" additivity="false">
             <AppenderRef ref="CONSOLE" />
             <!-- <AppenderRef ref="DEBUGLOG" /> -->
         </Root>
