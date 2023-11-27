@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+	<!-- get the quartz properties -->
+	<context:property-placeholder
+		location="classpath:app-quartz.properties , application.properties"
+		ignore-resource-not-found="false" />
+	<!-- Import the job context -->
+	<import resource="classpath:/SpringJob/batch-job-config.xml" />
+	<!-- Import the spring context -->
+	<import resource="classpath:spring-context.xml" />
+	<!-- Loads the quartz properties -->
+	<bean id="quartzProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location"
+			value="classpath:app-quartz.properties" />
+	</bean>
+	<!-- Similar to property tag. p-namespace has been used -->
+	<bean id="launchJob"
+		class="com.demo.springbatch.jobconfig.LaunchJob" p:jobLauncher-ref="jobLauncher"
+		p:jobLocator-ref="jobRegistry" />
+
+
+
+	<bean id="jobDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.demo.springbatch.jobconfig.LaunchJob" />
+		<property name="name" value="${QUARTZ_JOB_NAME}"/>
+		<property name="group" value="${QUARTZ_JOB_GROUP}" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="demoDailyJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />		
+			</map>
+		</property>
+	</bean>
+	<!-- run every 10 seconds -->
+	<bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="schedulerFactoryClass" value="org.quartz.impl.StdSchedulerFactory" /> 
+		<property name="triggers">
+			<bean id="cronTrigger"
+				class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> <!-- SimpleTriggerBean for normal triggers -->
+				<property name="jobDetail" ref="jobDetail" />
+				<property name="cronExpression" value="${CRON_INSTANT}" /> <!-- 10 secs -->
+				<!-- <property name="cronExpression" value="${CRON_DAILY}" /> --> <!-- Daily 9 pm -->
+			</bean>
+		</property>
+		<property name="quartzProperties" ref="quartzProperties"/>
+		<!-- Set the listeners -->
+		<property name="schedulerListeners" ref="qrtzSchdListener" />
+		<property name="globalTriggerListeners"
+			ref="qrtzTriggerListener" />
+		<property name="globalJobListeners" ref="qrtzJobListener" />
+
+	</bean>
+
+	<!-- Scheduler factory -->
+	<bean id="schedulerFactory"
+		class="org.quartz.impl.StdSchedulerFactory" primary="true">
+		<constructor-arg ref="quartzProperties" />
+	</bean>
+
+
+
+</beans>
