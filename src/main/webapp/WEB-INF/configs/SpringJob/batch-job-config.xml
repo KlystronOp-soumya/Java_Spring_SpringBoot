@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+
+
+	<!-- Database Config for Batch imported -->
+	<import resource="../spring-context.xml" />
+
+
+	<!-- stored job-meta in memory -->
+
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+
+	<!-- stored job-meta in database -->
+	<!-- <bean id="jobRepository" class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <property name="transactionManager" 
+		ref="transactionManager" /> <property name="databaseType" value="mysql" /> 
+		</bean> -->
+
+	<bean id="transactionManager"
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+		<property name="taskExecutor">
+			<bean
+				class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
+		</property>
+	</bean>
+
+	<bean id="jobRegistry"
+		class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
+
+	<bean
+		class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
+		<property name="jobRegistry" ref="jobRegistry" />
+	</bean>
+
+	<!-- <bean id="jobExplorer"
+		class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean" >
+		
+		</bean> -->
+
+	<!-- <bean id="jobOperator"
+		class="org.springframework.batch.core.launch.support.SimpleJobOperator">
+		<property name="jobExplorer" ref="jobExplorer" />
+		 <bean class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean"> 
+			<property name="dataSource" ref="dataSource" /> </bean> 
+		 </property>
+		<property name="jobRepository" ref="jobRepository" />
+		<property name="jobRegistry" ref="jobRegistry" />
+		<property name="jobLauncher" ref="jobLauncher" />
+	</bean> -->
+
+	<!-- batch execution config -->
+	<batch:job id="demoDailyJob2" job-repository="jobRepository">
+
+		<batch:description>
+		demonstrates daily job.
+	</batch:description>
+
+		<batch:step id="dispMessageStep">
+			<batch:tasklet ref="dispHelloWorld" />
+			<batch:listeners>
+				<batch:listener ref="batchJobStepListener" /><!-- Step Listener -->
+
+			</batch:listeners>
+		</batch:step>
+		<batch:listeners>
+			<batch:listener ref="batchJobListener" /><!-- Job Listner -->
+		</batch:listeners>
+	</batch:job>
+
+
+</beans>

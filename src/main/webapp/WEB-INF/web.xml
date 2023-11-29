@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <absolute-ordering />
+  <display-name>SpringMVCQuartzBatch</display-name>
+  <welcome-file-list> 
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- add the quartz listener  -->
+  <listener>
+         <listener-class>
+             org.quartz.ee.servlet.QuartzInitializerListener
+         </listener-class>
+     </listener>
+     
+     <!-- Quartz Params used by the listener class -->
+      <context-param>
+         <param-name>quartz:config-file</param-name>
+         <param-value>app-quartz.properties</param-value>
+     </context-param>
+     <context-param>
+         <param-name>quartz:shutdown-on-unload</param-name>
+         <param-value>true</param-value>
+     </context-param>
+     <context-param>
+         <param-name>quartz:wait-on-shutdown</param-name>
+         <param-value>false</param-value>
+     </context-param>
+     <context-param>
+         <param-name>quartz:start-scheduler-on-load</param-name>
+         <param-value>true</param-value>
+     </context-param>
+  <!-- context config  locations -->
+  <context-param>
+		<param-name>webAppRootKey</param-name>
+		<!-- webAppRoot = [E:\Program Files\Java Programs\Maven Projects\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringMVCQuartzBatch\] -->
+		<param-value>webAppRoot</param-value>
+	</context-param>
+	
+	<!-- Web Root Config Listener -->
+	<listener>
+		<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.demo.springbatch.BatchRunnerListener</listener-class>
+	</listener>
+	
+	<!-- 
+	   Setting the quartz-job-config as context parameter will autometically invoke the
+	   execute method and the batch will start to execute
+	   
+	   PS: dont need to add the batch context as the container will invoke it twice and the batch
+	   would be registered twice
+	
+	 -->
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/configs/QuartzJob/quartz-job-config.xml</param-value>
+	</context-param>
+  <!-- spring dispatcher servlet -->
+  <servlet>
+		<servlet-name>mvcBatchQrtz</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- <init-param> <param-name>throwExceptionIfNoHandlerFound</param-name> 
+			<param-value>true</param-value> </init-param> -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/configs/spring-context.xml </param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mvcBatchQrtz</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	  <servlet-name>QuartzInitializer</servlet-name>
+	  <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
+	  <init-param>
+	    <param-name>shutdown-on-unload</param-name>
+	    <param-value>true</param-value>
+	  </init-param>
+	  <load-on-startup>2</load-on-startup>
+
+	</servlet>
+  
+  
+</web-app>
