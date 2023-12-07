@@ -12,13 +12,13 @@
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 <!-- Configuring project beans here -->
+<context:annotation-config />
 <context:component-scan
 		base-package="com.demo.springbatch" />
 		
-		
+		<import resource="db-context-config.xml"/>
 <!-- Configure the Tasklet class -->
-<bean id="dispHelloWorld" class="com.demo.springbatch.steps.DispHelloWorld" 
-   autowire-candidate="default" scope="prototype" />
+<bean id="dispHelloWorld" class="com.demo.springbatch.steps.DispHelloWorld" autowire="byName" />
    
 
 <!-- Configure the reader class -->

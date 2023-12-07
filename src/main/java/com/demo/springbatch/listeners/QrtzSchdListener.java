@@ -10,7 +10,7 @@ import org.quartz.TriggerKey;
 public class QrtzSchdListener implements SchedulerListener {
 
 	public void jobScheduled(Trigger trigger) {
-		// TODO Auto-generated method stub
+		System.out.println("");
 		
 	}
 
@@ -46,7 +46,7 @@ public class QrtzSchdListener implements SchedulerListener {
 
 	public void jobAdded(JobDetail jobDetail) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Job added");
 	}
 
 	public void jobDeleted(JobKey jobKey) {

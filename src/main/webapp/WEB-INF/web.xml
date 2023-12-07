@@ -60,7 +60,11 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/configs/QuartzJob/quartz-job-config.xml</param-value>
+		<param-value>
+		/WEB-INF/configs/root-context.xml
+		/WEB-INF/configs/db-context-config.xml
+		/WEB-INF/configs/QuartzJob/quartz-job-config.xml
+		</param-value>
 	</context-param>
   <!-- spring dispatcher servlet -->
   <servlet>
@@ -70,7 +74,7 @@
 			<param-value>true</param-value> </init-param> -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/configs/spring-context.xml </param-value>
+			<param-value>/WEB-INF/configs/spring-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

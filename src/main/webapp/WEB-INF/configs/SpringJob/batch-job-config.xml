@@ -12,10 +12,10 @@
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 
-
+	<context:annotation-config />
 	<!-- Database Config for Batch imported -->
+	<import resource="../db-context-config.xml" />
 	<import resource="../spring-context.xml" />
-
 
 	<!-- stored job-meta in memory -->
 
@@ -32,7 +32,7 @@
 		</bean> -->
 
 	<bean id="transactionManager"
-		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" primary="true"/>
 
 	<bean id="jobLauncher"
 		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
@@ -51,21 +51,14 @@
 		<property name="jobRegistry" ref="jobRegistry" />
 	</bean>
 
-	<!-- <bean id="jobExplorer"
-		class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean" >
-		
-		</bean> -->
+	<!-- <bean id="jobExplorer" class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean" 
+		> </bean> -->
 
-	<!-- <bean id="jobOperator"
-		class="org.springframework.batch.core.launch.support.SimpleJobOperator">
-		<property name="jobExplorer" ref="jobExplorer" />
-		 <bean class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean"> 
-			<property name="dataSource" ref="dataSource" /> </bean> 
-		 </property>
-		<property name="jobRepository" ref="jobRepository" />
-		<property name="jobRegistry" ref="jobRegistry" />
-		<property name="jobLauncher" ref="jobLauncher" />
-	</bean> -->
+	<!-- <bean id="jobOperator" class="org.springframework.batch.core.launch.support.SimpleJobOperator"> 
+		<property name="jobExplorer" ref="jobExplorer" /> <bean class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> </bean> </property> <property 
+		name="jobRepository" ref="jobRepository" /> <property name="jobRegistry" 
+		ref="jobRegistry" /> <property name="jobLauncher" ref="jobLauncher" /> </bean> -->
 
 	<!-- batch execution config -->
 	<batch:job id="demoDailyJob2" job-repository="jobRepository">
@@ -77,7 +70,8 @@
 		<batch:step id="dispMessageStep">
 			<batch:tasklet ref="dispHelloWorld" />
 			<batch:listeners>
-				<batch:listener ref="batchJobStepListener" /><!-- Step Listener -->
+				<batch:listener ref="batchJobStepListener" /><!-- Step 
+					Listener -->
 
 			</batch:listeners>
 		</batch:step>
