@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 
 public class BaseDAO {
 
@@ -18,7 +18,7 @@ public class BaseDAO {
 	public Connection dbConn;
 
 	public BaseDAO() {
-		// TODO get the entityManager from the hibernate utils
+
 	}
 
 	public void clearResources() {

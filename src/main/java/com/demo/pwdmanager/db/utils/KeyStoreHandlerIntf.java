@@ -4,8 +4,9 @@
 package com.demo.pwdmanager.db.utils;
 
 import java.io.IOException;
-import java.security.Key;
 import java.security.KeyStore;
+
+import javax.crypto.SecretKey;
 
 import com.demo.pwdmanager.exceptions.PasswordManagerException;
 
@@ -26,7 +27,9 @@ public interface KeyStoreHandlerIntf {
 	public void loadKeyStore(String userId, String password, String keyStoreName, String path)
 			throws PasswordManagerException;
 
-	public Key getKeyFromKS(String userId, String password) throws PasswordManagerException;
+	public void loadKeyStore(String userId, String password) throws PasswordManagerException;
+
+	public SecretKey getKeyFromKS(String userId, String password) throws PasswordManagerException;
 
 	public void storeCredsInKS(String userId, String secretKey, String keyStorePwd, KeyStore ks)
 			throws PasswordManagerException;
@@ -36,5 +39,9 @@ public interface KeyStoreHandlerIntf {
 	public void deleteKeyStore(String userId) throws PasswordManagerException;
 
 	public String getKeyStoreConfigPath();
+
+	default KeyStore getKs() {
+		return null;
+	}
 
 }

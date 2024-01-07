@@ -9,8 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.Key;
 import java.security.KeyStore;
+import java.security.KeyStore.Entry;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -21,10 +21,10 @@ import com.demo.pwdmanager.AppConstants;
 import com.demo.pwdmanager.exceptions.PasswordManagerException;
 
 /**
- * @author USER
+ * @author Soumyadeep Paul
  *
  */
-public class KeyStoreHandler implements KeyStoreHandlerIntf {
+public class KeyStoreUtilHandler implements KeyStoreHandlerIntf {
 
 	private KeyStore ks;
 
@@ -36,8 +36,8 @@ public class KeyStoreHandler implements KeyStoreHandlerIntf {
 																														// the
 																														// .keystore
 		File f = new File(keyStoreFullPath); // file
-		if (!isKeyStoreExists(f)) {
-
+		if (!f.exists()) {
+			System.out.println("Keystore was created");
 			f.createNewFile();
 		}
 		char[] pwdArray = keyStorePassword.toCharArray();
@@ -67,6 +67,19 @@ public class KeyStoreHandler implements KeyStoreHandlerIntf {
 	}
 
 	@Override
+	public void loadKeyStore(String userId, String password) throws PasswordManagerException {
+		try (BufferedInputStream ksInputStream = new BufferedInputStream(
+				new FileInputStream(getKeyStorePath(userId)))) {
+			char[] pwdArray = password.toCharArray();
+			this.ks = KeyStore.getInstance("pkcs12");
+			ks.load(ksInputStream, pwdArray);
+		} catch (Exception e) {
+			throw new PasswordManagerException("Issue while loading the keystore->\n" + e.getMessage(), e.getCause());
+		}
+
+	}
+
+	@Override
 	public void loadKeyStore(String userId, String password, String keyStoreName, String path)
 			throws PasswordManagerException {
 		try (BufferedInputStream ksInputStream = new BufferedInputStream(
@@ -79,18 +92,57 @@ public class KeyStoreHandler implements KeyStoreHandlerIntf {
 		}
 	}
 
-	/*
-	 * @param userId The user id of the current user
+	@Override
+	public void storeCredsInKS(String userId, String keyStorePwd) throws PasswordManagerException {
+		try (BufferedOutputStream ksOutputStream = new BufferedOutputStream(
+				new FileOutputStream(getKeyStorePath(userId)))) {
+			char[] keyStorePwdArray = keyStorePwd.toCharArray();
+			SecretKey secretKey = CryptoUtil.getKeyFromPassword(keyStorePwd);
+			KeyStore.SecretKeyEntry secretEntry = new KeyStore.SecretKeyEntry(secretKey);
+			KeyStore.ProtectionParameter pwdProtParam = new KeyStore.PasswordProtection(keyStorePwdArray);
+			this.ks.setEntry(userId.concat("-pwd-mngr"), secretEntry, pwdProtParam);
+			this.ks.store(ksOutputStream, keyStorePwdArray);
+		} catch (Exception e) {
+			throw new PasswordManagerException("Could not insert secret into->\n" + e.getMessage(), e.getCause());
+		}
+
+	}
+
+	@Override
+	public SecretKey getKeyFromKS(final String userId, final String password) throws PasswordManagerException {
+		SecretKey pwdMngrUsrSecret = null;
+		char[] keyStorePwdArray = password.toCharArray();
+		KeyStore.ProtectionParameter pwdProtParam = new KeyStore.PasswordProtection(keyStorePwdArray);
+		try {
+			Entry entry = ks.getEntry(userId.concat("-pwd-mngr"), pwdProtParam);
+
+			// Cast the entry object to a KeyStore.SecretKeyEntry type
+			KeyStore.SecretKeyEntry secretKeyEntry = (KeyStore.SecretKeyEntry) entry;
+
+			// Get the SecretKey object from the entry
+			pwdMngrUsrSecret = secretKeyEntry.getSecretKey();
+			if (null == pwdMngrUsrSecret) {
+				throw new NullPointerException("User id not found: " + userId);
+			}
+
+		} catch (Exception e) {
+			throw new PasswordManagerException(e.getCause().toString());
+		}
+		return pwdMngrUsrSecret;
+	}
+
+	/**
+	 * @param userId      The user id of the current user
 	 * 
-	 * @param secret key The key generated using the password and the salt --One
-	 * Time
+	 * @param secret      key The key generated using the password and the salt
+	 *                    --One Time
 	 * 
 	 * @param keyStorePwd The user password is used as the keystore pwd
 	 * 
 	 */
 	@Override
 	public void storeCredsInKS(String userId, String secretKey, String keyStorePwd, KeyStore ks) {
-
+		// No implementation
 	}
 
 	@Override
@@ -103,10 +155,6 @@ public class KeyStoreHandler implements KeyStoreHandlerIntf {
 
 	}
 
-	private boolean isKeyStoreExists(final File keyStoreConfigPath) {
-		return keyStoreConfigPath.exists();
-	}
-
 	@Override
 	public String getKeyStoreConfigPath() {
 		String localAppDataPath = System.getenv(AppConstants.APP_DATA.getValue());
@@ -115,41 +163,13 @@ public class KeyStoreHandler implements KeyStoreHandlerIntf {
 		return keyStoreFullPath;
 	}
 
-	private String getKeyStorePath(final String userId) {
-		return getKeyStoreConfigPath().concat("\\" + userId).concat(AppConstants.KEY_STORE.getValue());
-	}
-
+	@Override
 	public KeyStore getKs() {
 		return this.ks;
 	}
 
-	@Override
-	public void storeCredsInKS(String userId, String keyStorePwd) throws PasswordManagerException {
-		try {
-			char[] keyStorePwdArray = keyStorePwd.toCharArray();
-			SecretKey secretKey = CryptoUtil.getKeyFromPassword(keyStorePwd);
-			KeyStore.SecretKeyEntry secretEntry = new KeyStore.SecretKeyEntry(secretKey);
-			KeyStore.ProtectionParameter pwdProtParam = new KeyStore.PasswordProtection(keyStorePwdArray);
-			this.ks.setEntry(userId.concat("pwd-mngr"), secretEntry, pwdProtParam);
-		} catch (Exception e) {
-			throw new PasswordManagerException("Could not insert secret into->\n" + e.getMessage(), e.getCause());
-		}
-
-	}
-
-	@Override
-	public Key getKeyFromKS(String userId, String password) throws PasswordManagerException {
-		Key pwdMngrUsrSecret = null;
-		try {
-			pwdMngrUsrSecret = ks.getKey(userId.concat("pwd-mngr"), password.toCharArray());
-			if (null == pwdMngrUsrSecret) {
-				throw new NullPointerException("User id not found: " + userId);
-			}
-
-		} catch (Exception e) {
-			throw new PasswordManagerException(e.getCause().toString());
-		}
-		return pwdMngrUsrSecret;
+	private String getKeyStorePath(final String userId) {
+		return getKeyStoreConfigPath().concat("\\" + userId).concat(AppConstants.KEY_STORE.getValue());
 	}
 
 }

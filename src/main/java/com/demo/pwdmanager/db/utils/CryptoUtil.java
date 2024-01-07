@@ -19,16 +19,22 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.bouncycastle.util.Arrays;
+
 import com.demo.pwdmanager.AppConstants;
 
+/**
+ * @author Soumyadeep Paul
+ *
+ */
 public class CryptoUtil {
 
-	/*
+	private final static String SALT_STRING = "PASSWORD_MANAGER";
+
+	/**
 	 * Method that generates key for generating ciphered text
 	 * 
-	 * @param int n
-	 *
-	 * number of bits
+	 * @param int n number of bits
 	 *
 	 * 
 	 */
@@ -39,12 +45,15 @@ public class CryptoUtil {
 		return key;
 	}
 
-	/*
+	/**
 	 * this method generates key from the password
 	 * 
 	 * @param String password
 	 * 
 	 * @param String salt
+	 * 
+	 * @return Secretkey <br>
+	 *         The generated key from the password
 	 * 
 	 * 
 	 */
@@ -61,6 +70,20 @@ public class CryptoUtil {
 		byte[] iv = new byte[16];
 		new SecureRandom().nextBytes(iv);
 		return new IvParameterSpec(iv);
+	}
+
+	/**
+	 * This method generets the initialization vector
+	 * 
+	 * @param String userPwd <br>
+	 *               The user password
+	 * 
+	 * 
+	 */
+	public static IvParameterSpec generateIVFromPwd(final String userPwd) {
+		byte ivArray[] = new byte[16];
+		ivArray = Arrays.copyOfRange(userPwd.getBytes(), 0, 16);
+		return new IvParameterSpec(ivArray);
 	}
 
 	public static String encrypt(String algorithm, String input, SecretKey key, IvParameterSpec iv)
@@ -87,11 +110,19 @@ public class CryptoUtil {
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), getSaltBytes(password), 65536, 256);
+		KeySpec spec = new PBEKeySpec(password.toCharArray(), SALT_STRING.getBytes(), 65536, 256);
+
 		SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
 		return secret; // returns the secret key
 	}
 
+	/**
+	 * Gets the salt bytes which seeds the SecureRandom using user password
+	 * 
+	 * @param String userPassword The user password
+	 * 
+	 * 
+	 */
 	private static byte[] getSaltBytes(final String userPassword) {
 		byte[] pwdByteSeed = userPassword.getBytes();
 		SecureRandom secureRandom = new SecureRandom(pwdByteSeed);
@@ -117,8 +148,20 @@ public class CryptoUtil {
 			InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
 		Cipher cipher = Cipher.getInstance(AppConstants.CIPHER_ALGO.getValue());
+		// cipher.init(Cipher.DECRYPT_MODE, key, iv);
 		cipher.init(Cipher.DECRYPT_MODE, key, iv);
 		byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
 		return new String(plainText);
+	}
+
+	public static String encrypt(String plainText, SecretKey key, IvParameterSpec iv)
+			throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
+			InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+
+		Cipher cipher = Cipher.getInstance(AppConstants.CIPHER_ALGO.getValue());
+		cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+		// cipher.init(Cipher.ENCRYPT_MODE, key);
+		byte[] cipherText = cipher.doFinal(plainText.getBytes());
+		return Base64.getEncoder().encodeToString(cipherText);
 	}
 }

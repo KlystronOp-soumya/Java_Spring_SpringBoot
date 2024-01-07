@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import com.demo.pwdmanager.db.utils.KeyStoreHandler;
+import com.demo.pwdmanager.db.utils.KeyStoreUtilHandler;
 import com.demo.pwdmanager.entities.AuthenticatedUser;
 import com.demo.pwdmanager.exceptions.PasswordManagerException;
 
@@ -69,7 +69,7 @@ public class RunHandler {
 	// attempts
 	// the keystore will be created during next registration
 	private void createConfigFolder() throws PasswordManagerException {
-		KeyStoreHandler keyStoreHandler = new KeyStoreHandler();
+		KeyStoreUtilHandler keyStoreHandler = new KeyStoreUtilHandler();
 		File configFolder = new File(keyStoreHandler.getKeyStoreConfigPath());
 		if (!configFolder.exists()) {
 			configFolder.mkdir();
