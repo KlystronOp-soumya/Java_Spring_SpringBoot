@@ -72,7 +72,7 @@ public class PatientService {
 	}
 	
 	@org.springframework.transaction.annotation.Transactional
-	@CacheEvict(cacheNames = "patients")
+	@CacheEvict(cacheNames = "cacheAllPatientRecords")
 	public void deletePatientRecord(final String adhaarNum) throws HospitalApiException
 	{
 		LOGGER.info("Trying to delete a record");
@@ -94,7 +94,7 @@ public class PatientService {
 	}
 	
 	@org.springframework.transaction.annotation.Transactional
-	@CachePut(cacheNames = "patients" , key = "#patient.patientAdhaarCardNum")
+	@CachePut(cacheNames = "cacheAllPatientRecords" , key = "#patient.patientAdhaarCardNum")
 	public void updatePatientRecord(final Patients patient) throws HospitalApiException
 	{
 		LOGGER.info("Trying to update a record");
