@@ -21,7 +21,11 @@ import com.demo.hospitalapi.service.PatientService;
 
 @Configuration
 //@Profile(value = "dev")
-@Import(value = {DatabasePersistentConfig.class , com.demo.hospitalapi.config.qa.DatabasePersistentConfig.class , AppCacheConfig.class , SwaggerConfig.class})
+@Import(value = {
+		DatabasePersistentConfig.class ,
+		com.demo.hospitalapi.config.qa.DatabasePersistentConfig.class , 
+		AppCacheConfig.class,
+		AppRedisConfig.class}) //, SwaggerConfig.class
 @ComponentScan(basePackages = "com.demo.hospitalapi")
 @EnableJpaRepositories(basePackages = "com.demo.hospitalapi.repo")
 public class AppConfig {
