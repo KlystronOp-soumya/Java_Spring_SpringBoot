@@ -11,13 +11,13 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-@Configuration(value = "swaggerConfiguration" , proxyBeanMethods = false)
-@Profile("dev")
-@EnableSwagger2
+//import springfox.documentation.spring.web.plugins.Docket;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//@Configuration(value = "swaggerConfiguration" , proxyBeanMethods = false)
+//@Profile("dev")
+//@EnableSwagger2
 public class SwaggerConfig {
-	@Autowired
+	/*@Autowired
 	private  javax.servlet.ServletContext servletContext;
 	@Bean
 	public Docket postsApi() {
@@ -46,5 +46,5 @@ public class SwaggerConfig {
 				.termsOfServiceUrl("http://soumyascope.com")
 				.contact("john.doe@gmail.com").license("Soumyadeep License")
 				.licenseUrl("john.doe@gmail.com").version("1.0").build();
-	}
+	}*/
 }
