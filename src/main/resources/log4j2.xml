@@ -54,6 +54,9 @@
   		<AppenderRef ref="CONSOLE"/>
   		<AppenderRef ref="DEBUGLOG" />
   	</logger>
+  	<logger name="org.springframework.cache" level="TRACE" additivity="false">
+  		<AppenderRef ref="CONSOLE"/>
+  	</logger>
   	<logger name="org.springframework" level="INFO" additivity="false">
   		<AppenderRef ref="DEBUGLOG"/>
   	</logger>
