@@ -3,7 +3,6 @@ package com.demo.hospitalapi.config;
 import java.time.Duration;
 import java.util.Arrays;
 
-import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -11,16 +10,47 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheManager.RedisCacheManagerBuilder;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 @Configuration(value = "appCacheConfig", proxyBeanMethods = false)
 @EnableCaching
 public class AppCacheConfig {
 
-	// bean config without using any third party secondlevel cache
+	/**
+	 * <h5>Added on: 23/01/2024</h5>
+	 * 
+	 * Configures Redis cache
+	 * 
+	 * */
+	
+	@Bean
+    RedisConnectionFactory redisConnectionFactory() {
+		RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+		configuration.setHostName("localhost");
+		configuration.setPort(6379);
+		return new JedisConnectionFactory(configuration);
+        
+    }
 
+    @Bean
+    RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+
+        RedisCacheConfiguration defaults = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(5)).disableCachingNullValues() ;
+            
+
+        return RedisCacheManager.builder()
+        		.fromConnectionFactory(connectionFactory)
+            .cacheDefaults(defaults)
+            .withCacheConfiguration("cacheAllPatientRecords", defaults)
+            .build();
+    }
+	
+	
+	// bean config without using any third party secondlevel cache
+	/*
 	@Bean("cacheManager")
 	public CacheManager cacheManager() {
 		ConcurrentMapCacheManager mgr = new ConcurrentMapCacheManager();
@@ -28,6 +58,7 @@ public class AppCacheConfig {
 		mgr.setCacheNames(Arrays.asList("cacheAllPatientRecords", "patients"));
 		return mgr;
 	}
+	*/
 
 	/*
 	 * @Bean public RedisCacheConfiguration cacheConfiguration() { return

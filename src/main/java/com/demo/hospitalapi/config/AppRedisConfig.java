@@ -1,10 +1,9 @@
 package com.demo.hospitalapi.config;
 
-import org.springframework.boot.autoconfigure.data.redis.JedisClientConfigurationBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisClientConfiguration.JedisClientConfigurationBuilder;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -22,19 +21,21 @@ public class AppRedisConfig {
 //
 //		return clientBuilder;
 //	}
-
+	
+	/*
+	 * commenting out on 23-01-2024 /
 	@Bean
-	public JedisConnectionFactory connectionFactory() {
+	 JedisConnectionFactory connectionFactory() {
 		RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
 		configuration.setHostName("localhost");
 		configuration.setPort(6379);
 		return new JedisConnectionFactory(configuration);
 	}
-
+	*/
 	@Bean
-	public RedisTemplate<String, Object> template() {
+	 RedisTemplate<String, Object> template(final RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(connectionFactory());
+		template.setConnectionFactory(connectionFactory);
 		template.setKeySerializer(new StringRedisSerializer());
 		template.setHashKeySerializer(new StringRedisSerializer());
 		template.setHashKeySerializer(new JdkSerializationRedisSerializer());
