@@ -17,3 +17,17 @@ spring:
     active: '@app.profile@'
   application:
     name: Simple-HospitalApi
+    
+management:
+  endpoint:
+    beans:
+      enabled: true
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
