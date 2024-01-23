@@ -25,8 +25,8 @@ import com.demo.hospitalapi.exceptions.PatientRecordNotFoundException;
 import com.demo.hospitalapi.exceptions.UpdateNotPossibleException;
 import com.demo.hospitalapi.service.PatientService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+//import io.swagger.annotations.ApiOperation;
+//import io.swagger.annotations.ApiParam;
 
 @RestController("patientController")
 @RequestMapping(path = "/api")
@@ -40,7 +40,7 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 	
-	@ApiOperation(value = "Get a patient details by adhaar card number", notes = "Returns a object as per the id")
+	//@ApiOperation(value = "Get a patient details by adhaar card number", notes = "Returns a object as per the id")
 	@GetMapping(path = "/getPatientDetails" , produces = MediaType.APPLICATION_JSON_VALUE) //general authority
 	public ResponseEntity<Map<String, Object>> getPatientDetails(@RequestParam(value = "adhaarCardNumber" , required = true) final String adhaarCardNumber) throws PatientRecordNotFoundException {
 		Map<String, Object> responseMap ;
