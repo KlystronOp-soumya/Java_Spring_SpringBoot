@@ -1,0 +1,17 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /ElkDemo
+
+logging:
+  file:
+#    path: ElkLogs/
+    name: ElkLogs/elkDemo.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: info
+    '[org.springframework]': info
+    '[com.demo.elkdemo]': debug
+      

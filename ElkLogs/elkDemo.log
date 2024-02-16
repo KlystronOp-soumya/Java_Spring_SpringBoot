@@ -1,0 +1,120 @@
+2024-02-16 14:21:27,412 INFO  [main] com.demo.elkdemo.app.ELKDemoApp : Starting ELKDemoApp using Java 11.0.19 on DESKTOP-AT8B593 with PID 6388 (E:\Program Files\Spring\Microservices\ELKDemo\target\classes started by USER in E:\Program Files\Spring\Microservices\ELKDemo)
+2024-02-16 14:21:27,415 DEBUG [main] com.demo.elkdemo.app.ELKDemoApp : Running with Spring Boot v2.7.5, Spring v5.3.23
+2024-02-16 14:21:27,416 INFO  [main] com.demo.elkdemo.app.ELKDemoApp : No active profile set, falling back to 1 default profile: "default"
+2024-02-16 14:21:28,387 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-16 14:21:28,404 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 JPA repository interfaces.
+2024-02-16 14:21:29,232 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8093 (http)
+2024-02-16 14:21:29,244 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2024-02-16 14:21:29,244 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-02-16 14:21:29,373 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ElkDemo] : Initializing Spring embedded WebApplicationContext
+2024-02-16 14:21:29,373 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1887 ms
+2024-02-16 14:21:29,676 INFO  [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2024-02-16 14:21:29,811 INFO  [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2024-02-16 14:21:29,856 INFO  [main] org.hibernate.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-16 14:21:29,905 INFO  [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 5.6.12.Final
+2024-02-16 14:21:30,046 INFO  [main] org.hibernate.annotations.common.Version : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-02-16 14:21:30,150 INFO  [main] org.hibernate.dialect.Dialect : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-02-16 14:21:30,330 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-02-16 14:21:30,341 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-16 14:21:30,417 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-16 14:21:30,820 INFO  [main] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-02-16 14:21:30,870 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8093 (http) with context path '/ElkDemo'
+2024-02-16 14:21:30,888 INFO  [main] com.demo.elkdemo.app.ELKDemoApp : Started ELKDemoApp in 4.141 seconds (JVM running for 4.753)
+2024-02-16 14:21:30,940 INFO  [main] com.demo.elkdemo.app.ELKDemoApp : Application was started
+2024-02-16 14:22:00,905 INFO  [http-nio-8093-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ElkDemo] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-16 14:22:00,907 INFO  [http-nio-8093-exec-1] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2024-02-16 14:22:00,908 INFO  [http-nio-8093-exec-1] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 1 ms
+2024-02-16 14:22:01,021 INFO  [http-nio-8093-exec-1] com.demo.elkdemo.controller.AgentController : Inside agentById :: trying to fetch agent entry by id
+2024-02-16 14:22:01,021 INFO  [http-nio-8093-exec-1] com.demo.elkdemo.service.AgentService : Inside getAgentDetailsById :: trying to get agent data for: 123
+2024-02-16 14:22:01,032 INFO  [http-nio-8093-exec-1] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent by id 
+2024-02-16 14:22:01,033 INFO  [http-nio-8093-exec-1] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: data fetched: true
+2024-02-16 14:22:07,332 INFO  [http-nio-8093-exec-2] com.demo.elkdemo.controller.AgentController : Inside agentById :: trying to fetch agent entry by id
+2024-02-16 14:22:07,333 INFO  [http-nio-8093-exec-2] com.demo.elkdemo.service.AgentService : Inside getAgentDetailsById :: trying to get agent data for: 100
+2024-02-16 14:22:07,333 INFO  [http-nio-8093-exec-2] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent by id 
+2024-02-16 14:22:07,352 ERROR [http-nio-8093-exec-2] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ElkDemo].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [/ElkDemo] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+java.lang.NullPointerException: null
+	at com.demo.elkdemo.dao.AgentRepo.lambda$getAgentById$1(AgentRepo.java:37)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:408)
+	at com.demo.elkdemo.dao.AgentRepo.getAgentById(AgentRepo.java:37)
+	at com.demo.elkdemo.dao.AgentRepo$$FastClassBySpringCGLIB$$fbf84a36.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.demo.elkdemo.dao.AgentRepo$$EnhancerBySpringCGLIB$$bb8ffeb4.getAgentById(<generated>)
+	at com.demo.elkdemo.service.AgentService.getAgentDetailsById(AgentService.java:32)
+	at com.demo.elkdemo.controller.AgentController.agentById(AgentController.java:44)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:670)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2024-02-16 15:07:49,814 INFO  [http-nio-8093-exec-3] com.demo.elkdemo.controller.AgentController : Inside allAgents :: trying to fetch all agent list
+2024-02-16 15:07:49,819 INFO  [http-nio-8093-exec-3] com.demo.elkdemo.service.AgentService : Inside getAllAgents :: trying to get agent list from Repo
+2024-02-16 15:07:49,823 INFO  [http-nio-8093-exec-3] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent list from repo
+2024-02-16 15:07:49,824 INFO  [http-nio-8093-exec-3] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: data was fetched
+2024-02-16 15:07:54,274 INFO  [http-nio-8093-exec-4] com.demo.elkdemo.controller.AgentController : Inside allAgents :: trying to fetch all agent list
+2024-02-16 15:07:54,274 INFO  [http-nio-8093-exec-4] com.demo.elkdemo.service.AgentService : Inside getAllAgents :: trying to get agent list from Repo
+2024-02-16 15:07:54,274 INFO  [http-nio-8093-exec-4] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent list from repo
+2024-02-16 15:07:54,274 INFO  [http-nio-8093-exec-4] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: data was fetched
+2024-02-16 15:07:55,693 INFO  [http-nio-8093-exec-5] com.demo.elkdemo.controller.AgentController : Inside allAgents :: trying to fetch all agent list
+2024-02-16 15:07:55,693 INFO  [http-nio-8093-exec-5] com.demo.elkdemo.service.AgentService : Inside getAllAgents :: trying to get agent list from Repo
+2024-02-16 15:07:55,694 INFO  [http-nio-8093-exec-5] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent list from repo
+2024-02-16 15:07:55,694 INFO  [http-nio-8093-exec-5] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: data was fetched
+2024-02-16 15:08:42,055 INFO  [http-nio-8093-exec-7] com.demo.elkdemo.controller.AgentController : Inside allAgents :: trying to fetch all agent list
+2024-02-16 15:08:42,055 INFO  [http-nio-8093-exec-7] com.demo.elkdemo.service.AgentService : Inside getAllAgents :: trying to get agent list from Repo
+2024-02-16 15:08:42,056 INFO  [http-nio-8093-exec-7] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: getting agent list from repo
+2024-02-16 15:08:42,056 INFO  [http-nio-8093-exec-7] com.demo.elkdemo.dao.AgentRepo : Inside DAO :: data was fetched
