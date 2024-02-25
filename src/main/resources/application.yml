@@ -1,0 +1,75 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /agentmanagement
+  error:
+    whitelabel:
+      enabled: true
+---
+spring:
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:file:./sampledata;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+      username: sa
+      password: 
+      auto-commit: true
+      connection-timeout: 60000
+      idle-timeout: 1200000
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      maximum-pool-size: 25
+      pool-name: AgentServicePool
+      
+      
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+
+  jpa:
+    database: H2
+    database-platform: H2 
+    generate-ddl: true
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format-sql: true
+    
+  data:
+    jpa:
+      repositories:
+        enabled: true
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant-path-matcher
+# sql:
+#    init:
+#      mode: NEVER 
+management:
+  endpoints:
+    enabled-by-default: true #http://localhost:8080/actuator
+springdoc:
+  api-docs:
+    enabled: true
+  show-actuator: false
+  swagger-ui:
+    enabled: true
+---
+logging:
+  file:
+#    path: logs/
+    name: logs/aoplogs.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: info
+    '[org.springframework]': info
+    '[com.demo.aopdemo]': debug
+    '[org.springframework.cache]': trace
+    
