@@ -53,10 +53,10 @@ public class AgentService {
 		}
 		return agent;
 	}
-
+	
 	@Loggable
 	@Transactional
-	@Cacheable(sync = true, cacheNames = "allAgentCache", unless = "#result.size() > 0 ", keyGenerator = "customAgentCacheKey")
+	@Cacheable(sync = true, cacheNames = "allAgentCache",  keyGenerator = "customAgentCacheKey")
 	public List<Agent> getAllAgentDetailsList() throws AgentException {
 		List<Agent> agentsList = null;
 		Optional<List<Agent>> agentListOptional = null;
@@ -80,16 +80,16 @@ public class AgentService {
 		Optional<Agent> foundAgentOptional = Optional.empty();
 
 		try {
-			if (null == agtNum || agtNum.equals(" ")) {
+			if (null == agtNum || agtNum.equals(" ") || agtNum.isEmpty()) {
 				foundAgentOptional = agentRepository.findByAgtId(Long.valueOf(agtId));
 			} else {
-
+				foundAgentOptional = agentRepository.findByAgtIdAndAgtNum(Long.valueOf(agtId), agtNum) ;
 			}
 
 			return foundAgentOptional.orElseThrow(NullPointerException::new);
 
 		} catch (Exception e) {
-			throw new AgentException("Agent not found with id: " + agtId);
+			throw new AgentException("Agent not found with id: " + agtId + " and number: " + agtNum);
 		}
 
 	}

@@ -104,7 +104,7 @@ public class AgentMgmtRedisConfig {
 		
 	}
 	
-	@Bean
+	@Bean("customAgentCacheKey")
 	public KeyGenerator CustomAgentCacheKey() {
 		return new CustomAgentCacheKey() ;
 	}
