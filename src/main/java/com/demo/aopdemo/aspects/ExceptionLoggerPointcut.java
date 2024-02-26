@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExceptionLoggerPointcut {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionLoggerPointcut.class) ;
-	  @AfterThrowing(pointcut = "execution(* com.demo.aopdemo.aspects.*.*(..))", throwing = "ex")
+	  /*@AfterThrowing(pointcut = "execution(* com.demo.aopdemo.service.*.* (..))", throwing = "ex")
 	    public void logError(Exception ex) {
 		  System.out.println("ITS HERE ONLY");
 		  	LOGGER.error(ex.getCause().toString());
 	        LOGGER.error(ex.getMessage());
-	    }
+	    }*/
 	  /*@AfterThrowing(pointcut = "execution(* com.example..*.*(..))", throwing = "ex")
 	    public void handleExceptions(Exception ex) {
 	        logErrorBasedOnExceptionType(ex);

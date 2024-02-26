@@ -73,7 +73,7 @@ public class AgentController {
 		ResponseModel responseModel = new ResponseModel();
 		ResponseEntity<Map<String, ResponseModel>> responseEntity = null ;
 		try {
-			agentService.saveAgent(agent) ;
+			agentService.saveAgentDetails(agent) ;
 			responseModel.setSucess(true);
 			responseModel.setStatusCode(HttpStatus.CREATED.value());
 			responseModel.setObject(agent) ;
@@ -98,7 +98,7 @@ public class AgentController {
 		ResponseModel responseModel = new ResponseModel();
 		ResponseEntity<Map<String, ResponseModel>> responseEntity = null ;
 		try {
-			List<Agent> agents = agentService.getAllAgents() ;
+			List<Agent> agents = agentService.getAllAgentDetailsList() ;
 			responseModel.setSucess(true);
 			responseModel.setStatusCode(HttpStatus.FOUND.value());
 			responseModel.setObject(agents) ;
@@ -123,7 +123,7 @@ public class AgentController {
 		ResponseModel responseModel = new ResponseModel();
 		ResponseEntity<Map<String, ResponseModel>> responseEntity = null ;
 		try {
-			Agent foundAgent = agentService.getAgentById(agtId , agtNum) ;
+			Agent foundAgent = agentService.getAgentDetailsById(agtId , agtNum) ;
 			responseModel.setSucess(true);
 			responseModel.setStatusCode(HttpStatus.FOUND.value());
 			responseModel.setObject(foundAgent) ;
