@@ -11,9 +11,11 @@ public class CustomAgentCacheKey implements KeyGenerator {
 
 	@Override
 	public Object generate(Object target, Method method, Object... params) {
-		return target.getClass().getSimpleName() + "_"
+		
+		return target.getClass().getSimpleName() ;
+		/*return target.getClass().getSimpleName() + "_"
 		          + method.getName() + "_"
-		          + StringUtils.joinWith("_", params) ;
+		          + StringUtils.joinWith("_", params)*/
 	}
 
 }

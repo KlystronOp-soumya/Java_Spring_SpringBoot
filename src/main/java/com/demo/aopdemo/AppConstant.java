@@ -2,7 +2,7 @@ package com.demo.aopdemo;
 
 public enum AppConstant {
 
-	AGENT_CACHE_NAME("agentCache") , ALL_AGENT_CACHE_NAME("allAgentCache") ;
+	AGENT_CACHE_NAME("agentDataCache") , ALL_AGENT_CACHE_NAME("allAgentDataCache") ;
 	private String value ;
 	
 	private AppConstant(final String value) {

@@ -2,11 +2,13 @@ package com.demo.aopdemo.configs;
 
 import java.time.Duration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.CacheKeyPrefix;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -35,7 +37,9 @@ public class AgentMgmtRedisConfig {
 		redisStandaloneConfiguration.setHostName("localhost");
 		redisStandaloneConfiguration.setPort(6379);
 		
+		
 		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration) ;
+		lettuceConnectionFactory.setClientName("agentCacheClient");
 		
 		return lettuceConnectionFactory ;
 	}
@@ -59,7 +63,7 @@ public class AgentMgmtRedisConfig {
 	{
 		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig() ;
 		redisCacheConfiguration.disableCachingNullValues();
-		redisCacheConfiguration.entryTtl(Duration.ofMinutes(1)) ;
+		redisCacheConfiguration.entryTtl(Duration.ofMinutes(5)) ;
 		redisCacheConfiguration.prefixCacheNameWith("CACHE_") ;
 		redisCacheConfiguration.prefixKeysWith("cachedAgent_") ;
 		
@@ -70,39 +74,57 @@ public class AgentMgmtRedisConfig {
 				.enableStatistics().build() ;
 	}
 	
-	@Bean
+	//@Bean(name = "defaultRedisConfig")
 	public RedisCacheConfiguration redisCacheConfiguration()
 	{
-		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig() ;
-		redisCacheConfiguration.disableCachingNullValues();
-		redisCacheConfiguration.entryTtl(Duration.ofMinutes(5)) ;
-		redisCacheConfiguration.prefixCacheNameWith("AGENT_DATA_CACHE_") ;
-		redisCacheConfiguration.prefixKeysWith("cachedAgent_") ;
-		redisCacheConfiguration.disableCachingNullValues();
-		// serialization of the data into Redis
-		// this implied how data is stored inside Redis
-		redisCacheConfiguration.serializeValuesWith(SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())) ;
+		CacheKeyPrefix cacheKeyPrefix = (cacheName) -> cacheName.toUpperCase().concat("::") ; // this returns target type anonymous function to match -> String compute(String cacheName);
+		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+				.disableCachingNullValues()
+				.entryTtl(Duration.ofMinutes(2))
+				.computePrefixWith((cacheName) -> cacheName.toUpperCase().concat("::"))
+				.serializeValuesWith(SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())) ;
+		
 		
 		return redisCacheConfiguration ;
 	}
 	
 	//Configure the redis cache
-	@Bean("agentcacheManager")
-	public CacheManager cacheManager(final RedisConnectionFactory redisConnectionFactory , final RedisCacheConfiguration redisCacheConfiguration) {
-		// TODO implement another configuration for caching whole data
+	@Bean
+	//@Primary
+	public CacheManager agentCacheManager(final RedisConnectionFactory redisConnectionFactory) {
 		CacheKeyPrefix cacheKeyPrefix = (cacheName) -> cacheName.concat(CacheKeyPrefix.SEPARATOR).concat("_cachedAll") ;
 		RedisCacheManager.RedisCacheManagerBuilder  redisCacheManagerBuilder = RedisCacheManager.builder(redisConnectionFactory) ;
 		return redisCacheManagerBuilder
 								.transactionAware()		
 								.enableStatistics()
-								.withCacheConfiguration(AppConstant.AGENT_CACHE_NAME.value(), redisCacheConfiguration)
+								.withCacheConfiguration(AppConstant.AGENT_CACHE_NAME.value(), RedisCacheConfiguration.defaultCacheConfig()
+										.disableCachingNullValues()
+										.entryTtl(Duration.ofMinutes(1))
+										.computePrefixWith((cacheName) -> cacheName.toUpperCase().concat("::"))
+										.serializeValuesWith(SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())) )
+								
 								.withCacheConfiguration(AppConstant.ALL_AGENT_CACHE_NAME.value(), RedisCacheConfiguration.defaultCacheConfig()
 										.disableCachingNullValues()
-										.entryTtl(Duration.ofMinutes(20L)).prefixCacheNameWith("AllDataCache_")
-										.computePrefixWith(cacheKeyPrefix))
+										.computePrefixWith((cacheName) -> cacheName.toUpperCase().concat(":: ALLVALUES ::"))
+										.entryTtl(Duration.ofMinutes(1)))
 								.build() ;
+																
 		
 	}
+	/*
+	 * @Bean("allAgentCacheManager") public CacheManager allAgentCacheManager(final
+	 * RedisConnectionFactory redisConnectionFactory) { CacheKeyPrefix
+	 * cacheKeyPrefix = (cacheName) ->
+	 * cacheName.concat(CacheKeyPrefix.SEPARATOR).concat("_cachedAll") ;
+	 * RedisCacheManager.RedisCacheManagerBuilder redisCacheManagerBuilder =
+	 * RedisCacheManager.builder(redisConnectionFactory) ; return
+	 * redisCacheManagerBuilder .transactionAware() .enableStatistics()
+	 * .withCacheConfiguration(AppConstant.ALL_AGENT_CACHE_NAME.value(),
+	 * RedisCacheConfiguration.defaultCacheConfig() .disableCachingNullValues()
+	 * .entryTtl(Duration.ofMinutes(2))) .build() ;
+	 * 
+	 * }
+	 */
 	
 	@Bean("customAgentCacheKey")
 	public KeyGenerator CustomAgentCacheKey() {

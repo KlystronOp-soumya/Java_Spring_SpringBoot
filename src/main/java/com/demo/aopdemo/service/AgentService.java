@@ -32,8 +32,8 @@ public class AgentService {
 
 	// @Caching(cacheNames = "agentCache", cacheManager = "agentcacheManager", key =
 	// "#agent.agtId", condition = "#agent!=null")
-	@Caching(evict = { @CacheEvict(cacheNames = "allAgentCache", allEntries = true, cacheManager = "agentcacheManager")}, 
-			 put = { @CachePut(cacheNames = "agentCache", cacheManager = "agentcacheManager", key = "#agent.agtId") })
+	@Caching(evict = { @CacheEvict(cacheNames = "allAgentDataCache" , allEntries = true, cacheManager = "agentCacheManager")}, 
+			 put = { @CachePut(cacheNames = "agentDataCache" , cacheManager = "agentCacheManager", key = "#agent.agtId") })
 	@Loggable
 	@org.springframework.transaction.annotation.Transactional(rollbackFor = AgentException.class)
 	public Agent saveAgentDetails(final Agent agent) throws AgentException {
@@ -56,7 +56,7 @@ public class AgentService {
 	
 	@Loggable
 	@Transactional
-	@Cacheable(sync = true, cacheNames = "allAgentCache",  keyGenerator = "customAgentCacheKey")
+	@Cacheable(sync = true, cacheNames = "allAgentCache", cacheManager = "agentCacheManager")
 	public List<Agent> getAllAgentDetailsList() throws AgentException {
 		List<Agent> agentsList = null;
 		Optional<List<Agent>> agentListOptional = null;
@@ -74,7 +74,7 @@ public class AgentService {
 	}
 
 	@Loggable
-	@CachePut(cacheNames = "agentCache", cacheManager = "agentcacheManager", key = "#agtId")
+	@CachePut( cacheNames = "agentDataCache",cacheManager = "agentCacheManager", key = "#agtId")
 	@org.springframework.transaction.annotation.Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
 	public Agent getAgentDetailsById(final String agtId, final String agtNum) throws AgentException {
 		Optional<Agent> foundAgentOptional = Optional.empty();
