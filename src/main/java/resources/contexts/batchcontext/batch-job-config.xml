@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 	<import
-		resource="classpath:resources/contexts/appcontext/appContext.xml" />
- 
+		resource="classpath*:resources/contexts/appcontext/appContext.xml" />
+
 	<!-- stored job-meta in memory -->
 
 	<bean id="jobRepository"
@@ -26,6 +26,7 @@
 
 	<bean id="jobRegistry"
 		class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
+
 	<bean id="jobLauncher"
 		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 		<property name="jobRepository" ref="jobRepository" />
@@ -34,10 +35,14 @@
 				class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
 		</property>
 	</bean>
-	<!--<bean id="jobRegistryBeanPostProcessor"
-		class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
-		<property name="jobRegistry" ref="jobRegistry" />
-	</bean>-->
+	<!--<bean id="jobRegistryBeanPostProcessor" class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor"> 
+		<property name="jobRegistry" ref="jobRegistry" /> </bean> -->
+			
+	<bean id="stepExecutionDao" class="org.springframework.batch.core.repository.dao.MapStepExecutionDao"/>
+	<bean id="jobExecutionDao" class="org.springframework.batch.core.repository.dao.MapJobExecutionDao"/>
+	<bean id="excutionContextDao" class="org.springframework.batch.core.repository.dao.MapExecutionContextDao"/>
+	<bean id="jobInstanceDao" class="org.springframework.batch.core.repository.dao.MapJobInstanceDao" />
+	
 	<bean id="jobExplorer"
 		class="org.springframework.batch.core.explore.support.SimpleJobExplorer">
 		<constructor-arg ref="jobInstanceDao"/>
@@ -45,22 +50,16 @@
 		<constructor-arg ref="stepExecutionDao"/>
 		<constructor-arg ref="excutionContextDao"/>
 	</bean>
-	
-	<bean id="stepExecutionDao" class="org.springframework.batch.core.repository.dao.MapStepExecutionDao"/>
-	<bean id="jobExecutionDao" class="org.springframework.batch.core.repository.dao.MapJobExecutionDao"/>
-	<bean id="excutionContextDao" class="org.springframework.batch.core.repository.dao.MapExecutionContextDao"/>
-	<bean id="jobInstanceDao" class="org.springframework.batch.core.repository.daoMapJobInstanceDao" />
-	
-	<bean id="jobLauncher"
-		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
-		<property name="jobRepository" ref="jobRepository" />
-	</bean>
-	<batch:job id="parcelDeliveryMangamentJob" job-repository="jobRepository">
 
-		<batch:step id="eligibleParcelDispatch_Step1" next="parcelToDeliver_Step2">
+
+	<batch:job id="parcelDeliveryMangamentJob"
+		job-repository="jobRepository">
+
+		<batch:step id="eligibleParcelDispatch_Step1"
+			next="parcelToDeliver_Step2">
 			<batch:tasklet ref="eligibleParcelDispatchStep" />
 		</batch:step>
-		
+
 		<batch:step id="parcelToDeliver_Step2">
 			<batch:tasklet ref="parcelToDeliverStep" />
 		</batch:step>

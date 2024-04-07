@@ -9,7 +9,7 @@ public class ParcelToDeliverStep implements Tasklet {
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-		System.out.println("Delivery of the percels");
+		System.out.println("Delivery of the parcels");
 		return RepeatStatus.FINISHED;
 	}
 

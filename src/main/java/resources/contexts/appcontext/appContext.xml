@@ -12,4 +12,7 @@
 		http://www.springframework.org/schema/batch/spring-batch.xsd"> 
         
         <bean id="agentService" class="com.demo.service.AgentServiceImpl" scope="prototype" autowire="byName" />
+        <!-- Add the tasklet class  -->
+       <bean id="eligibleParcelDispatchStep" class="com.demo.job.tasklets.EligibleParcelDispatchStep" />      
+       <bean id="parcelToDeliverStep" class="com.demo.job.tasklets.ParcelToDeliverStep"/> 
 </beans>
