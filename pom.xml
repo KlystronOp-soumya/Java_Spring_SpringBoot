@@ -117,14 +117,28 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
 				</plugin>
-				<!--<plugin>
+				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
-				</plugin>-->
-				<!--<plugin>
+					<configuration>
+						
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>com.demo.RunApp</mainClass>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<!--<classpathPrefix>resources/</classpathPrefix>-->
+							</manifest>
+							<manifestEntries>
+								<Class-Path>resources/</Class-Path>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-shade-plugin</artifactId>
-					<version>2.4.3</version>
+					<version>3.5.2</version>
 					<executions>
 						<execution>
 						<id>jar-build</id>
@@ -133,8 +147,9 @@
 								<goal>shade</goal>
 							</goals>
 							<configuration>
-								<shadedArtifactAttached>false</shadedArtifactAttached>
-								<filters>
+								<shadedArtifactAttached>true</shadedArtifactAttached>
+								<shadedClassifierName>jackofall</shadedClassifierName>
+								<!--<filters>
 									<filter>
 										<artifact>*:*</artifact>
 										<excludes>
@@ -144,17 +159,17 @@
 											<exclude>META-INF/spring.*</exclude>
 										</excludes>
 									</filter>
-								</filters>
+								</filters>-->
 								<transformers>
-									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-										<manifestEntries>
+									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer" />
+										<!--<manifestEntries>
 											<Main-Class>com.demo.RunApp</Main-Class>
 											<X-Compile-Source-JDK>${maven.compile.source}</X-Compile-Source-JDK>
 											<X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>
 											<Build-Number>123</Build-Number>
 										</manifestEntries>
 										<mainClass>com.demo.RunApp</mainClass>
-									</transformer>
+									</transformer>-->
 									<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 										<resource>META-INF/spring.handlers</resource>
 									</transformer>
@@ -168,8 +183,8 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>-->
-				<!--<plugin>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>3.0.0</version>
@@ -183,9 +198,9 @@
 					<configuration>
 						<mainClass>com.demo.batch.BatchDemo.App</mainClass>
 					</configuration>
-				</plugin>-->
+				</plugin>
 				<!-- Maven Assembly Plugin -->
-				<plugin>
+				<!--<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.4.1</version>
@@ -199,25 +214,25 @@
 						</execution>
 					</executions>
 					<configuration>
-						<!-- get all project dependencies -->
+						 
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
 						</descriptorRefs>
-						<!-- MainClass in mainfest make a executable jar -->
+						
 						<archive>
 							<manifest>
-								<!--<addClasspath>true</addClasspath>-->
+								<addClasspath>true</addClasspath>
 								<mainClass>com.demo.RunApp</mainClass>
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-								<!--<classpathPrefix>resources/</classpathPrefix>-->
+								<classpathPrefix>resources/</classpathPrefix>
 							</manifest>
-							<!--<manifestEntries>
+							<manifestEntries>
 								<Class-Path>resources/</Class-Path>
-							</manifestEntries>-->
+							</manifestEntries>
 						</archive>
 					</configuration>
 
-				</plugin>
+				</plugin>-->
 			</plugins>
 		</pluginManagement>
 	</build>

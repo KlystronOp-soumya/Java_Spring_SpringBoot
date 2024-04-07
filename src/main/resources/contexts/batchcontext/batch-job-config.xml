@@ -49,7 +49,7 @@
 	<bean id="stepExecutionDao" class="org.springframework.batch.core.repository.dao.MapStepExecutionDao"/>
 	<bean id="jobExecutionDao" class="org.springframework.batch.core.repository.dao.MapJobExecutionDao"/>
 	<bean id="excutionContextDao" class="org.springframework.batch.core.repository.dao.MapExecutionContextDao"/>
-	<bean id="jobInstanceDao" class="org.springframework.batch.core.repository.daoMapJobInstanceDao" />
+	<bean id="jobInstanceDao" class="org.springframework.batch.core.repository.dao.MapJobInstanceDao" />
 	
 	<bean id="jobLauncher"
 		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
