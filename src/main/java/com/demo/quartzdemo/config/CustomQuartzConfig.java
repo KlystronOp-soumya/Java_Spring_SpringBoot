@@ -47,7 +47,7 @@ public class CustomQuartzConfig {
 				.storeDurably().build();
 	}
 
-	@Bean
+	/*@Bean
 	public JobDetail jobTwoDetail() {
 		// Set Job data map
 		JobDataMap jobDataMap = new JobDataMap();
@@ -57,7 +57,7 @@ public class CustomQuartzConfig {
 
 		return JobBuilder.newJob(CustomQuartzJobConfig.class).withIdentity("demoJobTwo").setJobData(jobDataMap)
 				.storeDurably().build();
-	}
+	} */
 
 	@Bean
 	public Trigger jobOneTrigger() {
@@ -68,21 +68,24 @@ public class CustomQuartzConfig {
 				.withSchedule(scheduleBuilder).build();
 	}
 
-	@Bean
+	/*@Bean
 	public Trigger jobTwoTrigger() {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(20)
 				.repeatForever();
 
 		return TriggerBuilder.newTrigger().forJob(jobTwoDetail()).withIdentity("jobTwoTrigger")
 				.withSchedule(scheduleBuilder).build();
-	}
+	}*/
 
 	@Bean
-	public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
+	public SchedulerFactoryBean schedulerFactoryBean() throws Exception {
 		SchedulerFactoryBean scheduler = new SchedulerFactoryBean();
-		scheduler.setTriggers(jobOneTrigger(), jobTwoTrigger());
+		//scheduler.setTriggers(jobOneTrigger(), jobTwoTrigger());
+		scheduler.setTriggers(jobOneTrigger() ) ;
 		scheduler.setQuartzProperties(quartzProperties());
-		scheduler.setJobDetails(jobOneDetail(), jobTwoDetail());
+		//scheduler.setJobDetails(jobOneDetail(), jobTwoDetail());
+		scheduler.setJobDetails(jobOneDetail() ) ;
+		scheduler.afterPropertiesSet();
 		return scheduler;
 	}
 

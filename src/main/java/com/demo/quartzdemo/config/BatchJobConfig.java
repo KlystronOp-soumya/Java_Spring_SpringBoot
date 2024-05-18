@@ -35,8 +35,8 @@ public class BatchJobConfig {
 		return this.jobBuilderFactory.get("demoJobOne").start(taskOneStep()).next(taskTwoStep()).build();
 	}
 
-	@Bean(name = "demoJonTwoBean")
+	/*@Bean(name = "demoJonTwoBean")
 	public Job demoJobTwo() {
 		return this.jobBuilderFactory.get("demoJobTwo").flow(taskTwoStep()).build().build();
-	}
+	}*/
 }
