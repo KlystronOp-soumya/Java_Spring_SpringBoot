@@ -1,5 +1,8 @@
 package com.demo.quartzdemo.config;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -57,6 +60,10 @@ public class CustomQuartzJobConfig extends QuartzJobBean {
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		
 		try {
+			LocalTime now = LocalTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	        String formatDateTime = now.format(formatter);
+	        
 			Job job = jobLocator.getJob(jobName);
 			JobDataMap jobDataMap = context.getMergedJobDataMap() ;
 			
@@ -65,6 +72,8 @@ public class CustomQuartzJobConfig extends QuartzJobBean {
 			//If no job or nothing is triggered , nonetheless this method will be executed
 			//jobLauncher.run(job, params);
 			
+			System.out.println("CustomQuartzJobConfig.executeInternal() " + job.getName());
+			System.out.println("Time : " + formatDateTime);
 			
 	
 		} catch (Exception e) {
