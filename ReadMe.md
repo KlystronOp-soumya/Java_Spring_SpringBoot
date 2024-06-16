@@ -39,6 +39,15 @@ check the end points:
 </ol>
 </ul>
 </p>
+<p>
+<ul>
+<li> The ELK Stack configuration -- Kibana </li>
+<ol>
+<li> Go to the Kibana installation folder[in my case it is: E:\Program Files\Spring\Observability\Centralized Logging\kibana-8.12.1\bin]
+Then execute the kibana.bat file
+</ol>
+</ul>
+</p>
 
 ### After config steps
 <ul>
@@ -47,8 +56,9 @@ check the end points:
 <li> copy the indices name: ds-logs-generic-default-2024.02.16-000001
 <li> serach it in elasticsearch: 
 http://localhost:9200/.ds-logs-generic-default-2024.02.16-000001/_search
-<li> Go to Management -> Data Views -> add index -> set timestamp to "i dont want to use" -> give a name of the Data view
-<li> get to "Discover" -> look for the set data view
+<li> Go to Kibana DashBoard[http://localhost:5601/app/home#/] 
+Management -> Data Views -> add index -> set timestamp to "i dont want to use" -> give a name of the Data view
+<li> get to "Discover" -> look for the set data view[ElkDemoApp Data View]
 <li> check the logs</li>
 </ul>
 
