@@ -9,13 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.repository.config.BootstrapMode;
+import org.springframework.test.context.TestPropertySource;
 
 import com.demo.unittesting.dao.ItemRepository;
 import com.demo.unittesting.entities.Item;
 
 // @RunWith(SpringRunner.class) -- this is not required with Junit 5
 @DataJpaTest(bootstrapMode = BootstrapMode.DEFAULT, showSql = true)
-//@TestPropertySource
+@TestPropertySource(locations = { "classpath:application-test.properties" })
 public class ItemRepositoryTest {
 
 	@Autowired

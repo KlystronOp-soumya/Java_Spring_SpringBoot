@@ -1,0 +1,11 @@
+CREATE SCHEMA IF NOT EXISTS ITEMDB ;
+USE ITEMDB ;
+CREATE TABLE ITEMDB.ITEM(
+
+item_id int primary key ,
+item_name CHAR(50) NOT NULL DEFAULT '' ,
+item_price NUMBER(5,2) NOT NULL DEFAULT 0.00 ,
+quantity int NOT NULL DEFAULT 0
+	
+
+);
