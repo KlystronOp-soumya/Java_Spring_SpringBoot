@@ -16,7 +16,7 @@ import com.demo.unittesting.entities.Item;
 
 // @RunWith(SpringRunner.class) -- this is not required with Junit 5
 @DataJpaTest(bootstrapMode = BootstrapMode.DEFAULT, showSql = true)
-@TestPropertySource(locations = { "classpath:application-test.properties" })
+@TestPropertySource(locations = { "application-test.properties" })
 public class ItemRepositoryTest {
 
 	@Autowired

@@ -1,3 +1,4 @@
+DELETE FROM ITEMDB.ITEM ;
 insert into itemdb.item (item_id, item_name, item_price, quantity) values (1, 'item 1', 19.99, 10);
 insert into itemdb.item (item_id, item_name, item_price, quantity) values (2, 'item 2', 29.99, 20);
 insert into itemdb.item (item_id, item_name, item_price, quantity) values (3, 'item 3', 39.99, 30);
