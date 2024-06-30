@@ -8,18 +8,28 @@ spring:
       settings:
         web-admin-password: root
   datasource:
-    url: jdbc:h2:file:./sampledb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;
+    url: jdbc:h2:file:./sampledb;SCHEMA=ITEMDB;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;
     #MODE=MySQL;IGNORECASE=TRUE;
     #FILE_LOCK=SOCKET
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    hikari:
+      schema: ITEMDB
+      auto-commit: true
+      connection-timeout: 10000
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:file:./sampledb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;
+      pool-name: MyPool
+      maximum-pool-size: 15
+      username: sa
+      idle-timeout: 50000
   jpa:
     database: H2
     defer-datasource-initialization: true
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       format-sql: true
       dialect: org.hibernate.dialect.H2Dialect
     show-sql: true
@@ -30,11 +40,10 @@ spring:
         enabled: true
   sql:
     init:
-      mode: EMBEDDED
+      mode: NEVER
       #enabled: true
       data-locations:
       - classpath*:data.sql
-
 server:
   port: 8093
   servlet:
