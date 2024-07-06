@@ -5,7 +5,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.unittesting.entities.Item;
@@ -36,5 +40,21 @@ public class ItemContoller {
 			LOGGER.debug("Cause: " + e.getCause().toString() + " :: " + e.getMessage());
 		}
 		return null;
+	}
+
+	@PostMapping(path = "/items/item", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Item saveAnItem(@RequestBody @NonNull final Item item) {
+
+		try {
+
+			this.itemService.saveAnItem(item);
+		} catch (Exception e) {
+			LOGGER.debug("the item can not be saved");
+			LOGGER.debug("Cause: " + e.getCause().toString() + " :: " + e.getMessage());
+
+		}
+
+		return item;
+
 	}
 }
