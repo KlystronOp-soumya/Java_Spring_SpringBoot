@@ -40,4 +40,10 @@ public class ItemService {
 
 	}
 
+	public void saveAnItem(Item item) {
+		LOGGER.info("Saving item: " + item);
+		// call dao to save the item
+
+	}
+
 }
