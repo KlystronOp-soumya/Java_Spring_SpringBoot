@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: SpringBootUnitTestings
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-admin-password: root
+  datasource:
+    url: jdbc:h2:file:./sampledb;SCHEMA=ITEMDB;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;
+    #MODE=MySQL;IGNORECASE=TRUE;
+    #FILE_LOCK=SOCKET
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      schema: ITEMDB
+      auto-commit: true
+      connection-timeout: 10000
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:file:./sampledb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;
+      pool-name: MyPool
+      maximum-pool-size: 15
+      username: sa
+      idle-timeout: 50000
+  jpa:
+    database: H2
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      format-sql: true
+      dialect: org.hibernate.dialect.H2Dialect
+      #hbm2ddl:
+        #import_files: schema.sql
+    show-sql: true
+    
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+        enabled: true
+  sql:
+    init:
+      mode: EMBEDDED
+      #enabled: true
+      data-locations:
+      - classpath*:data.sql ,schema.sql
+server:
+  port: 8093
+  servlet:
+    context-path: "/"
+
+logging:
+  level:
+    root: INFO
+    '[org.springframework]': ERROR
+  file:
+    name: logs/app.log
+    #path: 
+    error:
+      pattern: "%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n"
+    debug:
+      pattern: "%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n"
+    info:
+      pattern: "%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n"
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n"
+
+  logback:
+    rollingpolicy:
+      clean-history-on-start: true
+      max-file-size: 40MB
