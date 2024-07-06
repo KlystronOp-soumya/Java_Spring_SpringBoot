@@ -96,4 +96,19 @@ public class ItemControllerTesting {
 
 	}
 
+	// test method to save an item into the database
+	@Test
+	public void test_item_saveEndPoint_with_stub() throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/items/item").content(
+				"{\"itemId\":1224,\"itemName\":\"item 1224\",\"itemPrice\":1224.99,\"itemQuantity\":124,\"value\":112445}")
+				.accept(MediaType.APPLICATION_JSON_VALUE).characterEncoding("UTF-8");
+
+		MvcResult result = this.mockMvc.perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.content().json(
+						"{\"itemId\":1224,\"itemName\":\"item 1224\",\"itemPrice\":1224.99,\"itemQuantity\":124,\"value\":112445}"))
+				.andReturn();
+
+	}
+
 }
