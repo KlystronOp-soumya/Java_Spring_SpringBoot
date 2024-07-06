@@ -105,6 +105,7 @@ public class ItemControllerTesting {
 
 		MvcResult result = this.mockMvc.perform(requestBuilder)
 				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isCreated())
 				.andExpect(MockMvcResultMatchers.content().json(
 						"{\"itemId\":1224,\"itemName\":\"item 1224\",\"itemPrice\":1224.99,\"itemQuantity\":124,\"value\":112445}"))
 				.andReturn();
