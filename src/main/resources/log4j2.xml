@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- If you set your logging framework to have the root logging level to 
+     WARN you will only get log events with WARN, ERROR, and FATAL levels: If 
+     the request level is at the configured level or higher level, it gets logged 
+     to the configured target. If not, it's denied. 
+     ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF  
+ -->
+<Configuration status="INFO">
+ <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            
+        </Console>
+        
+        <RollingFile name="APPLOG"
+                     fileName="logs/ToDoApp.log"
+                     filePattern="logs/%d{yyyy-MM-dd_HH-mm}_app.log.gz"
+                     append="true">
+            <Filters>
+                <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            	<!--<ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            </Filters>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+        
+        <RollingFile name="DEBUGLOG"
+                     fileName="logs/ToDoDebug.log"
+                     filePattern="logs/%d{yyyy-MM-dd_HH-mm}_debug.log.gz"
+                     append="true">
+            <Filters>
+                <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+        
+        <RollingFile name="ERRORLOG"
+                     fileName="logs/ToDoError.log"
+                     filePattern="logs/%d{yyyy-MM-dd_HH-mm}_error.log.gz"
+                     append="true">
+            <Filters>
+                <!--<ThresholdFilter level="WARN" onMatch="ACCEPT" onMisMatch = "DENY"/>-->
+                <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!--<logger name="com.demo.todoapp" level="DEBUG" additivity="false">
+        	<AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="DEBUGLOG" />
+        </logger>
+        <logger name="com.demo.todoapp" level="ERROR" additivity="false">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="ERRORLOG" level="ERROR"/>
+        </logger>-->
+        <logger name="com.demo.todoapp"  additivity="false">
+            
+            <AppenderRef ref="APPLOG"/>
+            <AppenderRef ref="DEBUGLOG"/>
+            <AppenderRef ref="ERRORLOG"/>
+        </logger>
+        <logger name="org.springframework.cache" level="TRACE" additivity="false">
+            <AppenderRef ref="CONSOLE"/>
+        </logger>
+        <logger name="org.springframework" level="INFO" additivity="false">
+        	<AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="APPLOG"/>
+        </logger>
+        <logger name="org.springframework" level="DEBUG" additivity="false">
+            <AppenderRef ref="DEBUGLOG"/>
+        </logger>
+        <logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="ERRORLOG"/>
+        </logger>
+        
+        <!-- Root logger referring to console appender -->
+        <Root level="DEBUG">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>

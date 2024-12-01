@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: ToDoService
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: ${db_oracle_userid}
+    password: ${db_oracle_password}
+    hikari:
+      pool-name: ToDoAppPool
+      auto-commit: true
+      maximum-pool-size: 5
+      connection-timeout: 5000
+  h2:
+    console:
+      enabled: false    
+    
+server:
+  port: 8093
+  servlet:
+    context-path: /ToDoApp
+  error:
+    whitelabel:
+      enabled: false
+
