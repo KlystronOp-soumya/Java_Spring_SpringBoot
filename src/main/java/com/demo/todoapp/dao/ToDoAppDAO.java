@@ -84,9 +84,9 @@ public class ToDoAppDAO {
 	}
 	
 	@Transactional
-	public void addTodos(final List<ToDoEntity> todos) throws ToDoAppException
+	public void saveTodos(final List<ToDoEntity> todos) throws ToDoAppException
 	{
-		LOGGER.debug("addTodos :: trying to sava all todos ");
+		LOGGER.debug("saveTodos :: trying to sava all todos ");
 		final String query = "INSERT INTO TODOS( TODO_ID ,TODO_DESC , STARTDATE , ENDDATE , COMPLETED) VALUES( :todoId, :todoDesc , :startDate , :endDate , :isCompleted)" ;
 		try {
 			
@@ -116,4 +116,49 @@ public class ToDoAppDAO {
 			throw re ;
 		}
 	}
+	
+	public int deleteTodoById(final List<Long> todoIds) throws ToDoAppException
+	{
+		int deletedTodoCount = 0 ;
+		final String query = " DELETE FROM TODOS WHERE TODO_ID = :todoIds " ;
+		LOGGER.debug("deleteTodoById :: trying to delete all todos in the list");
+		try {
+			
+			SqlParameterSource[] parameterSource = new  MapSqlParameterSource[todoIds.size()] ;
+			for(int i = 0 ; i<todoIds.size() ; i++)
+			{
+				MapSqlParameterSource ps = new MapSqlParameterSource() ;
+				
+				ps.addValue("todoId", todoIds.get(i) );
+				parameterSource[i] = ps ;
+			}
+			
+			 int rowsDeleted[] = this.jdbcTemplate.batchUpdate(query, parameterSource) ;
+			 deletedTodoCount = rowsDeleted.length ;
+			 LOGGER.info("Selected todos were deleted");
+			 LOGGER.debug("deleteTodoById :: #todos deleted " + deletedTodoCount );
+			 
+		} catch (Exception e) {
+			LOGGER.error("addTodos :: " + e);
+			ToDoAppException re = new ToDoAppException("Could not deleted the ToDos") ;
+			throw re ;
+		}
+		return deletedTodoCount ;
+	}
+	
+	public int updateTodoById(final ToDoEntity todo) throws ToDoAppException
+	{
+		LOGGER.debug("updateTodoById :: updating todo " + todo.getTodoId());
+		final String query = "UPDATE TODOS SET TODO_DESC = :todoDesc , STARTDATE = :startDate , ENDDATE = :endDate , COMPLETED = :isCompleted "
+				+ " WHERE TODO_ID = :todoId" ;
+		try {
+				
+		} catch (Exception e) {
+			LOGGER.error("updateTodoById :: " + e);
+			ToDoAppException re = new ToDoAppException("Could not update the ToDo") ;
+			throw re ;
+		}
+		return 0 ;
+	}
+	
 }

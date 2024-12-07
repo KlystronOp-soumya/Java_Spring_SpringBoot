@@ -9,4 +9,5 @@ import com.demo.todoapp.exceptions.ToDosNotFoundException;
 public interface ToDoService {
 	List<ToDoEntity> getAllToDos() throws ToDoAppException, ToDosNotFoundException ;
 	void saveAllTodos(List<ToDoEntity> todos) throws ToDoAppException ;
+	int deleteTods(List<Long> todoIdList) throws ToDoAppException;
 }

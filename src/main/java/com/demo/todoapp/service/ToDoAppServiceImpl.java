@@ -38,12 +38,24 @@ public class ToDoAppServiceImpl implements ToDoService {
 	public void saveAllTodos(List<ToDoEntity> todos) throws ToDoAppException {
 		LOGGER.info("todoService :: trying to insert all todos");
 		try {
-			this.toDoAppDAO.addTodos(todos);
+			this.toDoAppDAO.saveTodos(todos);
 		} catch (Exception e) { //hide the dataaccess exception
 			LOGGER.error("saveAllTodos :: " + e.getCause().toString() +"\n"+e.getMessage());
 			throw new ToDoAppException("Todos list could not be saved") ;
 		}
 		
-		
+	}
+
+	@Override
+	public int deleteTods(List<Long> todoIdList) throws ToDoAppException {
+		LOGGER.info("todoService :: trying to delete todos");
+		int deletedTodos = 0 ;
+		try {
+			deletedTodos = this.toDoAppDAO.deleteTodoById(todoIdList) ;
+		} catch (Exception e) {
+			LOGGER.error("deleteTods :: " + e.getCause().toString() +"\n"+e.getMessage());
+			throw new ToDoAppException("Todos list could not be deleted") ;
+		}
+		return deletedTodos;
 	}
 }
