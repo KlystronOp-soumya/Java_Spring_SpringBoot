@@ -1,5 +1,6 @@
 package com.demo;
 
+import com.demo.dao.MongoDAO;
 import com.demo.utils.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -37,16 +38,17 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }*/
-        LoggerUtil.info("Loading properties");
-        ConnectionStringBuilder mongoConnectionBuilder = new ConnectionStringBuilder.Builder()
-                .connectionProtocol(PropertiesLoader.getPropValue(PropKeys.MONGO_ATLAS_URL_PROTOCOL.getValue()))
-                .userId(System.getenv("mongo.atlas.userid"))
-                 .password(PasswordUtil.getEncodedPassword(System.getenv("mongo.atlas.password")))
-                .clusterUrl(PropertiesLoader.getPropValue(PropKeys.MONGO_ATLAS_CLUSTER_URL.getValue()))
-                .clusterName(PropertiesLoader.getPropValue(PropKeys.MONGO_ATLAS_CLUSTER.getValue()))
-                .build();
+        LoggerUtil.info("Application was started");
+        try{
+            MongoDAO mongoDAO = new MongoDAO() ;
+            System.out.println(mongoDAO.findMovieByTitle("title" , "Back to the Future").toJson() );
+            System.out.println(mongoDAO.findMovieByTitle("title" , "Back to the Future").toJson() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
 
-        String connectionURL = mongoConnectionBuilder.getConnectionURI();
+        }
+
 
 
 
