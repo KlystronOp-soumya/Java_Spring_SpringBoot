@@ -11,10 +11,11 @@ import java.util.Optional;
  *
  * */
 public class MongoConnectionUtil {
+    /*The Logger*/
 
     private transient  MongoClient mongoClient ;
     public MongoClient getConnection(){
-        LoggerUtil.info("Trying to get connection");
+
         ConnectionStringBuilder mongoConnectionBuilder = new ConnectionStringBuilder.Builder()
                 .connectionProtocol(PropertiesLoader.getPropValue(PropKeys.MONGO_ATLAS_URL_PROTOCOL.getValue()))
                 .userId(System.getenv("mongo.atlas.userid"))
@@ -28,16 +29,16 @@ public class MongoConnectionUtil {
         this.mongoClient = MongoClients.create(connectionURL) ;
 
         Optional<MongoClient> mongoClientOptional = Optional.of(mongoClient) ;
-        LoggerUtil.info("Connection was returned");
+
         return  mongoClientOptional.orElseThrow(()-> new RuntimeException("Can not get the connection")) ;
     }
 
     public void close(){
         try{
-            LoggerUtil.info("Trying to close the connection"); ;
+
             if(null!= this.mongoClient)
                 this.mongoClient.close();
-            LoggerUtil.info("Mongo connection was closed");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

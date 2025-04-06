@@ -1,17 +1,23 @@
 package com.demo.dao;
 
+import com.demo.utils.LoggerUtil;
 import com.demo.utils.MongoConnectionUtil;
 import com.demo.utils.PropKeys;
 import com.demo.utils.PropertiesLoader;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.apache.logging.log4j.LogManager;
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDAO {
+    /*The Logger*/
+    private static  final Logger LOGGER = LoggerFactory.getLogger(MongoDAO.class) ;
     private transient MongoConnectionUtil dataSource;
     private transient MongoDatabase mongoDatabase;
 
@@ -30,6 +36,7 @@ public class MongoDAO {
     }
 
     public Document findMovieByTitle(final String fieldName, final String value) {
+        LoggerUtil.info(LOGGER , "Trying to find out movie by name: " + value);
         Optional<Document> documentOptional ;
         initDB();
         try{
@@ -42,6 +49,7 @@ public class MongoDAO {
         }finally {
             this.dataSource.close();
         }
+        LoggerUtil.info(LOGGER , "Returned result from Database: " + value);
         return documentOptional.orElse(null);
     }
 
