@@ -1,6 +1,7 @@
 logs/
 target/
 HelpMe.md
+*.log
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
