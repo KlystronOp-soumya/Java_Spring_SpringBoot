@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: GenericSpringBootApp
+  devtools:
+    livereload:
+      enabled: false
+  main:
+    banner-mode: OFF
+  config:
+    import:
+    - classpath:dbconfig/db_config.properties
+
