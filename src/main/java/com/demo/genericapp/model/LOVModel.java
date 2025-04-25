@@ -1,4 +1,4 @@
-package com.demo.genericapp.entity;
+package com.demo.genericapp.model;
 
 import java.io.Serializable;
 import java.util.Date;

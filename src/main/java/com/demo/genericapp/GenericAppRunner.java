@@ -1,11 +1,16 @@
 package com.demo.genericapp;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
 import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
@@ -15,8 +20,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import com.demo.genericapp.configs.configprops.OracleDbConfigProps;
-import com.demo.genericapp.entity.LOVModel;
 import com.demo.genericapp.entity.dto.LOVDTO;
+import com.demo.genericapp.entity.dto.MPSBCriteriaServcDTO;
+import com.demo.genericapp.entity.dto.MPSBSearchResultDTO;
+import com.demo.genericapp.model.LOVModel;
+import com.demo.genericapp.model.MPSBCriteraServcModel;
+import com.demo.genericapp.model.MPSBSearchResultModel;
 
 @Component
 public class GenericAppRunner implements ApplicationRunner {
@@ -115,7 +124,76 @@ public class GenericAppRunner implements ApplicationRunner {
 			modelMapper.map(lovModel, lovdto);
 			System.out.println(lovdto);
 
+			// mapping the MPSBCriteriaSrvcDTO to Model
+			MPSBCriteriaServcDTO mpsbCriteriaServcDTO = new MPSBCriteriaServcDTO();
+			mpsbCriteriaServcDTO.setPropA("DTOA");
+			mpsbCriteriaServcDTO.setPropB("DTOB");
+			List<MPSBSearchResultDTO> searchResultDTOs = new ArrayList<>();
+			searchResultDTOs.add(new MPSBSearchResultDTO(1, new BigDecimal(12.3).setScale(2, RoundingMode.HALF_UP),
+					new BigDecimal(5.5).setScale(2, RoundingMode.HALF_UP), 'Y'));
+			searchResultDTOs.add(new MPSBSearchResultDTO(2, new BigDecimal(10.6).setScale(2, RoundingMode.HALF_UP),
+					new BigDecimal(3.5).setScale(2, RoundingMode.HALF_UP), 'N'));
+			searchResultDTOs.add(new MPSBSearchResultDTO(3, new BigDecimal(9.3).setScale(2, RoundingMode.HALF_UP),
+					new BigDecimal(0.5).setScale(2, RoundingMode.HALF_UP), 'N'));
+
+			mpsbCriteriaServcDTO.setMpsbSearchResultDTOs(searchResultDTOs);
+
+			MPSBCriteraServcModel mpsbCriteraServcModel = new MPSBCriteraServcModel();
+			mpsbCriteraServcModel.setPropA("MODELA");
+			mpsbCriteraServcModel.setPropB("MODELB");
+
+			MPSBSrvcCrtDtoToModelMapper mapper = new MPSBSrvcCrtDtoToModelMapper();
+			modelMapper.addMappings(mapper).map(mpsbCriteriaServcDTO, mpsbCriteraServcModel);
+			System.out.println(mpsbCriteraServcModel);
+
+			System.out.println("====> Showing the search result grid");
+
+			mpsbCriteraServcModel.getSearchResultModels().stream().forEach(System.out::println);
+
 		}
+	}
+
+	public static class MPSBSrvcCrtDtoToModelMapper extends PropertyMap<MPSBCriteriaServcDTO, MPSBCriteraServcModel> {
+
+		@Override
+		protected void configure() {
+			/*
+			 * // Use conditionally for specific mappings when(context ->
+			 * context.getSource() != null).map().setPropA(source.getSomeValue());
+			 * when(context -> context.getSource() != null).map().setPropB(source.getA
+			 */
+			// or
+			/*
+			 * typeMap.addMappings(mapper -> { // Add a condition locally to map only
+			 * specific properties mapper.when(context -> { String propertyName =
+			 * context.getMapping().getLastDestinationProperty().getName(); return
+			 * propertyName.equals("propA") || propertyName.equals("propB");
+			 * }).map(SourceClass::getSourceProperty,
+			 * DestinationClass::setDestinationProperty); });
+			 */
+			using((context) -> {
+				List<MPSBSearchResultDTO> sourceSearchResultDTOs = (List<MPSBSearchResultDTO>) context.getSource();
+				if (sourceSearchResultDTOs != null) {
+					// both the codes works simply fine
+					/*
+					 * List<MPSBSearchResultModel> desList = new ArrayList<>(); for
+					 * (MPSBSearchResultDTO dto : sourceSearchResultDTOs) { desList.add(new
+					 * MPSBSearchResultModel(dto.getId(), dto.getMinPercent().toString(),
+					 * dto.getPsRate().toString(), dto.getIndicator(), null)); } return desList;
+					 */
+					return sourceSearchResultDTOs.stream()
+							.map(eachResultDto -> new MPSBSearchResultModel(eachResultDto.getId(),
+									eachResultDto.getMinPercent().toString(), eachResultDto.getPsRate().toString(),
+									eachResultDto.getIndicator(), null))
+							.toList();
+				}
+				return new ArrayList<>(); // Handle null or empty case
+			}).map(source.getMpsbSearchResultDTOs(), destination.getSearchResultModels());
+
+			skip(destination.getPropA());
+			skip(destination.getPropB());
+		}
+
 	}
 
 }
