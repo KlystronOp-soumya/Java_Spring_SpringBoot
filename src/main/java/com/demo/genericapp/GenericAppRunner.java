@@ -1,5 +1,6 @@
 package com.demo.genericapp;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
+import org.modelmapper.TypeToken;
 import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
@@ -27,6 +29,43 @@ import com.demo.genericapp.entity.dto.MPSBSearchResultDTO;
 import com.demo.genericapp.model.LOVModel;
 import com.demo.genericapp.model.MPSBCriteraServcModel;
 import com.demo.genericapp.model.MPSBSearchResultModel;
+
+import lombok.Data;
+
+@Data
+class SourceDTO {
+	private List<ElementDTO> elements;
+
+	// Getters and setters
+}
+
+@Data
+class ElementDTO {
+	public ElementDTO(String dtoName, int dtoValue) {
+		this.dtoName = dtoName;
+		this.dtoValue = dtoValue;
+	}
+
+	private String dtoName;
+	private int dtoValue;
+
+	// Getters and setters
+}
+
+@Data
+class Element {
+	private String entityName; // Different name
+	private int entityValue; // Different name
+
+	// Getters and setters
+}
+
+@Data
+class Destination {
+	private List<Element> elements;
+
+	// Getters and setters
+}
 
 @Component
 public class GenericAppRunner implements ApplicationRunner {
@@ -154,7 +193,14 @@ public class GenericAppRunner implements ApplicationRunner {
 
 			System.out.println("GenericAppRunner.run() :: Model hash->" + mpsbCriteraServcModel.hashCode());
 			MPSBSrvcCrtDtoToModelMapper serviceDtoToModelMapper = new MPSBSrvcCrtDtoToModelMapper();
+
 			modelMapper.addMappings(serviceDtoToModelMapper).map(mpsbCriteriaServcDTO, mpsbCriteraServcModel);
+			/*
+			 * modelMapper.addMappings(new MPSBSrvcCrtDtoToModelMapper2())
+			 * .map(mpsbCriteriaServcDTO.getMpsbSearchResultDTOs(),
+			 * mpsbCriteraServcModel.getSearchResultModels());
+			 */
+
 			System.out.println(mpsbCriteraServcModel);
 
 			System.out.println("====> Showing the search result grid");
@@ -168,7 +214,25 @@ public class GenericAppRunner implements ApplicationRunner {
 			System.out.println("===>Mapped to Nested entity");
 			modelMapper.addMappings(new MPSBEntityToModelEntityMapper()).map(mpsbEntity, mpsbCriteraServcModel);
 			System.out.println("====> entity to entity\n" + mpsbCriteraServcModel);
+			listMapping(modelMapper);// Second method to add list to list Mapping
 		}
+	}
+
+	private static final class MPSBSrvcCrtDtoToModelMapper2
+			extends PropertyMap<List<MPSBSearchResultDTO>, List<MPSBSearchResultModel>> {
+
+		@Override
+		protected void configure() {
+			Converter<List<MPSBSearchResultDTO>, List<MPSBSearchResultModel>> dtoToModelSrchResConverter = (ctx) -> {
+				return ctx.getSource().stream()
+						.map(eachResultDto -> new MPSBSearchResultModel(eachResultDto.getId(),
+								eachResultDto.getMinPercent().toString(), eachResultDto.getPsRate().toString(),
+								eachResultDto.getIndicator(), null))
+						.toList();
+			};
+			using(dtoToModelSrchResConverter);
+		}
+
 	}
 
 	private static final class MPSBSrvcCrtDtoToModelMapper
@@ -254,6 +318,41 @@ public class GenericAppRunner implements ApplicationRunner {
 			map(source, destination.getMpsbEntity());
 
 		}
+
+	}
+
+	/**
+	 * Method to map List<Foo> to List<Bar>
+	 * 
+	 * @param ModelMapper modelMapper
+	 * 
+	 *                    <p>
+	 *                    <b>Parameter Definition</b> modelMapper the ModelMapper
+	 *                    object
+	 *                    </p>
+	 * 
+	 * @return void
+	 * 
+	 */
+	private void listMapping(ModelMapper modelMapper) {
+		// Explicitly define property mappings between ElementDTO and Element
+		modelMapper.typeMap(ElementDTO.class, Element.class).addMappings(mapper -> {
+			mapper.map(ElementDTO::getDtoName, Element::setEntityName);
+			mapper.map(ElementDTO::getDtoValue, Element::setEntityValue);
+		});
+
+		// Example: Map List of ElementDTO to List of Element
+		List<ElementDTO> sourceList = List.of(new ElementDTO("SourceName1", 100), new ElementDTO("SourceName2", 200));
+
+		// Define the type for List<Element>
+		Type listType = new TypeToken<List<Element>>() {
+		}.getType();
+
+		// Perform mapping
+		List<Element> destinationList = modelMapper.map(sourceList, listType);
+
+		// Verify the result
+		destinationList.forEach(e -> System.out.println(e.getEntityName() + ": " + e.getEntityValue()));
 
 	}
 
