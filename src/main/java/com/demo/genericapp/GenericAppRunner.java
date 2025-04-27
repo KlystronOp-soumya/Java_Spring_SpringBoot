@@ -20,6 +20,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import com.demo.genericapp.configs.configprops.OracleDbConfigProps;
+import com.demo.genericapp.entity.MPSBEntity;
 import com.demo.genericapp.entity.dto.LOVDTO;
 import com.demo.genericapp.entity.dto.MPSBCriteriaServcDTO;
 import com.demo.genericapp.entity.dto.MPSBSearchResultDTO;
@@ -48,7 +49,8 @@ public class GenericAppRunner implements ApplicationRunner {
 			ModelMapper modelMapper = new ModelMapper();
 
 			modelMapper.getConfiguration().setAmbiguityIgnored(false).setFieldMatchingEnabled(true)
-					.setMatchingStrategy(MatchingStrategies.STRICT).setFieldAccessLevel(AccessLevel.PRIVATE);
+					.setMatchingStrategy(MatchingStrategies.STRICT).setFieldAccessLevel(AccessLevel.PRIVATE)
+					.setSkipNullEnabled(true);
 
 			/*
 			 * Converter<String, String> toUppercase = new AbstractConverter<String,
@@ -139,21 +141,36 @@ public class GenericAppRunner implements ApplicationRunner {
 			mpsbCriteriaServcDTO.setMpsbSearchResultDTOs(searchResultDTOs);
 
 			MPSBCriteraServcModel mpsbCriteraServcModel = new MPSBCriteraServcModel();
-			mpsbCriteraServcModel.setPropA("MODELA");
-			mpsbCriteraServcModel.setPropB("MODELB");
+			mpsbCriteraServcModel.setPropertA("MODELA");
+			mpsbCriteraServcModel.setPropertB("MODELB");
 
-			MPSBSrvcCrtDtoToModelMapper mapper = new MPSBSrvcCrtDtoToModelMapper();
-			modelMapper.addMappings(mapper).map(mpsbCriteriaServcDTO, mpsbCriteraServcModel);
+			MPSBEntity mpsbEntity = new MPSBEntity();
+			mpsbEntity.setId(1000);
+			mpsbEntity.setCollectionOffice("227");
+			mpsbEntity.setMinPSBPercnt("0.5");
+			mpsbEntity.setMinUnitPSBPercnt("10");
+			mpsbEntity.setPersistencyBns("1.00");
+			mpsbEntity.setUnitPersistencyBns("1.00");
+
+			System.out.println("GenericAppRunner.run() :: Model hash->" + mpsbCriteraServcModel.hashCode());
+			MPSBSrvcCrtDtoToModelMapper serviceDtoToModelMapper = new MPSBSrvcCrtDtoToModelMapper();
+			modelMapper.addMappings(serviceDtoToModelMapper).map(mpsbCriteriaServcDTO, mpsbCriteraServcModel);
 			System.out.println(mpsbCriteraServcModel);
 
 			System.out.println("====> Showing the search result grid");
 
 			mpsbCriteraServcModel.getSearchResultModels().stream().forEach(System.out::println);
+			modelMapper.addMappings(new MPSBEntityToModelMapper()).map(mpsbEntity, mpsbCriteraServcModel);
+			// modelMapper.addMappings(new MPSBEntityToModelMapper()).map(mpsbEntity,
+			// mpsbCriteraServcModel);
+			System.out.println("====> with entity\n" + mpsbCriteraServcModel);
+			System.out.println("GenericAppRunner.run() :: Model hash->" + mpsbCriteraServcModel.hashCode());
 
 		}
 	}
 
-	public static class MPSBSrvcCrtDtoToModelMapper extends PropertyMap<MPSBCriteriaServcDTO, MPSBCriteraServcModel> {
+	private static final class MPSBSrvcCrtDtoToModelMapper
+			extends PropertyMap<MPSBCriteriaServcDTO, MPSBCriteraServcModel> {
 
 		@Override
 		protected void configure() {
@@ -189,11 +206,39 @@ public class GenericAppRunner implements ApplicationRunner {
 				}
 				return new ArrayList<>(); // Handle null or empty case
 			}).map(source.getMpsbSearchResultDTOs(), destination.getSearchResultModels());
+			/*
+			 * Observations: If the destination propertyName is different then it will
+			 * skipped no skip() is required If the name is same then, wont get skipped and
+			 * value will be replaced unless NULL as Null is skipped in config
+			 * 
+			 * 
+			 */
 
-			skip(destination.getPropA());
-			skip(destination.getPropB());
+			// skip(destination.getPropA());
+			// skip(destination.getPropB());
 		}
 
+	}
+
+	/**
+	 * PropertyMapper class to Map Entity to Model for MPSB
+	 * 
+	 * @author KlystronOp-soumya
+	 * 
+	 */
+
+	private static final class MPSBEntityToModelMapper extends PropertyMap<MPSBEntity, MPSBCriteraServcModel> {
+
+		@Override
+		protected void configure() {
+
+			// here context might not required
+			map().setCollOff(source.getCollectionOffice());
+			map().setPsb(source.getPersistencyBns());
+			map().setMinPSBPercnt(source.getMinPSBPercnt());
+			map().setPub(source.getUnitPersistencyBns());
+			map().setMinUnitPSBPercnt(source.getUnitPersistencyBns());
+		}
 	}
 
 }
