@@ -165,7 +165,9 @@ public class GenericAppRunner implements ApplicationRunner {
 			// mpsbCriteraServcModel);
 			System.out.println("====> with entity\n" + mpsbCriteraServcModel);
 			System.out.println("GenericAppRunner.run() :: Model hash->" + mpsbCriteraServcModel.hashCode());
-
+			System.out.println("===>Mapped to Nested entity");
+			modelMapper.addMappings(new MPSBEntityToModelEntityMapper()).map(mpsbEntity, mpsbCriteraServcModel);
+			System.out.println("====> entity to entity\n" + mpsbCriteraServcModel);
 		}
 	}
 
@@ -239,6 +241,20 @@ public class GenericAppRunner implements ApplicationRunner {
 			map().setPub(source.getUnitPersistencyBns());
 			map().setMinUnitPSBPercnt(source.getUnitPersistencyBns());
 		}
+	}
+
+	/**
+	 * Mapper to map entity to nested Entity
+	 */
+	private static final class MPSBEntityToModelEntityMapper extends PropertyMap<MPSBEntity, MPSBCriteraServcModel> {
+
+		@Override
+		protected void configure() {
+
+			map(source, destination.getMpsbEntity());
+
+		}
+
 	}
 
 }
