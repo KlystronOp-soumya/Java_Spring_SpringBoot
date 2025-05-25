@@ -1,6 +1,8 @@
 package com.demo.todoapp.controller;
 
+import java.security.cert.CertStoreSpi;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -15,16 +17,20 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.todoapp.entity.ToDoAppResponseDTO;
 import com.demo.todoapp.entity.ToDoEntity;
 import com.demo.todoapp.exceptions.ToDoAppException;
 import com.demo.todoapp.exceptions.ToDosNotFoundException;
+import com.demo.todoapp.exceptions.TodoCanNotUpdateException;
 import com.demo.todoapp.service.DateServiceUtil;
 import com.demo.todoapp.service.ToDoAppServiceImpl;
 import com.demo.todoapp.service.intf.ToDoService;
@@ -53,7 +59,7 @@ public class ToDoAppController {
 	}
 
 	@GetMapping(path = "/alltodos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ToDoEntity>> getAllToDos(HttpServletRequest request) throws ToDosNotFoundException {
+	public  ResponseEntity<List<ToDoEntity>> getAllToDos(HttpServletRequest request) throws ToDosNotFoundException {
 		LOGGER.info("request received :: getAlltodos");
 		List<ToDoEntity> allToDoRecords = null;
 		ResponseEntity<List<ToDoEntity>> responseEntity = null;
@@ -81,6 +87,7 @@ public class ToDoAppController {
 		try {
 			LOGGER.debug("controller :: service method called for save all todos");
 			// this.validator.validate(todos, errors);
+			// empty list check to be handled by the front end
 			this.todoService.saveAllTodos(todos);
 			ToDoAppResponseDTO responseDTO = new ToDoAppResponseDTO();
 			responseDTO.setSuccessMessage("Todos Added Successfully");
@@ -100,5 +107,47 @@ public class ToDoAppController {
 		LOGGER.debug("addTodos :: response returned");
 		return responseEntity;
 	}
-
+	
+	@PostMapping(path = "/updateTodo" , consumes = MediaType.APPLICATION_JSON_VALUE , produces =MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ToDoAppResponseDTO> updateTodos(@RequestBody(required = true) ToDoEntity todos,
+			HttpServletRequest request) throws ToDoAppException {
+			ResponseEntity<ToDoAppResponseDTO> responseEntity = null ;
+			ToDoAppResponseDTO responseDTO = null;
+			LOGGER.info("updateTodos :: trying to update #todos ->" + todos.getTodoId());
+			try {
+				responseDTO = new ToDoAppResponseDTO() ;
+				int updatedTodosCount = todoService.updateTodo(todos) ;
+				responseDTO.setSucess(true);
+				responseDTO.setSuccessMessage("Todo was updated successfully");
+				responseDTO.setCode(HttpStatus.OK.value());
+				responseDTO.setErrorPresent(false);
+				responseDTO.setErrorMap(null);
+				responseDTO.setDate(DateServiceUtil.getDate());
+				responseDTO.setTime(DateServiceUtil.getTime());
+				responseEntity = new ResponseEntity<ToDoAppResponseDTO>(responseDTO, HttpStatus.OK);
+				LOGGER.debug("updateTodos :: todos updated#" + updatedTodosCount);
+			} catch (Exception e) {
+				LOGGER.error("updateTodos :: " + e);
+				ToDoAppException tde = new ToDoAppException(e.getMessage(), "Please contact Administrator", request.getRequestURI()) ;
+				tde.initCause(new TodoCanNotUpdateException()) ;
+				throw tde ;
+			}
+			LOGGER.debug("updateTodos :: response returned");
+		return responseEntity ;
+	}
+	
+	@DeleteMapping(path = "/deleteTodo", consumes =MediaType.APPLICATION_JSON_VALUE , produces =MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<ToDoAppResponseDTO> deleteTodo(final List<ToDoEntity> todos , HttpServletRequest request){
+		ResponseEntity<ToDoAppResponseDTO> responseEntity = null ;
+		ToDoAppResponseDTO responseDTO = null;
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		return responseEntity ;
+		
+	}
 }

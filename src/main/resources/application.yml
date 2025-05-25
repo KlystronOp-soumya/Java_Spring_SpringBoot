@@ -11,6 +11,8 @@ spring:
       auto-commit: true
       maximum-pool-size: 5
       connection-timeout: 5000
+      max-lifetime: 10000
+      schema: ${db_oracle_userid}
   h2:
     console:
       enabled: false    

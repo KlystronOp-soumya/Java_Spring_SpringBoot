@@ -2,6 +2,7 @@ package com.demo.todoapp.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,5 +58,59 @@ public class ToDoAppServiceImpl implements ToDoService {
 			throw new ToDoAppException("Todos list could not be deleted") ;
 		}
 		return deletedTodos;
+	}
+	
+	/**
+	 * Method to update the todos
+	 * 
+	 * */
+	@Override
+	public int updateTodos(List<ToDoEntity> todos) throws ToDoAppException {
+		
+		return 0;
+	}
+	
+	/**
+	 * Update a todo by ID
+	 *  
+	 *  
+	 *  */
+	@Override
+	public int updateTodo(ToDoEntity todo) throws ToDoAppException {
+		LOGGER.debug("todoService :: trying to update todo: " + todo.getTodoId());
+		int updateRowCount = -1 ;
+		try {
+			updateRowCount = toDoAppDAO.updateTodoById(todo) ; //updates todo corresponds to the id in this
+			
+			
+		} catch (Exception e) {
+			LOGGER.error("uppdateTodo :: " + e.getCause().toString() +"\n"+e.getMessage());
+			throw new ToDoAppException("Todo:" + todo.getTodoId() +" could not be updated") ;
+		}
+		return updateRowCount ;
+	}
+
+	@Override
+	public void deleteTodo(String todoId) throws ToDoAppException {
+		try {
+			
+			
+		} catch (Exception e) {
+			
+		}
+		
+	}
+
+	@Override
+	public void deleteTodos(List<ToDoEntity> todos) throws ToDoAppException {
+		try {
+			List<Long> todoIds = todos.stream().map((eachTodo)-> eachTodo.getTodoId()).collect(Collectors.toUnmodifiableList()) ;
+			int deletedTodosCount = toDoAppDAO.deleteTodoById(todoIds) ;
+		} catch (Exception e) {
+			LOGGER.error("uppdateTodo :: " + e.getCause().toString() +"\n"+e.getMessage());
+			throw new ToDoAppException("Todos:" +" could not be deleted") ;
+		}
+		
+		
 	}
 }
