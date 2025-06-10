@@ -3,6 +3,8 @@ package com.demo.todoapp.exceptions;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -60,5 +62,24 @@ public class ToDoAppExceptionResolver {
 		responseDTO.setErrorMap(errorMap);
 		
 		return new ResponseEntity<ToDoAppResponseDTO>(responseDTO , HttpStatus.INTERNAL_SERVER_ERROR) ;
+	}
+	
+	
+	@ExceptionHandler(value = TodosBlankList.class)
+	public ResponseEntity<ToDoAppResponseDTO> handleTodoBlankListExceotion(final TodosBlankList todosBlankListExcp , final HttpServletRequest request) {
+		ErrorMap errorMap = new ErrorMap() ;
+		errorMap.setErrorExcep(todosBlankListExcp.getMessage());
+		//errorMap.setErrorDesc(todosBlankListExcp.getDescription());
+		errorMap.setPath(request.getPathInfo());
+		errorMap.setErrorTime(DateServiceUtil.getTime());
+		errorMap.setErrorDate(DateServiceUtil.getDate());
+
+		
+		ToDoAppResponseDTO responseDTO = new ToDoAppResponseDTO() ;
+		responseDTO.setErrorPresent(true);
+		responseDTO.setSucess(false);
+		responseDTO.setErrorMap(errorMap);
+		
+		return new ResponseEntity<ToDoAppResponseDTO>(responseDTO , HttpStatus.BAD_REQUEST) ;
 	}
 }

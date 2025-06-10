@@ -1,7 +1,5 @@
 package com.demo.todoapp.exceptions;
 
-import javax.management.loading.PrivateClassLoader;
-
 import org.springframework.validation.Errors;
 
 public class ToDoAppException extends Exception {

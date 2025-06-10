@@ -1,29 +1,20 @@
 package com.demo.todoapp.controller;
 
-import java.security.cert.CertStoreSpi;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.todoapp.entity.ToDoAppResponseDTO;
@@ -31,10 +22,10 @@ import com.demo.todoapp.entity.ToDoEntity;
 import com.demo.todoapp.exceptions.ToDoAppException;
 import com.demo.todoapp.exceptions.ToDosNotFoundException;
 import com.demo.todoapp.exceptions.TodoCanNotUpdateException;
+import com.demo.todoapp.exceptions.TodosBlankList;
 import com.demo.todoapp.service.DateServiceUtil;
 import com.demo.todoapp.service.ToDoAppServiceImpl;
 import com.demo.todoapp.service.intf.ToDoService;
-import com.demo.todoapp.validator.ToDoValidator;
 
 @RestController("todoAppController")
 @RequestMapping("/api/v1/todos")
@@ -137,16 +128,36 @@ public class ToDoAppController {
 	}
 	
 	@DeleteMapping(path = "/deleteTodo", consumes =MediaType.APPLICATION_JSON_VALUE , produces =MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<ToDoAppResponseDTO> deleteTodo(final List<ToDoEntity> todos , HttpServletRequest request){
+	public ResponseEntity<ToDoAppResponseDTO> deleteTodo( List<ToDoEntity> todos , HttpServletRequest request) throws ToDoAppException{
 		ResponseEntity<ToDoAppResponseDTO> responseEntity = null ;
 		ToDoAppResponseDTO responseDTO = null;
+		Optional<List<ToDoEntity>> todosOptional = Optional.ofNullable(todos) ;
+		
 		try {
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			this.todoService.deleteTodos( todosOptional.orElseThrow(()-> new TodosBlankList("No todo to delete") ) ) ;
+			responseDTO = new ToDoAppResponseDTO() ;
+			responseDTO.setSucess(true);
+			responseDTO.setSuccessMessage("Todo was deleted successfully");
+			responseDTO.setCode(HttpStatus.OK.value());
+			responseDTO.setErrorPresent(false);
+			responseDTO.setErrorMap(null);
+			responseDTO.setDate(DateServiceUtil.getDate());
+			responseDTO.setTime(DateServiceUtil.getTime());
+			responseEntity = new ResponseEntity<ToDoAppResponseDTO>(responseDTO, HttpStatus.OK);
+		
+		} catch (TodosBlankList e) {
+			LOGGER.error("deleteTodo :: " + e) ;
+			
+		}catch (ToDoAppException e) {
+			LOGGER.error("deletedTodo :: " + e) ;
+			ToDoAppException tde = new ToDoAppException(e.getMessage(), "Please contact Administrator", request.getRequestURI()) ;
+			tde.initCause(new TodoCanNotUpdateException("Todos could not be deleted")) ;
+			throw tde ;
+			
 		}
 		
-		
+		LOGGER.debug("deleteTodo :: response returned") ;
 		return responseEntity ;
 		
 	}
