@@ -8,6 +8,7 @@
 <Configuration status="INFO">
  <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss}  %c %p [%t]: %m %n</Property>
+        <Property name="LOGGER_PATH" value="${sys:todoServiceLogs}" /><!--E:\Program Files\Spring\MVC_Rest\todoServiceLogs-->
     </Properties>
     <Appenders>
         <Console name="CONSOLE" target="SYSTEM_OUT">
@@ -16,7 +17,7 @@
         </Console>
         
         <RollingFile name="APPLOG"
-                     fileName="logs/ToDoApp.log"
+                     fileName="${LOGGER_PATH}/ToDoApp.log"
                      filePattern="logs/%d{yyyy-MM-dd_HH-mm}_app.log.gz"
                      append="true">
             <Filters>
@@ -31,7 +32,7 @@
         </RollingFile>
         
         <RollingFile name="DEBUGLOG"
-                     fileName="logs/ToDoDebug.log"
+                     fileName="${LOGGER_PATH}/ToDoDebug.log"
                      filePattern="logs/%d{yyyy-MM-dd_HH-mm}_debug.log.gz"
                      append="true">
             <Filters>
@@ -45,7 +46,7 @@
         </RollingFile>
         
         <RollingFile name="ERRORLOG"
-                     fileName="logs/ToDoError.log"
+                     fileName="${LOGGER_PATH}/ToDoError.log"
                      filePattern="logs/%d{yyyy-MM-dd_HH-mm}_error.log.gz"
                      append="true">
             <Filters>
