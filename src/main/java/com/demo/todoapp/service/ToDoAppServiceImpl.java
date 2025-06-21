@@ -32,6 +32,7 @@ public class ToDoAppServiceImpl implements ToDoService {
 		Optional<List<ToDoEntity>> allTodos = null;
 		allTodos = this.toDoAppDAO.getAllToDos();
 		LOGGER.debug("Fetched");
+		//TODO add exception handling for the system failures
 		return allTodos.orElseThrow(() -> new ToDoAppException("No ToDos were found! Please add ToDo"));
 	}
 

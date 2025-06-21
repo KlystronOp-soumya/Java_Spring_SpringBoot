@@ -44,8 +44,8 @@ public class ToDoAppController {
 	@GetMapping(path = "/index")
 	public String getIndex() {
 		LOGGER.info("Request received :: index");
-		LOGGER.debug("Request processed");
-		LOGGER.error("Request received :: index");
+		//LOGGER.debug("Request processed");
+		//LOGGER.error("Request received :: index");
 		return "index";
 	}
 
