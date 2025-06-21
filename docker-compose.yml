@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  todo-service:
+    image: my-todo-app:latest   # Replace with the image name you built
+    container_name: todo-container
+    ports:
+      - "8093:8093"
+    environment:
+      db_oracle_userid: DUMMY123
+      db_oracle_password: system
+      db_oracle_schema: DUMMY123
+    volumes:
+      - ./my-logs:/var/log/todoService   # Host logs will be stored in ./my-logs
+    restart: unless-stopped

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp_service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoappservice
+  template:
+    metadata:
+      labels:
+        app: todoappservice
+    spec:
+      containers:
+        - name: todo-container
+          image: todoapp_service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8093
+          env:
+            - name: db_oracle_userid
+              value: DUMMY123
+            - name: db_oracle_password
+              value: system
+            - name: db_oracle_schema
+              value: DUMMY123
