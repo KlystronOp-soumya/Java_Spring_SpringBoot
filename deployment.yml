@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todoapp_service-deployment
+  name: todoappdeployment
 spec:
   replicas: 1
   selector:
@@ -13,9 +13,9 @@ spec:
         app: todoappservice
     spec:
       containers:
-        - name: todo-container
-          image: todoapp_service:latest
-          imagePullPolicy: IfNotPresent
+        - name: todoappcontainer
+          image: todoappservice:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8093
           env:
