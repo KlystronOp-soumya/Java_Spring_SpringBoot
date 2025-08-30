@@ -1,0 +1,63 @@
+docker build -t todoappservice:latest .
+docker run -d -p 8093:8093 --name todoapp todoappservice:latest
+ 
+
+kubectl get pods
+kubectl get services
+
+minikube service springboot-service
+
+--delete a pod
+kubectl delete pod <pod-name>
+kubectl delete pod <pod-name> --grace-period=0 --force
+
+#check issues
+kubectl apply --dry-run=client -f deployment.yaml
+kubectl apply --dry-run=client -f service.yaml
+
+#check the logs
+kubectl logs todoappdeployment-74c6ccfb4f-dnc8q
+
+#install busybox to debug
+kubectl run testbox --rm -it --image=busybox -- /bin/sh
+	## debug while we are inside the busybox
+		#/ wget -O response.json  http://todoappservice:8093/ToDoApp/api/v1/todos/index
+	## the cat the response.json.this will show the response received
+		#/ cat response.json 
+	## to get out of the busybox
+		#/ exit
+
+#forward the port
+	kubectl port-forward service/todoappservice 8093:8093
+#get the ip of the minikube
+	minikube ip
+#get the url of the service
+	minikube service <<service-name>>
+#get the internal endpoint of the pod
+	kubectl get endpoints todoappservice
+
+#If you are using docker driver then
+1. load the locally built image into minikube
+minikube image load todoappservice:latest
+2.check the loaded images
+minikube image ls
+3. deploy into the pod using yml
+kubectl apply -f .\deployment.yml
+4.Once the deployment is done check the pod
+kubectl get pods -w
+5.start the service
+kubectl expose deployment todoappdeployment-74c6ccfb4f-dnc8q --port=8093 --target-port=8093 --type=NodePort --name=todoappcontainer
+
+
+## Issue why NodePort is not accessible
+When using the Docker driver, Minikube runs inside a container, and unfortunately NodePort services aren't directly accessible from your host machine. That’s why even though everything's wired up correctly inside Kubernetes, the outside world can’t reach it via http://<minikube-ip>:<NodePort>.
+
+
+#The clean up process
+kubectl delete service todoappservice -> deletes the service
+kubectl delete deployment todoappdeployment -> deletes the deployment
+kubectl delete pod <pod-name> -> deletes the pod
+kubectl delete all --all -> deletes everything
+
+#stop the instance
+minikube stop
