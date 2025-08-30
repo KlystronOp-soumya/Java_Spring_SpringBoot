@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -215,7 +216,28 @@ public class GenericAppRunner implements ApplicationRunner {
 			modelMapper.addMappings(new MPSBEntityToModelEntityMapper()).map(mpsbEntity, mpsbCriteraServcModel);
 			System.out.println("====> entity to entity\n" + mpsbCriteraServcModel);
 			listMapping(modelMapper);// Second method to add list to list Mapping
+			mapLovDtosToLovModels(modelMapper);
 		}
+	}
+
+	private void mapLovDtosToLovModels(final ModelMapper modelMapper) {
+		List<LOVDTO> lovdtos = List
+				.of(new LOVDTO(227, "abc", "abc name", new java.sql.Date(LocalDateTime.now().toEpochSecond(null))));
+		List<LOVModel> lovModels = List.of(new LOVModel("0", "dji", "dow", new Date(LocalDate.now().toEpochDay())));
+		TypeMap<LOVDTO, LOVModel> dtoToModelTypeMap = modelMapper.createTypeMap(LOVDTO.class, LOVModel.class);
+
+		dtoToModelTypeMap.addMappings(mapper -> {
+			mapper.using(ctx -> {
+
+				java.sql.Date sqlDate = ((LOVDTO) ctx.getSource()).getDbDate();
+				return new Date(sqlDate.getYear(), sqlDate.getMonth(), sqlDate.getDate());
+
+			});
+		});
+
+		List<LOVModel> mappedLovModels = lovdtos.stream().map(eachDto -> modelMapper.map(eachDto, LOVModel.class))
+				.toList();
+
 	}
 
 	private static final class MPSBSrvcCrtDtoToModelMapper2
