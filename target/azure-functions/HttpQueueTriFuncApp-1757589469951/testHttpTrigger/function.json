@@ -1,0 +1,15 @@
+{
+  "scriptFile" : "../HttpQueueTriFuncApp-1.0-SNAPSHOT.jar",
+  "entryPoint" : "com.demo.azure.FunctionApp.processHttpTrigger",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "methods" : [ "POST" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

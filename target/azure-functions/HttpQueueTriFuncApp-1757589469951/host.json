@@ -1,0 +1,59 @@
+{
+  "version": "2.0",
+  "concurrency": {
+    "dynamicConcurrencyEnabled": false,
+    "snapshotPersistenceEnabled": false
+  },
+  "functions": ["testHttpTrigger", "pushMsgToQueue", "consumeFromQueue"],
+  "functionTimeout": "00:05:00",
+  "extensions": {
+    "queues": {
+      "batchSize": 1,
+      "newBatchThreshold": 0,
+      "maxDequeueCount": 5,
+      "visibilityTimeout": "00:00:30",
+      "maxPollingInterval": "00:00:20"
+    },
+    "http": {
+      "routePrefix": "api",
+      "maxConcurrentRequests": 5,
+      "maxOutstandingRequests": 10
+    }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[4.*, 5.0.0)"
+  },
+  "logging": {
+    "console": {
+      "isEnabled": false,
+      "DisableColors": true
+    },
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": false
+      },
+      "enableLiveMetrics": false,
+      "enableDependencyTracking": false,
+      "enablePerformanceCountersCollection": false
+    },
+    "logLevel": {
+      "default": "Warning",
+      "Function.testHttpTrigger": "Information",
+      "Function.pushMsgToQueue": "Information",
+      "Function.consumeFromQueue": "Information",
+      "Host.Results": "Error",
+      "Host.Aggregator": "Error",
+      "Host.Triggers": "Error",
+      "Worker": "Error"
+    }
+  },
+
+  "healthMonitor": {
+    "enabled": false,
+    "healthCheckInterval": "00:00:10",
+    "healthCheckWindow": "00:02:00",
+    "healthCheckThreshold": 6,
+    "counterThreshold": 0.8
+  }
+}

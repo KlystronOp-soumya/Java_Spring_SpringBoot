@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "java" ,
+    "AzureWebJobs.consumeFromQueue.Disabled": true ,
+    "AzureWebJobs.pushMsgToQueue.Disabled": true 
+  },
+  "Host": {
+    "LocalHttpPort": 8071,
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}

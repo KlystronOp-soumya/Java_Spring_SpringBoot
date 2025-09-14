@@ -1,0 +1,21 @@
+{
+  "scriptFile" : "../HttpQueueTriFuncApp-1.0-SNAPSHOT.jar",
+  "entryPoint" : "com.demo.azure.FunctionApp.httpTrigQueueProcess",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "methods" : [ "POST" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "queue",
+    "direction" : "out",
+    "name" : "outputMessage",
+    "queueName" : "myqueue",
+    "connection" : "AzureWebJobsStorage"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "scriptFile" : "../HttpQueueTriFuncApp-1.0-SNAPSHOT.jar",
+  "entryPoint" : "com.demo.azure.FunctionApp.processQueueConsumption",
+  "bindings" : [ {
+    "type" : "queueTrigger",
+    "direction" : "in",
+    "name" : "msg",
+    "queueName" : "myqueue",
+    "connection" : "AzureWebJobsStorage"
+  } ]
+}
