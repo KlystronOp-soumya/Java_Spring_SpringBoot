@@ -1,0 +1,27 @@
+{
+  "version": "2.0",
+  "extensions": {"serviceBus": {
+    "prefetchCount": 50 ,
+    "maxConcurrentCalls": 20 ,
+    "maxAutoLockRenewalDuration": "00:05:00"
+  }},
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[4.*, 5.0.0)"
+  } ,
+  "logging": {
+    "fileLoggingMode": "always",
+    "logLevel": {
+      "default": "Debug",
+      "Function.consumeQueue": "Trace" ,
+      "Host.Aggregator" : "Information"
+    } ,
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": false,
+        "excludedTypes": "Request"
+      }
+    }
+  }
+
+}
