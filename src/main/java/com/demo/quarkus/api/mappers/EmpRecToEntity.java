@@ -1,13 +1,8 @@
 package com.demo.quarkus.api.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-
 import com.demo.quarkus.api.entity.EmployeeEntity;
 import com.demo.quarkus.api.entity.EmployeeRecord;
-
-import jakarta.enterprise.context.ApplicationScoped;
 
 @Mapper(componentModel = "cdi")
 public interface EmpRecToEntity {
