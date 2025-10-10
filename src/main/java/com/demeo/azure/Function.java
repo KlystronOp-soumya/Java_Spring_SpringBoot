@@ -23,6 +23,7 @@ public class Function {
     @Inject
     GreetingService service;
 
+
     /**
      * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
@@ -37,7 +38,6 @@ public class Function {
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
-
         // Parse query parameter
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);
@@ -56,7 +56,6 @@ public class Function {
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context){
-
                 var logger = context.getLogger() ;
                 logger.info("Request was received");
                 final String reqBody = request.getBody().orElse("Empty Body") ;
