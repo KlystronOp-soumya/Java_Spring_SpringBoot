@@ -12,9 +12,16 @@ quarkus create app \
 --package-name com.demeo.azure \
 --extension=quarkus-azure-functions
 
+#### Notes
+<p>
+    To generate the staging directory: <b>.\mvnw -T 2 -o quarkus:build </b><br>
+    The plugin always generates the QuarkusHttp function by default.We might need to delete it before deploying it into azure
+</p>
+
 ## Running the application
 > .\mvnw -T 4 -o  clean compile package  quarkus:run -DskipTests=true
 ## Running the application in dev mode
+> .\mvnw -T 4 -o  clean compile package  quarkus:dev -DskipTests=true
 
 You can run your application in dev mode that enables live coding using:
 

@@ -1,5 +1,6 @@
 package com.demeo.azure;
 
+import com.google.gson.Gson;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -14,6 +15,9 @@ import java.util.Optional;
 
 /**
  * Azure Functions with HTTP Trigger integrated with Quarkus
+ * 
+ * While usign @FunctionName it will not work with @Funq
+ * 
  */
 public class Function {
     @Inject
@@ -43,6 +47,24 @@ public class Function {
         } else {
             return request.createResponseBuilder(HttpStatus.OK).body(service.greeting(name)).build();
         }
+    }
+
+    @FunctionName("ProductConsumption")
+    public void consumeProduct(@HttpTrigger(
+                name = "req",
+                methods = {HttpMethod.GET, HttpMethod.POST},
+                authLevel = AuthorizationLevel.ANONYMOUS)
+                HttpRequestMessage<Optional<String>> request,
+            final ExecutionContext context){
+
+                var logger = context.getLogger() ;
+                logger.info("Request was received");
+                final String reqBody = request.getBody().orElse("Empty Body") ;
+                logger.info("REQUEST BODY : \n" + reqBody);
+                Gson gson = new Gson() ;
+                Product product = gson.fromJson(reqBody, Product.class) ;
+                logger.info("Received Product Desc: " + product);
+
     }
     
 }

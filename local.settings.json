@@ -3,5 +3,10 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "java"
+  },
+  "Host": {
+    "LocalHttpPort": 8093,
+    "CORS": "*",
+    "CORSCredentials": false
   }
 }
