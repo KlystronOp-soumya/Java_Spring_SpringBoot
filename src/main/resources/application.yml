@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: document-api
+server:
+  port: 8093
+  error:
+    whitelabel:
+      enabled: false
+  servlet:
+    context-path: /document
+
