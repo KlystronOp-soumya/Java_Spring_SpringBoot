@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "namespace": "local-servicebus",
+  "queues": [
+    {
+      "name": "central-dlq",
+      "maxDeliveryCount": 5,
+      "enablePartitioning": false,
+      "enableDeadLetteringOnMessageExpiration": false
+    }
+  ],
+  "topics": [
+    {
+      "name": "inventory-updates",
+      "subscriptions": [
+        {
+          "name": "stock-manager",
+          "maxDeliveryCount": 5,
+          "enableDeadLetteringOnMessageExpiration": true,
+          "forwardDeadLetteredMessagesTo": "central-dlq",
+          "rules": [
+            {
+              "name": "StockUpdatesOnly",
+              "sqlFilter": "subject = 'INVENTORY_UPDATE'"
+            }
+          ]
+        },
+        {
+          "name": "pricing-engine",
+          "maxDeliveryCount": 5,
+          "enableDeadLetteringOnMessageExpiration": true,
+          "forwardDeadLetteredMessagesTo": "central-dlq",
+          "rules": [
+            {
+              "name": "PriceChangeOrInventory",
+              "sqlFilter": "subject = 'PRICE_CHANGE' OR subject = 'INVENTORY_UPDATE'"
+            }
+          ]
+        },
+        {
+          "name": "analytics",
+          "maxDeliveryCount": 5,
+          "enableDeadLetteringOnMessageExpiration": true,
+          "forwardDeadLetteredMessagesTo": "central-dlq",
+          "rules": [
+            {
+              "name": "AllMessages",
+              "sqlFilter": "1=1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
