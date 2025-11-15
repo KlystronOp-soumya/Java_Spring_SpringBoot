@@ -21,7 +21,6 @@ class ArtistRepositoryTest {
     @Test
     @TestTransaction
     public void shouldCreateAndFindArtist() {
-
         Artist artist = new Artist("name", "bio");
 
         artistRepository.persist(artist);

@@ -59,6 +59,9 @@
             <scope>test</scope>
         </dependency>
         <!--Other dependencies-->
+        <!--
+            1. Build the parent module along with the artist to avoid build issues in Vintage-Store
+        -->
         <dependency>
             <groupId>com.demo.quarkus.jpa</groupId>
             <artifactId>artist</artifactId>
@@ -67,6 +70,17 @@
                 <exclusion>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-jdbc-mysql</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.demo.quarkus.jpa</groupId>
+            <artifactId>customer</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-jdbc-mariadb</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

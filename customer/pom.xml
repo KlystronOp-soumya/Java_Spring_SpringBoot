@@ -7,7 +7,7 @@
         <artifactId>quarkus-jdbc-orm-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.demo.quarkus.orm</groupId>
+    <groupId>com.demo.quarkus.jpa</groupId>
     <artifactId>customer</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
