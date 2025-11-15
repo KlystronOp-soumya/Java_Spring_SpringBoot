@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="QuarkusDeploymentProjectService">
+    <option name="modules">
+      <map>
+        <entry key="artist">
+          <value>
+            <ModuleState>
+              <option name="hash" value="-225504828" />
+              <option name="version" value="1" />
+            </ModuleState>
+          </value>
+        </entry>
+        <entry key="customer">
+          <value>
+            <ModuleState>
+              <option name="hash" value="-1363168488" />
+              <option name="version" value="1" />
+            </ModuleState>
+          </value>
+        </entry>
+        <entry key="vintage-store">
+          <value>
+            <ModuleState>
+              <option name="hash" value="1674284472" />
+              <option name="version" value="1" />
+            </ModuleState>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
