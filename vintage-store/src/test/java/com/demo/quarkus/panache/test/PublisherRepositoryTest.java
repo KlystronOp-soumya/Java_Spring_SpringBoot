@@ -1,6 +1,6 @@
 package com.demo.quarkus.panache.test;
 
-import com.demo.quarkus.panache.Publisher;
+import com.demo.quarkus.panache.model.Publisher;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;

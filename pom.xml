@@ -8,7 +8,7 @@
 
     <modules>
         <module>artist</module>
-        <module>customer</module>
-        <module>vintage-store</module>
+        <!--<module>customer</module>-->
+        <!--<module>vintage-store</module>-->
     </modules>
 </project>

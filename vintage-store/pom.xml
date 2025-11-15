@@ -10,6 +10,7 @@
     <groupId>com.demo.quarkus.orm</groupId>
     <artifactId>vintage-store</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
@@ -56,6 +57,18 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!--Other dependencies-->
+        <dependency>
+            <groupId>com.demo.quarkus.jpa</groupId>
+            <artifactId>artist</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-jdbc-mysql</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
