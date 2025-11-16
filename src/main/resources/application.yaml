@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: RestTesting
+  profiles:
+    default: dev
+  datasource:
+    driver-class-name: org.h2.Driver
+    #url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:E:\\Program Files\\Spring\\MVC_Rest\\RestTesting\\db\\posts;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    hikari:
+      pool-name: H2ConnectionPool
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 10000
+      connection-timeout: 20000
+      auto-commit: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+          fetch_size: 50
+        order_inserts: true
+        order_updates: true
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: false
+  sql:
+    init:
+      mode: always
+      platform: h2
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  h2:
+    console:
+      enabled: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.orm.jpa: info
+    org.springframework.transaction: info
+    com.zaxxer.hikari: debug
+
+server:
+  port: 8093
