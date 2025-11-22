@@ -16,13 +16,15 @@ public class TopicSubscriber {
     public static void main(String[] args) {
 
         TopicSubscriberService topicSubscriberService = new TopicSubscriberService(CONNECTION_STRING, "topic.1", "subscription.1");
-
+        System.out.println("[Starting service]Subscribing to topic 1");
         topicSubscriberService.start();
 
         System.out.println("Subscriber running in background… press ENTER to stop.");
         new java.util.Scanner(System.in).nextLine();
 
         topicSubscriberService.stop();
+
+
     }
 
     private static void latched() {

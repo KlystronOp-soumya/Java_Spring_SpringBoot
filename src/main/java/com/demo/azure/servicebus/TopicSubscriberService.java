@@ -55,6 +55,7 @@ public class TopicSubscriberService {
                     serviceBusProcessorClient.start();
 
                     while (running.get()) {
+                        System.out.println("Listening to the service bus");
                         Thread.sleep(5000);
                     }
                 } catch (Exception e) {
@@ -78,15 +79,16 @@ public class TopicSubscriberService {
             executorService.shutdown();
             executorService = null;
         }
+        System.out.println("Service bus client stopped.");
     }
 
     private static void processMessage(ServiceBusReceivedMessageContext context) {
         String body = context.getMessage().getBody().toString();
-        System.out.println("Received Message: " + body);
+        System.out.println("[Received Message:] " + body);
     }
 
     private static void processErrorMessage(ServiceBusErrorContext context) {
-        System.err.println("Error Message: " + context.getException());
+        System.err.println("[Error Message:] " + context.getException());
     }
 
     private static void sleep(long ms) {

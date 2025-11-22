@@ -22,7 +22,7 @@ public class SendServiceBusMessage {
                 .queueName(QUEUE_NAME)
                 .buildClient();
 
-        final String messageString = "Hello,from service bus java program!Testing the serverless trigger";
+        final String messageString = "Hello,from service bus java program!Testing the serverless trigger[TEST1]";
 
 
         try {
