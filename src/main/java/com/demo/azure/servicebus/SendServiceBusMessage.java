@@ -22,7 +22,7 @@ public class SendServiceBusMessage {
                 .queueName(QUEUE_NAME)
                 .buildClient();
 
-        final String messageString = "Hello,from service bus java program";
+        final String messageString = "Hello,from service bus java program!Testing the serverless trigger";
 
 
         try {
@@ -30,17 +30,18 @@ public class SendServiceBusMessage {
 
             System.out.println("Message was sent");
             // Receiving a message
-            ServiceBusReceiverClient receiverClient = builder
+           /* ServiceBusReceiverClient receiverClient = builder
                     .receiver()
                     .queueName(QUEUE_NAME)
                     .buildClient();
+
             System.out.println("Trying to read the message");
             receiverClient.receiveMessages(1).forEach(msg -> {
                 System.out.println("Received: " + msg.getBody().toString());
                 receiverClient.complete(msg);
 
             });
-            receiverClient.close();
+            receiverClient.close(); */
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
