@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   emulator:
     container_name: servicebus-emulator
