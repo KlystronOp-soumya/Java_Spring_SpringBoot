@@ -15,7 +15,7 @@ public class TopicSubscriber {
 
     public static void main(String[] args) {
 
-        TopicSubscriberService topicSubscriberService = new TopicSubscriberService(CONNECTION_STRING, "topic.1", "subscription.1");
+        TopicSubscriberService topicSubscriberService = new TopicSubscriberService(CONNECTION_STRING, "topic.1", "subscription.simple");
         System.out.println("[Starting service]Subscribing to topic 1");
         topicSubscriberService.start();
 

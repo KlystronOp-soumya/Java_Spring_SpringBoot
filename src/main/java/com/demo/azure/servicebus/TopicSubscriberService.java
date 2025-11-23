@@ -50,6 +50,7 @@ public class TopicSubscriberService {
                             .subscriptionName(subscriptionName)
                             .processMessage(TopicSubscriberService::processMessage)
                             .processError(TopicSubscriberService::processErrorMessage)
+                            .disableAutoComplete()
                             .buildProcessorClient();
 
                     serviceBusProcessorClient.start();
