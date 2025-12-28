@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class PropsUtil {
+public final class PropsUtil {
 
     private static volatile PropsUtil instance;
     private Properties props;

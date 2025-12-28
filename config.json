@@ -17,6 +17,20 @@
               "RequiresDuplicateDetection": false,
               "RequiresSession": false
             }
+          },
+          {
+            "Name": "policy.created",
+            "Properties": {
+              "DeadLetteringOnMessageExpiration": true,
+              "DefaultMessageTimeToLive": "PT1H",
+              "DuplicateDetectionHistoryTimeWindow": "PT20S",
+              "ForwardDeadLetteredMessagesTo": "",
+              "ForwardTo": "",
+              "LockDuration": "PT30S",
+              "MaxDeliveryCount": 2,
+              "RequiresDuplicateDetection": false,
+              "RequiresSession": false
+            }
           }
         ],
 
