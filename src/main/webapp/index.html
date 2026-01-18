@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SSE Demo</title>
+</head>
+<body>
+	<h2>Server-Sent Events</h2>
+	<ul id="events"></ul>
+
+	<script>
+	
+	console.log("JS loaded");
+
+    const eventSource = new EventSource("/sse-demo/sse");
+
+    eventSource.onmessage = function (event) {
+        const li = document.createElement("li");
+        li.textContent = event.data;
+        document.getElementById("events").appendChild(li);
+    };
+
+    eventSource.onerror = function () {
+        console.log("Connection lost. Retrying...");
+    };
+</script>
+</body>
+</html>
