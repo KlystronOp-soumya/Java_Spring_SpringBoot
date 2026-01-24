@@ -30,9 +30,8 @@ public final class PdfPrinter {
 		Optional.of(false), Optional.empty(), Optional.empty()));
 
 	Files.write(output, Base64.getDecoder().decode(pdf.getData()));
+
+	devTools.close();
     }
 
-    private static <T> Optional<T> o(T value) {
-	return Optional.ofNullable(value);
-    }
 }
