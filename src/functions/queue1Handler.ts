@@ -9,5 +9,5 @@ export const queue1Handler:ServiceBusQueueHandler = (message:String, context:Inv
         context.log('DeliveryCount =', context.triggerMetadata?.deliveryCount);
         context.log('MessageId =', context.triggerMetadata?.messageId);
 
-        sendMessageToTopic(message);
+        //sendMessageToTopic(message);
 };
