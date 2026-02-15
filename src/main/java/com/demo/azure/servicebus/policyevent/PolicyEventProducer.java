@@ -36,6 +36,7 @@ public class PolicyEventProducer {
 
         sender.sendMessage(message);
         LOG.log(Level.INFO, "policy created event submitted successfully");
+        sender.close();
     }
 
 }
