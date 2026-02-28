@@ -9,7 +9,7 @@ import jakarta.transaction.Transactional;
 @ApplicationScoped
 @Transactional
 public class CustomerRepo {
-
+    //Uses hibernate
     @PersistenceContext
     private EntityManager em;
 

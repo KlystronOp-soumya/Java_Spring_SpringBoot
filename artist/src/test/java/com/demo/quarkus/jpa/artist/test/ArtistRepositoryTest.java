@@ -10,7 +10,7 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class ArtistRepositoryTest {
-
+    //Uses test containers setup is in application.properties
     private ArtistRepository artistRepository;
 
     public ArtistRepositoryTest(ArtistRepository artistRepository) {
