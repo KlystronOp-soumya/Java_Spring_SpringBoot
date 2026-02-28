@@ -1,7 +1,9 @@
 package com.demo.quarkus.panache.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.Instant;
 
@@ -26,8 +28,13 @@ import java.time.Instant;
  * }
  */
 @Entity
+@Table(name = "t_publisher", comment = "Holds data related to the Publisher of books")
 public class Publisher extends PanacheEntity {
+
+    @Column(name = "publisher_name", nullable = false, length = 50)
     public String name;
+
+    @Column(name = "created_date" , nullable = false)
     public Instant createdDate =  Instant.now();
 
     public Publisher() {
