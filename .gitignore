@@ -1,0 +1,67 @@
+############################
+# Eclipse
+############################
+
+#.metadata/
+.project
+.classpath
+.settings/
+#.loadpath
+#.recommenders/
+
+############################
+# Build Output
+############################
+
+target/
+bin/
+out/
+build/
+
+############################
+# Java
+############################
+
+*.class
+*.jar
+*.war
+*.ear
+
+############################
+# Logs
+############################
+
+*.log
+
+############################
+# OS files
+############################
+
+.DS_Store
+Thumbs.db
+
+############################
+# Temporary files
+############################
+
+*.tmp
+*.swp
+*.bak
+
+############################
+# IDEs
+############################
+
+.idea/
+*.iml
+.vscode/
+
+############################
+# Maven Wrapper (Optional)
+############################
+
+# Keep these
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+!mvnw
+!mvnw.cmd
