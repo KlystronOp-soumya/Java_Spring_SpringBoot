@@ -16,7 +16,7 @@ import com.demo.simulator.digitalsignature.crypto.KeyGeneratorService;
 import com.demo.simulator.digitalsignature.crypto.SigningService;
 import com.demo.simulator.digitalsignature.crypto.VerificationService;
 
-public class DigitalSignatureWorkFlowTest {
+class DigitalSignatureWorkFlowTest {
 
 	@TempDir
 	Path tempDir;
